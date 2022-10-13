@@ -1,0 +1,15 @@
+{
+  "name": "BAD-NARUTO",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:LouisLeung0213/BAD-NARUTO.git",
+  "author": "Louis Leung <louizleung@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.8.5",
+    "express": "^4.18.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  }
+}
