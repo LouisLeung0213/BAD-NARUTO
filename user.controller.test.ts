@@ -1,28 +1,34 @@
 import { Request, Response } from "express";
 import { stringify } from "querystring";
+import { JS_EXT_TO_TREAT_AS_ESM } from "ts-jest";
+import { ModuleDetectionKind } from "typescript";
 // import { describe } from "node:test";
 // import { resourceLimits } from "node:worker_threads";
 import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
 
-describe("User test", () => {
+describe("UserController Unit Test", () => {
   let userController: UserController;
   let userService: UserService;
 
   let req: any;
   let res: any;
+  let row: any;
 
   beforeAll(() => {
     userService = {} as any;
     userService.login = jest.fn(() => {
       throw new Error("should not be called");
     });
+    userService.signup = jest.fn(() => {
+      throw new Error("should not be called");
+    });
     userController = new UserController(userService);
+  });
+
+  beforeEach(() => {
     req = {
-      body: {
-        username: "scott",
-        password: "scott",
-      },
+      body: {},
     } as any as Request;
     res = {} as any as Response;
 
@@ -30,28 +36,122 @@ describe("User test", () => {
     res.json = jest.fn();
   });
 
-  //   it("should reject if username type is not string", async () => {
-  //     // console.log(req);
-  //     // Object.assign(req, {
-  //     //   body: {
-  //     //     username: "user",
-  //     //     password: "pass",
-  //     //   },
-  //     // });
-  //     // req.body.username = "scott";
-  //     // req.body.password = "scott";
-  //     // let testObj: any = {
-  //     //   body: {
-  //     //     username: "scott",
-  //     //     password: "pw",
-  //     //   },
-  //     // };
-  //     // console.log(testObj);
-  //     await userController.login(req, res);
+  afterEach(() => {
+    (userService.signup as jest.Mock).mockReset();
+    (userService.login as jest.Mock).mockReset();
+  });
 
-  //     expect(res.status).toBeCalledWith(400);
-  //     expect(res.json).toBeCalledWith({
-  //       message: "wrong username or password",
-  //     });
-  //   });
+  it("should success login", async () => {
+    let mockId = Math.random();
+    jest
+      .spyOn(userService, "login")
+      .mockReturnValue(Promise.resolve({ id: mockId }));
+    await userController.login(req, res);
+
+    // expect(res.status).toBeCalledWith(400);
+    expect(res.json).toBeCalledWith({
+      id: mockId,
+    });
+  });
+
+  it("should not success login", async () => {
+    req = {};
+    await userController.login(req, res);
+    expect(res.status).toBeCalledWith(400);
+    expect(res.json).toBeCalledWith({
+      message: "wrong username or password",
+    });
+  });
+
+  it("should reject if password does not match", async () => {
+    req.body.username = "scott";
+    req.body.password = "scott";
+    req.body.rePassword = "scottt";
+    req.body.email = "scott@gmail.com";
+    req.body.birthday = "1998";
+    await userController.signup(req, res);
+    expect(res.status).toBeCalledWith(400);
+    expect(res.json).toBeCalledWith({ message: "Password does not match" });
+  });
+
+  it("should reject if missing password", async () => {
+    req.body.username = "scott";
+    // req.body.password = "scott";
+    req.body.rePassword = "scottt";
+    req.body.email = "scott@gmail.com";
+    req.body.birthday = "1998";
+    await userController.signup(req, res);
+    expect(res.status).toBeCalledWith(400);
+    expect(res.json).toBeCalledWith({
+      message: "Missing password",
+    });
+  });
+
+  it("should reject if missing re-password", async () => {
+    req.body.username = "scott";
+    req.body.password = "scott";
+    // req.body.rePassword = "scott";
+    req.body.email = "scott@gmail.com";
+    req.body.birthday = "1998";
+    await userController.signup(req, res);
+    expect(res.status).toBeCalledWith(400);
+    expect(res.json).toBeCalledWith({
+      message: "Please double confirm your password",
+    });
+  });
+
+  it("should reject if missing username", async () => {
+    // req.body.username = "scott";
+    req.body.password = "scott";
+    req.body.rePassword = "scott";
+    req.body.email = "scott@gmail.com";
+    req.body.birthday = "1998";
+    await userController.signup(req, res);
+    expect(res.status).toBeCalledWith(400);
+    expect(res.json).toBeCalledWith({
+      message: "Missing username",
+    });
+  });
+
+  it("should reject if missing email", async () => {
+    req.body.username = "scott";
+    req.body.password = "scott";
+    req.body.rePassword = "scott";
+    // req.body.email = "scott@gmail.com";
+    req.body.birthday = "1998";
+    await userController.signup(req, res);
+    expect(res.status).toBeCalledWith(400);
+    expect(res.json).toBeCalledWith({
+      message: "Missing email",
+    });
+  });
+
+  it("should reject if missing birthday", async () => {
+    req.body.username = "scott";
+    req.body.password = "scott";
+    req.body.rePassword = "scott";
+    req.body.email = "scott@gmail.com";
+    // req.body.birthday = "1998";
+    await userController.signup(req, res);
+    expect(res.status).toBeCalledWith(400);
+    expect(res.json).toBeCalledWith({
+      message: "Missing birthday",
+    });
+  });
+
+  it("should accept", async () => {
+    let mockId = Math.random();
+    req.body.username = "scott";
+    req.body.password = "scott";
+    req.body.rePassword = "scott";
+    req.body.email = "scott@gmail.com";
+    req.body.birthday = "1998";
+    jest
+      .spyOn(userService, "signup")
+      .mockReturnValue(Promise.resolve({ id: mockId }));
+    await userController.signup(req, res);
+    expect(res.json).toBeCalledWith({
+      id: mockId,
+    });
+  });
 });
