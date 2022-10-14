@@ -5,9 +5,9 @@ config();
 
 export let env = {
   NODE_ENV: "development",
-  DB_NAME: "",
-  DB_USER: "",
-  DB_PASSWORD: "",
+  DB_NAME: "naruto",
+  DB_USER: "naruto",
+  DB_PASSWORD: "naruto",
 };
 
 populateEnv(env, { mode: "halt" });
