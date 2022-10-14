@@ -27,16 +27,49 @@ export class UserController extends RestfulController {
   signup = async (req: Request, res: Response) => {
     try {
       const username: string = req.body.username;
-      const password: number = req.body.password;
-      const password2: number = req.body.rePassword;
+      const password: string = req.body.password;
+      const password2: string = req.body.rePassword;
       const email: string = req.body.email;
       const birthday: number = req.body.birthday;
-      let json = await this.userService.signup(
-        username,
-        password,
-        email,
-        birthday
-      );
-    } catch (error) {}
+      if (!password2) {
+        res.status(400);
+        res.json({ message: "Please double confirm your password" });
+        return;
+      } else if (!username) {
+        res.status(400);
+        res.json({ message: "Missing username" });
+        return;
+      } else if (!password) {
+        res.status(400);
+        res.json({ message: "Missing password" });
+        return;
+      } else if (password !== password2) {
+        res.status(400);
+        res.json({ message: "Password does not match" });
+        return;
+      } else if (!email) {
+        res.status(400);
+        res.json({ message: "Missing email" });
+        return;
+      } else if (!birthday) {
+        res.status(400);
+        res.json({ message: "Missing birthday" });
+        return;
+      } else {
+        let json = await this.userService.signup(
+          username,
+          password,
+          email,
+          birthday
+        );
+        res.json(json);
+      }
+    } catch (error) {
+      error;
+    }
+    {
+      res.status(400);
+      res.json({ message: "Invalid input" });
+    }
   };
 }
