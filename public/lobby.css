@@ -1,0 +1,79 @@
+body {
+  margin: 0px;
+}
+#background {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./image/room.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#ninja {
+  width: 15rem;
+  margin-bottom: 2rem;
+  background-color: #705f35;
+  border-radius: 40px;
+  border: 3px solid black;
+}
+
+#ninja:hover {
+  background-color: rgba(224, 128, 64, 0.486);
+  border-radius: 40px;
+  box-shadow: 23px 29px 30px 7px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 23px 29px 30px 7px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 23px 29px 30px 7px rgba(0, 0, 0, 0.7);
+}
+
+#naruto {
+  width: 15rem;
+}
+#naruto:hover {
+  background-color: rgba(230, 87, 26, 0.568);
+  border-radius: 30px;
+  box-shadow: 2px -3px 33px 19px rgba(230, 88, 26, 0.74);
+  -webkit-box-shadow: 2px -3px 33px 19px rgba(230, 88, 26, 0.74);
+  -moz-box-shadow: 2px -3px 33px 19px rgba(230, 88, 26, 0.74);
+}
+
+#sasuke {
+  width: 20rem;
+}
+
+#sasuke:hover {
+  background-color: rgba(34, 41, 222, 0.74);
+  border-radius: 30px;
+  box-shadow: 2px -3px 33px 19px rgba(34, 41, 222, 0.74);
+  -webkit-box-shadow: 2px -3px 33px 19px rgba(34, 41, 222, 0.74);
+  -moz-box-shadow: 2px -3px 33px 19px rgba(34, 41, 222, 0.74);
+}
+
+#sakura {
+  width: 15rem;
+}
+
+#sakura:hover {
+  background-color: rgba(222, 34, 169, 0.74);
+  border-radius: 30px;
+  box-shadow: 2px -3px 33px 19px rgba(222, 34, 169, 0.74);
+  -webkit-box-shadow: 2px -3px 33px 19px rgba(222, 34, 169, 0.74);
+  -moz-box-shadow: 2px -3px 33px 19px rgba(222, 34, 169, 0.74);
+}
+
+#gaara:hover {
+  background-color: rgba(230, 67, 45, 0.74);
+  border-radius: 30px;
+  box-shadow: 2px -3px 33px 19px rgba(230, 67, 45, 0.74);
+  -webkit-box-shadow: 2px -3px 33px 19px rgba(230, 67, 45, 0.74);
+  -moz-box-shadow: 2px -3px 33px 19px rgba(230, 67, 45, 0.74);
+}
+
+#narutoDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
