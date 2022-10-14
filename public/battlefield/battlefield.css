@@ -1,0 +1,19 @@
+body {
+  margin: 0px;
+}
+
+#background {
+  width: 100vw;
+  height: 75vh;
+  background-image: url(/public/image/start\ game.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+#skillContainer {
+  width: 100vw;
+  height: 25vh;
+  outline: 4px solid black;
+  background-image: url(/public/image/wood2.jpg);
+  background-size: 25% 25%;
+}
