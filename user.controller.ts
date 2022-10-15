@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { stringify } from "querystring";
-import { textChangeRangeIsUnchanged } from "typescript";
+// import { stringify } from "querystring";
+// import { textChangeRangeIsUnchanged } from "typescript";
 import { HTTPError } from "./error";
 import { checkPassword, hashPassword } from "./hash";
 import { RestfulController } from "./restful.controller";
@@ -31,9 +31,8 @@ export class UserController extends RestfulController {
       const password: string = req.body.password;
       const password2: string = req.body.rePassword;
       const email: string = req.body.email;
-      const birthday: number = req.body.birthday;
+      // const birthday: number = req.body.birthday;
       const nickname: string = req.body.nickname;
-      let hashedPassWord = await hashPassword(password as string);
       if (!password2) {
         res.status(400);
         res.json({ message: "Please double confirm your password" });
@@ -54,19 +53,15 @@ export class UserController extends RestfulController {
         res.status(400);
         res.json({ message: "Missing email" });
         return;
-      } else if (!birthday) {
-        res.status(400);
-        res.json({ message: "Missing birthday" });
-        return;
       } else if (!nickname) {
         res.status(400);
         res.json({ message: "Missing nickname" });
       } else {
+        let hashedPassWord = await hashPassword(password as string);
         let json = await this.userService.signup(
           username,
           hashedPassWord,
           email,
-          birthday,
           nickname
         );
         res.json(json);
