@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/signUp/signup.css" />
+    <title>註冊</title>
+  </head>
+  <body>
+    <div class="background">
+      <div class="signUpFormDiv">
+        <div class="title">第一次Tecky忍界大戰</div>
+        <div class="signUpFormContainer">
+          <form id="signUpForm" action="/signUp" method="POST">
+            <h2 class="formItem">帳號名稱 :</h2>
+            <input
+              type="text"
+              id="signUpUsername"
+              name="username"
+              placeholder="請輸入帳號"
+            />
+            <h2 class="formItem">暱稱 :</h2>
+            <input
+              type="text"
+              id="signUpNickname"
+              name="nickname"
+              placeholder="請輸入你的用戶名稱"
+            />
+            <h2 class="formItem">密碼 :</h2>
+            <input
+              type="password"
+              id="signUpPassword"
+              name="password"
+              placeholder="請輸入你的密碼"
+            />
+            <h2 class="formItem">請再輸入密碼 :</h2>
+            <input
+              type="password"
+              id="rePassword"
+              name="rePassword"
+              placeholder="請再輸入你的密碼"
+            />
+            <h2 class="formItem">電郵 :</h2>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="123@example.com"
+            />
+            <br />
+            <input id="signUpSubmit" type="submit" value="註冊" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

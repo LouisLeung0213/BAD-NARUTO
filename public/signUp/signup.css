@@ -1,0 +1,51 @@
+body {
+  margin: 0px;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(/public/image/123.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signUpFormDiv {
+  width: 70vw;
+  height: 80vh;
+  background-color: #2a3a24bd;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5rem;
+}
+
+.title {
+  background-color: #042a64de;
+  font-size: 2rem;
+  width: 90%;
+  height: 3rem;
+  text-align: center;
+  padding: 0.25rem;
+  color: #3e8125;
+  font-weight: bold;
+  border-radius: 50px;
+}
+
+.formItem {
+  color: aquamarine;
+}
+
+#signUpForm {
+  height: 38rem;
+}
+
+#signUpSubmit {
+  margin-top: 2rem;
+  width: 6rem;
+  border-radius: 1rem;
+}
