@@ -13,7 +13,6 @@ describe("UserController Unit Test", () => {
 
   let req: any;
   let res: any;
-  let row: any;
 
   beforeAll(() => {
     userService = {} as any;
@@ -68,7 +67,7 @@ describe("UserController Unit Test", () => {
     req.body.password = "scott";
     req.body.rePassword = "scottt";
     req.body.email = "scott@gmail.com";
-    req.body.birthday = "1998";
+    // req.body.birthday = "1998";
     await userController.signup(req, res);
     expect(res.status).toBeCalledWith(400);
     expect(res.json).toBeCalledWith({ message: "Password does not match" });
@@ -79,7 +78,7 @@ describe("UserController Unit Test", () => {
     // req.body.password = "scott";
     req.body.rePassword = "scottt";
     req.body.email = "scott@gmail.com";
-    req.body.birthday = "1998";
+    // req.body.birthday = "1998";
     await userController.signup(req, res);
     expect(res.status).toBeCalledWith(400);
     expect(res.json).toBeCalledWith({
@@ -92,7 +91,7 @@ describe("UserController Unit Test", () => {
     req.body.password = "scott";
     // req.body.rePassword = "scott";
     req.body.email = "scott@gmail.com";
-    req.body.birthday = "1998";
+    // req.body.birthday = "1998";
     await userController.signup(req, res);
     expect(res.status).toBeCalledWith(400);
     expect(res.json).toBeCalledWith({
@@ -105,7 +104,7 @@ describe("UserController Unit Test", () => {
     req.body.password = "scott";
     req.body.rePassword = "scott";
     req.body.email = "scott@gmail.com";
-    req.body.birthday = "1998";
+    // req.body.birthday = "1998";
     await userController.signup(req, res);
     expect(res.status).toBeCalledWith(400);
     expect(res.json).toBeCalledWith({
@@ -118,24 +117,11 @@ describe("UserController Unit Test", () => {
     req.body.password = "scott";
     req.body.rePassword = "scott";
     // req.body.email = "scott@gmail.com";
-    req.body.birthday = "1998";
-    await userController.signup(req, res);
-    expect(res.status).toBeCalledWith(400);
-    expect(res.json).toBeCalledWith({
-      message: "Missing email",
-    });
-  });
-
-  it("should reject if missing birthday", async () => {
-    req.body.username = "scott";
-    req.body.password = "scott";
-    req.body.rePassword = "scott";
-    req.body.email = "scott@gmail.com";
     // req.body.birthday = "1998";
     await userController.signup(req, res);
     expect(res.status).toBeCalledWith(400);
     expect(res.json).toBeCalledWith({
-      message: "Missing birthday",
+      message: "Missing email",
     });
   });
 
@@ -145,7 +131,8 @@ describe("UserController Unit Test", () => {
     req.body.password = "scott";
     req.body.rePassword = "scott";
     req.body.email = "scott@gmail.com";
-    req.body.birthday = "1998";
+    req.body.nickname = "scott";
+    // req.body.birthday = "1998";
     jest
       .spyOn(userService, "signup")
       .mockReturnValue(Promise.resolve({ id: mockId }));

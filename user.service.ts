@@ -29,11 +29,11 @@ export class UserService {
     username: string,
     hashedPassWord: string,
     email: string,
-    birthday: number,
     nickname: string
   ): Promise<{ id: number }> {
     let result = await this.knex.raw(
-      "insert into users (username,hashedPassWord,email,birthday,nickname) values ($1,$2,$3,$4,$5) returning id"
+      "insert into users (username,hashedPassWord,email,nickname) values ($1,$2,$3,$4) returning id",
+      [username, hashedPassWord, email, nickname]
     );
     let row = result.rows[0];
     if (!row) {
