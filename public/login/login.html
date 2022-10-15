@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/login/login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Ninja Login</title>
+  </head>
+  <body>
+    <div id="background">
+      <div class="loginContainer">
+        <div class="logoDiv animate__animated animate__bounce">
+          <img
+            class="logo"
+            src="/public/image/Naruto_Logo.svg_-removebg-preview.png"
+          />
+        </div>
+        <form id="loginForm" action="/login" method="post">
+          <input
+            class="loginFormItem"
+            type="text"
+            id="userLogin"
+            name="username"
+            placeholder="請輸入你的帳號"
+          />
+          <br />
+          <input
+            class="loginFormItem"
+            type="password"
+            id="userPassword"
+            name="password"
+            placeholder="請輸入你的密碼"
+          />
+          <br />
+          <input
+            class="loginFormBtn"
+            id="loginSubmit"
+            type="submit"
+            value="進入忍道"
+          />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
