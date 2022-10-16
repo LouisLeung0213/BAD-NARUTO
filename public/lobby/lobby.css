@@ -13,8 +13,15 @@ body {
   flex-direction: column;
 }
 
+#ninjaDiv {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #ninja {
-  width: 15rem;
+  width: 50%;
   margin-bottom: 2rem;
   background-color: #705f35;
   border-radius: 40px;
@@ -30,50 +37,133 @@ body {
 }
 
 #naruto {
-  width: 15rem;
+  width: 100%;
+  height: 100%;
 }
 #naruto:hover {
   background-color: rgba(230, 87, 26, 0.568);
   border-radius: 30px;
-  box-shadow: 2px -3px 33px 19px rgba(230, 88, 26, 0.74);
-  -webkit-box-shadow: 2px -3px 33px 19px rgba(230, 88, 26, 0.74);
-  -moz-box-shadow: 2px -3px 33px 19px rgba(230, 88, 26, 0.74);
+  box-shadow: 1px 20px 22px 17px rgba(230, 88, 26, 0.74);
+  -webkit-box-shadow: 1px 20px 22px 17px rgba(230, 88, 26, 0.74);
+  box-shadow: 1px 20px 22px 17px rgba(230, 88, 26, 0.74);
 }
 
 #sasuke {
-  width: 20rem;
+  width: 100%;
+  height: 100%;
 }
 
 #sasuke:hover {
   background-color: rgba(34, 41, 222, 0.74);
   border-radius: 30px;
-  box-shadow: 2px -3px 33px 19px rgba(34, 41, 222, 0.74);
-  -webkit-box-shadow: 2px -3px 33px 19px rgba(34, 41, 222, 0.74);
-  -moz-box-shadow: 2px -3px 33px 19px rgba(34, 41, 222, 0.74);
+  box-shadow: 1px 20px 22px 17px rgba(34, 41, 222, 0.74);
+  -webkit-box-shadow: 1px 20px 22px 17px rgba(34, 41, 222, 0.74);
+  -moz-box-shadow: 1px 20px 22px 17px rgba(34, 41, 222, 0.74);
 }
 
 #sakura {
-  width: 15rem;
+  width: 100%;
+  height: 100%;
+}
+
+#gaara {
+  width: 100%;
+  height: 100%;
 }
 
 #sakura:hover {
   background-color: rgba(222, 34, 169, 0.74);
   border-radius: 30px;
-  box-shadow: 2px -3px 33px 19px rgba(222, 34, 169, 0.74);
-  -webkit-box-shadow: 2px -3px 33px 19px rgba(222, 34, 169, 0.74);
-  -moz-box-shadow: 2px -3px 33px 19px rgba(222, 34, 169, 0.74);
+  box-shadow: 1px 20px 22px 17px rgba(222, 34, 169, 0.74);
+  -webkit-box-shadow: 1px 20px 22px 17px rgba(222, 34, 169, 0.74);
+  -moz-box-shadow: 1px 20px 22px 17px rgba(222, 34, 169, 0.74);
 }
 
 #gaara:hover {
   background-color: #9a673bd3;
   border-radius: 30px;
-  box-shadow: 2px -3px 33px 19px #9a673bd3;
-  -webkit-box-shadow: 2px -3px 33px 19px #9a673bd3;
-  -moz-box-shadow: 2px -3px 33px 19px #9a673bd3;
+  box-shadow: 1px 20px 22px 17px #9a673bd3;
+  -webkit-box-shadow: 1px 20px 22px 17px #9a673bd3;
+  -moz-box-shadow: 1px 20px 22px 17px #9a673bd3;
 }
 
 #narutoDiv {
   width: 100%;
+  height: 45vh;
   display: flex;
   justify-content: space-around;
+}
+#group1 {
+  width: 50%;
+  display: flex;
+}
+
+#group2 {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.tagName {
+  width: 70%;
+  height: 130%;
+}
+
+#sasukeBlock {
+  margin-left: 2.5rem;
+}
+
+#narutoBlock {
+  margin-left: 8rem;
+}
+.skillTreeLogo {
+  width: 100%;
+  height: 13%;
+  border: 0.25rem solid rgba(110, 20, 20, 0.993);
+  outline: 0.15rem solid #f4ec1cae;
+  background-color: #e1dc47ae;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.missionLogo {
+  width: 100%;
+  height: 13%;
+  border: 0.25rem solid rgba(235, 227, 227, 0.993);
+  outline: 0.25rem solid #271ae1c4;
+  background-color: #271ae1c4;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  display: none;
+}
+
+.trainingLogo {
+  width: 90%;
+  height: 15%;
+  border: 0.25rem solid rgb(241, 146, 184);
+  outline: 0.25rem solid #873252d6;
+  background-color: #873252d6;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.pvpLogo {
+  width: 100%;
+  height: 14%;
+  border: 0.25rem solid rgba(13, 231, 231, 0.993);
+  outline: 0.25rem solid #315c42f1;
+  background-color: #315c42f1;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+#sakuraBlock {
+  margin-right: 3rem;
 }
