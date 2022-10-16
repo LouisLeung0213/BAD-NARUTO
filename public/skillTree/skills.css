@@ -1,0 +1,17 @@
+body {
+  margin: 0px;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #322c38;
+}
+#bgPic {
+  display: flex;
+  justify-content: center;
+}
