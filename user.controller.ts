@@ -18,11 +18,19 @@ export class UserController extends RestfulController {
       const username: string = req.body.username;
       const password: string = req.body.password;
       let json = await this.userService.login(username, password);
+      req.session["user"] = { id: json.id, username: username };
+      req.session.save();
       res.json(json);
     } catch (error) {
-      res.status(400);
-      res.json({ message: "wrong username or password" });
-      return;
+      if (error instanceof HTTPError) {
+        res.status(400);
+        res.json({ message: "wrong username or password" });
+        return;
+      } else {
+        console.log(error);
+        res.status(500);
+        return;
+      }
     }
   };
   signup = async (req: Request, res: Response) => {
