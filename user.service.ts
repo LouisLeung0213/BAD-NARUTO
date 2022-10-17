@@ -16,12 +16,16 @@ export class UserService {
     if (!check) {
       throw new HTTPError(401, "wrong username or password");
     } else {
-      let result = await this.knex.raw(
-        "select id from users where username = $1 and password_hash = $2",
-        [username, hashedPassword]
-      );
-      let row = result.rows[0];
-      return row;
+      let result = await // this.knex.raw(
+      //   "select id from users where username = $1 and password_hash = $2",
+      //   [username, hashedPassword]
+      // );
+      this.knex
+        .select("id")
+        .from("users")
+        .whereIn(["username", "password_hash"], [username, hashedPassword]);
+      // let row = result.rows[0];
+      return result[0];
     }
   }
 

@@ -33,6 +33,7 @@ describe("UserController Unit Test", () => {
 
     res.status = jest.fn().mockReturnValue(res);
     res.json = jest.fn();
+    req.session.save = jest.fn();
   });
 
   afterEach(() => {
@@ -42,6 +43,7 @@ describe("UserController Unit Test", () => {
 
   it("should success login", async () => {
     let mockId = Math.random();
+    req.session.save();
     jest
       .spyOn(userService, "login")
       .mockReturnValue(Promise.resolve({ id: mockId }));
