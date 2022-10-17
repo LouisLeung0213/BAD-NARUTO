@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 // import { stringify } from "querystring";
 // import { textChangeRangeIsUnchanged } from "typescript";
 import { HTTPError } from "./error";
-import { checkPassword, hashPassword } from "./hash";
+import { hashPassword } from "./hash";
 import { RestfulController } from "./restful.controller";
 import { UserService } from "./user.service";
 
@@ -18,7 +18,7 @@ export class UserController extends RestfulController {
       const username: string = req.body.username;
       const password: string = req.body.password;
       let json = await this.userService.login(username, password);
-      req.session["user"] = { id: json.id, username: username };
+      req.session["user"] = { id: json!.id, username: username };
       req.session.save();
       res.json(json);
     } catch (error) {
@@ -35,12 +35,14 @@ export class UserController extends RestfulController {
   };
   signup = async (req: Request, res: Response) => {
     try {
+      console.log(req.body);
       const username: string = req.body.username;
       const password: string = req.body.password;
       const password2: string = req.body.rePassword;
       const email: string = req.body.email;
-      // const birthday: number = req.body.birthday;
       const nickname: string = req.body.nickname;
+
+      // const birthday: number = req.body.birthday;
       if (!password2) {
         res.status(400);
         res.json({ message: "Please double confirm your password" });
@@ -72,12 +74,12 @@ export class UserController extends RestfulController {
           email,
           nickname
         );
+        req.session["user"] = { id: json.id, username: username };
+        req.session.save();
         res.json(json);
       }
     } catch (error) {
-      error;
-    }
-    {
+      // console.log(error);
       res.status(400);
       res.json({ message: "Invalid input" });
     }
