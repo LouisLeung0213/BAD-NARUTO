@@ -1,38 +1,22 @@
-// let canvas = document.querySelector("#canvas");
+let list = document.querySelector("#array");
 
-// // let context = canvas.getContext("2d");
+list.textContent = "123456789123456789";
 
-// let video = document.querySelector("#video");
-// let image;
-// let photoCapture = document.querySelector(".capture");
-
-// //123
-
-// let testingCanvas = document.querySelector("#testing");
-
-// let test = testingCanvas.getContext("2d");
-
-// if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-//   setInterval(async () => {
-//     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-//       video.srcObject = stream;
-//       video.play();
-//     });
-//     context.drawImage(video, 0, 0, 200, 200);
-
-//     let imageData = context.getImageData(0, 0, 200, 200);
-
-//     console.log(imageData);
-//     //photoCapture.putImageData(imageData, 0, 0);
-//     // test.drawImage(imageData, 0, 0, 640, 480);
-//     // console.log(imageData);
-//     return imageData;
-//   }, 2000);
-// }
-
-// document.getElementById("snap").addEventListener("click", () => {
-//   context.drawImage(video, 0, 0, 200, 200);
-// });
+let mudra = {
+  子: "0",
+  丑: "1",
+  寅: "2",
+  卯: "3",
+  辰: "4",
+  巳: "5",
+  午: "6",
+  未: "7",
+  申: "8",
+  酉: "9",
+  戌: "a",
+  亥: "b",
+  壬: "c",
+};
 
 ///////////tensorflowJS///////////////
 // More API functions here:
@@ -77,6 +61,20 @@ async function loop() {
   window.requestAnimationFrame(loop);
 }
 
+let checklist = [
+  "午",
+  "子",
+  "寅",
+  // "卯",
+  // "辰",
+  // "午",
+  "申",
+  // "酉",
+  // "戌",
+  // "戌",
+  // "亥",
+  // "子",
+];
 // run the webcam image through the image model
 async function predict() {
   // predict can take in an image, video or canvas html element
@@ -86,8 +84,40 @@ async function predict() {
       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
     labelContainer.childNodes[i].innerHTML = classPrediction;
   }
-  console.log(prediction);
-  return prediction;
+  // console.log(prediction);
+  // label1: for (let check = 0; check < checklist.length; check++) {
+  //   let targetItem = checklist[check];
+  //   //console.log(targetItem);
+  //   let maxItem;
+  //   let max = 0.8;
+  //   label2: for (let i = 0; i < prediction.length; i++) {
+  //     if (prediction[i].probability > max) {
+  //       maxItem = prediction[i].className;
+  //     }
+  //     //console.log(maxItem);
+  //     if (maxItem == targetItem) {
+  //       //console.log("123");
+  //       continue label1;
+  //     } else {
+  //       continue label2;
+  //     }
+  //   }
+  // }
+  // console.log(`The check list is ${checklist} now`);
+  prediction.map((word) => {
+    if (word.className == checklist[0] && word.probability > 0.9) {
+      checklist.shift();
+      if (checklist.length > 0) {
+        console.log(`The check list is ${checklist} now`);
+      } else {
+        console.log(`水遁_水亂波!`);
+      }
+    }
+  });
+  // console.log(predictionResult);
+  // if (predictionResult.length > 0) {
+  //   console.log("You did the right mudra");
+  // }
 }
 
 init();
