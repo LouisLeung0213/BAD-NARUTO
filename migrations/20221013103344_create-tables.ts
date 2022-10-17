@@ -93,12 +93,12 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTableIfExists("users");
-  await knex.schema.dropTableIfExists("characters");
-  await knex.schema.dropTableIfExists("missions");
-  await knex.schema.dropTableIfExists("mission_statuses");
-  await knex.schema.dropTableIfExists("types");
-  await knex.schema.dropTableIfExists("characters_type_relationships");
-  await knex.schema.dropTableIfExists("skills");
   await knex.schema.dropTableIfExists("characters_skills_relationships");
+  await knex.schema.dropTableIfExists("characters_type_relationships");
+  await knex.schema.dropTableIfExists("mission_statuses");
+  await knex.schema.dropTableIfExists("missions");
+  await knex.schema.dropTableIfExists("skills");
+  await knex.schema.dropTableIfExists("types");
+  await knex.schema.dropTableIfExists("characters");
+  await knex.schema.dropTableIfExists("users");
 }

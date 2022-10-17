@@ -1,0 +1,44 @@
+let skillTree = document.querySelector(".skillTreeLogo");
+let mission = document.querySelector(".missionLogo");
+let training = document.querySelector(".trainingLogo");
+let pvp = document.querySelector(".pvpLogo");
+
+let naruto = document.querySelector("#naruto");
+let sasuke = document.querySelector("#sasuke");
+let sakura = document.querySelector("#sakura");
+let gaara = document.querySelector("#gaara");
+//skill tree display
+naruto.addEventListener("mouseover", () => {
+  skillTree.style.display = "flex";
+});
+
+naruto.addEventListener("mouseout", () => {
+  skillTree.style.display = "none";
+});
+
+//mission display
+sasuke.addEventListener("mouseover", () => {
+  mission.style.display = "flex";
+});
+
+sasuke.addEventListener("mouseout", () => {
+  mission.style.display = "none";
+});
+
+//training display
+sakura.addEventListener("mouseover", () => {
+  training.style.display = "flex";
+});
+
+sakura.addEventListener("mouseout", () => {
+  training.style.display = "none";
+});
+
+//pvp display
+gaara.addEventListener("mouseover", () => {
+  pvp.style.display = "flex";
+});
+
+gaara.addEventListener("mouseout", () => {
+  pvp.style.display = "none";
+});
