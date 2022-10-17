@@ -6,7 +6,7 @@ body {
   width: 100vw;
   height: 100vh;
   background-size: 100% 100%;
-  background-image: url(/public/image/street.jpg);
+  background-image: url(../image/street.jpg);
   display: flex;
   justify-content: center;
   align-items: center;
