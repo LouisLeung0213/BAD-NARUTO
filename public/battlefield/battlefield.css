@@ -5,7 +5,7 @@ body {
 #background {
   width: 100vw;
   height: 77vh;
-  background-image: url(/public/image/start\ game.jpg);
+  background-image: url(../image/start\ game.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -14,7 +14,7 @@ body {
   width: 100vw;
   height: 23vh;
   outline: 8px solid rgb(236, 123, 17);
-  background-image: url(/public/image/wood2.jpg);
+  background-image: url(../image/wood2.jpg);
   background-size: 25% 25%;
 }
 

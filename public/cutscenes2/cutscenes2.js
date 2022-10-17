@@ -34,9 +34,9 @@ function step() {
   }
   //   content.textContent = sentence;
   if (scriptIndex <= 1) {
-    photo.src = "/public/image/uchiha-sasuke-png-hd-removebg-preview.png";
+    photo.src = "../image/uchiha-sasuke-png-hd-removebg-preview.png";
   } else if (scriptIndex >= 2) {
-    photo.src = "/public/image/clipart536020-removebg-preview.png";
+    photo.src = "../image/clipart536020-removebg-preview.png";
   }
   scriptIndex++;
 }

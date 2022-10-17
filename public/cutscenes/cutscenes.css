@@ -6,7 +6,7 @@ body {
   width: 100vw;
   height: 100vh;
   background-size: 100% 100%;
-  background-image: url(/public/image/BIRD\ HOUSE.jpg);
+  background-image: url(../image/BIRD\ HOUSE.jpg);
   display: flex;
   justify-content: center;
   align-items: center;

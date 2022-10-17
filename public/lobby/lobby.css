@@ -4,7 +4,7 @@ body {
 #background {
   width: 100vw;
   height: 100vh;
-  background-image: url(/public/image/room.jpg);
+  background-image: url(../image/room.jpg);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   display: flex;
