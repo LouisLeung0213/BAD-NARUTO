@@ -19,6 +19,7 @@
               />
               <div class="skillDiv">
                 <img
+                  id="雷遁_千鳥"
                   class="thurder skillName"
                   src="../skill_name/雷遁千鳥-removebg-preview.png"
                 />
@@ -28,30 +29,35 @@
               <img class="fire title" src="../image/火-removebg-preview.png" />
               <div class="skillDiv">
                 <img
-                  class="fire skillName"
+                  id="火遁_鳳仙火之術"
+                  class="skillName fire"
                   src="../skill_name/鳳仙火之術-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="火遁_龍火之術"
                   class="fire skillName"
                   src="../skill_name/龍火之術-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="火遁_火龍炎彈"
                   class="fire skillName"
                   src="../skill_name/火龍炎彈-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="火遁_灰積燒"
                   class="fire skillName"
                   src="../skill_name/灰積燒-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="火遁_豪火球之術"
                   class="fire skillName"
                   src="../skill_name/豪火球-removebg-preview.png"
                 />
@@ -64,30 +70,35 @@
               />
               <div class="skillDiv">
                 <img
+                  id="通用_通靈之術"
                   class="normal skillName"
                   src="../skill_name/通靈之術-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="通用_分身術"
                   class="normal skillName"
                   src="../skill_name/分身-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="通用_手裏劍影分身之術"
                   class="normal skillName"
                   src="../skill_name/手劍影分身-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="通用_封印術_屍鬼封盡"
                   class="normal skillName"
                   src="../skill_name/封印術_屍鬼封盡-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="通用_潛影蛇手"
                   class="normal skillName"
                   src="../skill_name/潛影蛇手-removebg-preview.png"
                 />
@@ -98,6 +109,7 @@
               <img class="earth title" src="../image/土-removebg-preview.png" />
               <div class="skillDiv">
                 <img
+                  id="土遁_土龍彈"
                   class="earth skillName"
                   src="../skill_name/土遁_土龍彈-removebg-preview.png"
                 />
@@ -107,39 +119,64 @@
               <img class="water title" src="../image/水-removebg-preview.png" />
               <div class="skillDiv">
                 <img
+                  id="水遁_水亂波"
                   class="water skillName"
                   src="../skill_name/水亂波-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="水遁_水牢之術"
                   class="water skillName"
                   src="../skill_name/水牢之術-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="水遁_水陣壁"
                   class="water skillName"
                   src="../skill_name/水陣壁-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="水遁_水龍彈"
                   class="water skillName"
                   src="../skill_name/水龍彈-removebg-preview.png"
                 />
               </div>
               <div class="skillDiv">
                 <img
+                  id="水遁_大瀑布之術"
                   class="water skillName"
                   src="../skill_name/大瀑布術-removebg-preview.png"
                 />
               </div>
             </div>
           </div>
+          <!-- skill set -->
           <div id="mySkills"></div>
         </div>
-        <div id="skillPanel"></div>
+
+        <!-- skill panel -->
+        <div id="skillPanel">
+          <div class="selectedSkill"><img src="" /></div>
+
+          <div id="introduction">
+            <div class="mudraContainer">
+              <div class="mudraList">
+                手印列表:
+                <span class="mudra"></span>
+              </div>
+            </div>
+            <div class="damage">傷害: <span class="damageData"></span></div>
+          </div>
+
+          <div id="buttonDiv">
+            <button id="confirmBtn" class="btn">裝備忍術</button
+            ><button id="practiceBtn" class="btn">演練忍術</button>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -18,3 +18,59 @@ let skillList = {
   火遁_火龍炎彈: "未-午-巳-辰-子-丑-寅",
   土遁_土龍彈: "未-午-辰-寅",
 };
+let panel = document.querySelector("#skillPanel");
+let skillNames = document.querySelectorAll(".skillName");
+
+let selected_skill = document.querySelector(".selectedSkill");
+
+let skill_introduction = document.querySelector("#introduction");
+let button = document.querySelector("#buttonDiv");
+let confirmBtn = document.querySelector("#confirmBtn");
+let practiceBtn = document.querySelector("#practiceBtn");
+let mudraList = document.querySelector(".mudraList");
+let damage = document.querySelector(".damage");
+let mudra = document.querySelector(".mudra");
+let mudraContainer = document.querySelector(".mudraContainer");
+
+let mudraList_clone = mudraList.cloneNode(true);
+let mudraContainer_clone = mudraContainer.cloneNode(true);
+let mudra_clone = mudra.cloneNode(true);
+let damage_clone = damage.cloneNode(true);
+let selected_skill_clone = selected_skill.cloneNode(true);
+let skill_introduction_clone = skill_introduction.cloneNode(false);
+let button_clone = button.cloneNode(true);
+
+selected_skill.remove();
+skill_introduction.remove();
+button.remove();
+mudraList.remove();
+mudra.remove();
+confirmBtn.remove();
+practiceBtn.remove();
+damage.remove();
+mudraContainer.remove();
+
+fetch();
+
+for (let skillName of skillNames) {
+  skillName.addEventListener("click", () => {
+    //skill name tag
+    panel.textContent = "";
+    let skillName_clone = skillName.cloneNode(true);
+    panel.appendChild(skillName_clone);
+    skillName_clone.classList.add("selectedSkill");
+
+    //skill introduction
+    panel.appendChild(skill_introduction_clone);
+    skill_introduction_clone.appendChild(mudraContainer_clone);
+    mudraContainer_clone.appendChild(mudra_clone);
+    for (let skill in skillList) {
+      if (skillName.id == skill) {
+        console.log(skillList[skill]);
+        mudra_clone.textContent = skillList[skill];
+      }
+    }
+
+    panel.appendChild(button_clone);
+  });
+}

@@ -84,9 +84,17 @@ export class UserController extends RestfulController {
         res.json(json);
       }
     } catch (error) {
+      if (error instanceof HTTPError && error.status == 401) {
+        res.status(401);
+        res.json({ message: "username is taken" });
+        return;
+      } else {
+        console.log(error);
+        res.status(400);
+        res.json({ message: "Invalid input" });
+        return;
+      }
       // console.log(error);
-      res.status(400);
-      res.json({ message: "Invalid input" });
     }
   };
 }

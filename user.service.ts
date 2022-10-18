@@ -42,9 +42,16 @@ export class UserService {
     hashedPassWord: string,
     email: string,
     nickname: string
-  ): Promise<{ id: number }> {
+  ): Promise<{ id: number; nickname: string }> {
     // let id = 1;
     // return { id };
+    let checkUser = await this.knex
+      .select("username")
+      .from("users")
+      .where("username", username);
+    if (checkUser[0]) {
+      throw new HTTPError(401, "username is taken");
+    }
     let result = await this.knex("users")
       .insert({
         username,
@@ -53,11 +60,18 @@ export class UserService {
         nickname,
       })
       .returning("id");
-    // .raw(
-    //   "insert into users (username,password_hash,email,nickname) values ($1,$2,$3,$4) returning id",
-    //   [username, hashedPassWord, email, nickname]
-    // );
-    console.log("hi");
+
+    if (result) {
+      let createCharacter = await this.knex("characters").insert({
+        user_id: result[0].id,
+        name: nickname,
+        level: 1,
+        hp: 100,
+        exp: 0,
+        is_player: true,
+      });
+      console.log(result[0].id);
+    }
 
     let row = result[0].id;
     console.log(row);

@@ -34,18 +34,30 @@ signUpForm.addEventListener("submit", async (event) => {
       userInformation.rePassword = userInfo.value;
     }
   }
-  fetch("/signup", {
+  let res = await fetch("/signup", {
     method: "post",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(userInformation),
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((result) => {
-      console.log(result);
-      return;
+  });
+  let json = await res.json();
+
+  console.log(json);
+
+  if (!res.ok) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Username is taken",
     });
+  } else {
+    Swal.fire({
+      icon: "success",
+      title: `Welcome, ninja`,
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) window.location = "../cutscenes/cutscenes.html";
+    });
+  }
 });
 // function getLocalStream() {
 //   navigator.mediaDevices
