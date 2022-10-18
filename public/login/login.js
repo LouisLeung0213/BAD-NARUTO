@@ -1,4 +1,5 @@
 let loginForm = document.querySelector("#loginForm");
+let signupBtn = document.querySelector(".signupBtn");
 
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -38,4 +39,8 @@ loginForm.addEventListener("submit", async (event) => {
       if (result.isConfirmed) window.location = "../cutscenes/cutscenes.html";
     });
   }
+});
+
+signupBtn.addEventListener("click", (event) => {
+  window.location = "../signUp/signup.html";
 });
