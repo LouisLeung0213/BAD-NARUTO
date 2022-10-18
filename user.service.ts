@@ -18,12 +18,12 @@ export class UserService {
       .from("users")
       .where("username", username);
     if (!userPassword[0]) {
-      throw new HTTPError(401, "User does not exist");
+      throw new HTTPError(404, "User does not exist");
     } else {
       let hashedPassword = userPassword[0].password_hash;
       const check = await checkPassword(password, hashedPassword);
       if (!check) {
-        throw new HTTPError(402, "wrong username or password");
+        throw new HTTPError(401, "wrong username or password");
       } else {
         let result = await this.knex
           .select("id")
