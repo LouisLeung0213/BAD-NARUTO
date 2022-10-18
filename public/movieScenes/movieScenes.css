@@ -6,11 +6,27 @@ body {
 }
 
 #videoDiv {
-  width: 100vw;
-  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 video {
-  width: 100%;
+  /* width: 100%; */
   height: 100%;
+}
+
+.av {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.avContainer {
+  display: flex;
+  justify-content: center;
 }

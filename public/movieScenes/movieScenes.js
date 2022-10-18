@@ -11,3 +11,8 @@ document.getElementById("movie").addEventListener("click", function () {
     video.play();
   }
 });
+
+function go() {
+  window.location =
+    "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
+}
