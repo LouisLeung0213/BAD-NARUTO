@@ -53,7 +53,7 @@ function toMission() {
 }
 
 function toSkill() {
-  window.location = "../skillTree/skills.html";
+  window.location = "../training/training.html";
 }
 
 leave.addEventListener("click", (event) => {
