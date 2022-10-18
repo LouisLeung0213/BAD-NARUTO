@@ -6,9 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>This is my ninja way</title>
     <link rel="stylesheet" href="lobby.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
   </head>
   <body>
     <div id="background">
+      <dialog id="ninjaDia">
+        <div class="diaDiv">
+          <div class="title_container">
+            <label>
+              <image src="../image/missionTitle.png"></image>
+            </label>
+            <div class="leave">
+              <h2><i class="fa-solid fa-xmark"></i></h2>
+            </div>
+          </div>
+          <button class="missionBtn" id="first">
+            <div class="missionNameBG">
+              <image src="../image/mission1.png"></image>
+            </div>
+          </button>
+          <button class="missionBtn" id="second">
+            <div class="missionNameBG">
+              <image src="../image/mission2.png"></image>
+            </div>
+          </button>
+          <button class="missionBtn" id="third">
+            <div class="missionNameBG">
+              <image src="../image/mission3.png"></image>
+            </div>
+          </button>
+          <button class="missionBtn" id="four">
+            <div class="missionNameBG">
+              <image src="../image/mission4.png"></image>
+            </div>
+          </button>
+          <button class="missionBtn" id="final">
+            <div class="missionNameBG">
+              <image src="../image/mission5.png"></image>
+            </div>
+          </button>
+        </div>
+      </dialog>
       <div id="ninjaDiv">
         <img id="ninja" src="../image/ninjaLogo-removebg-preview.png" />
       </div>
@@ -21,7 +62,12 @@
                 src="../image/skilltree-removebg-preview.png"
               />
             </div>
-            <img id="naruto" class="function" src="../image/naruto.png" />
+            <img
+              id="naruto"
+              class="function"
+              src="../image/naruto.png"
+              onclick="toSkill()"
+            />
           </div>
           <div id="sasukeBlock">
             <div class="missionLogo">
@@ -65,7 +111,10 @@
         </div>
       </div>
     </div>
-
     <script src="lobby.js"></script>
+    <script
+      src="https://kit.fontawesome.com/4f57507a93.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
