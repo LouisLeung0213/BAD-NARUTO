@@ -1,0 +1,44 @@
+body {
+  margin: 0px;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-size: 100% 100%;
+  background-image: url(../image/dark.jpeg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.postWall {
+  width: 100vw;
+  height: 75%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-color: rgba(240, 255, 255, 0.533);
+}
+
+.comment {
+  width: 100vw;
+  height: 25%;
+  background-color: rgba(127, 255, 212, 0.178);
+}
+
+.postTitle {
+  width: 80vw;
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.postId {
+  margin-right: 0.8rem;
+}
+
+.post {
+  overflow-y: auto;
+}

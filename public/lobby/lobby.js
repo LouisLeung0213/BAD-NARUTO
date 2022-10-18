@@ -56,6 +56,10 @@ function toSkill() {
   window.location = "../training/training.html";
 }
 
+function toChat() {
+  window.location = "../lihkg/lihkg.html";
+}
+
 leave.addEventListener("click", (event) => {
   ninjaDia.style.display = "none";
 });
