@@ -1,8 +1,8 @@
 // import { Client } from "pg";
 
-import { log } from "console";
+// import { log } from "console";
 import { Knex } from "knex";
-import { CLIENT_RENEG_WINDOW } from "tls";
+// import { CLIENT_RENEG_WINDOW } from "tls";
 import { HTTPError } from "./error";
 import { checkPassword } from "./hash";
 
@@ -13,29 +13,27 @@ export class UserService {
     username: string,
     password: string
   ): Promise<{ id: number } | undefined> {
-    let userPassword = await // this.knex.raw(
-    //   "select password_hash from users where username = $1",
-    //   [username]
-    // );
-    this.knex("users").where("username", username).select("password_hash");
-    console.log(userPassword);
-    let hashedPassword = userPassword[0];
-    const check = await checkPassword(password, hashedPassword);
-    if (!check) {
-      throw new HTTPError(401, "wrong username or password");
+    let userPassword = await this.knex
+      .select("password_hash")
+      .from("users")
+      .where("username", username);
+    if (!userPassword[0]) {
+      throw new HTTPError(401, "User does not exist");
     } else {
-      let result = await // this.knex.raw(
-      //   "select id from users where username = $1 and password_hash = $2",
-      //   [username, hashedPassword]
-      // );
-      this.knex
-        .select("id")
-        .from("users")
-        .where("username", "=", username)
-        .andWhere("password_hash", "=", hashedPassword);
-      // .whereIn(["username", "password_hash"], [username, hashedPassword]);
-      // let row = result.rows[0];
-      return result[0];
+      let hashedPassword = userPassword[0].password_hash;
+      const check = await checkPassword(password, hashedPassword);
+      if (!check) {
+        throw new HTTPError(402, "wrong username or password");
+      } else {
+        let result = await this.knex
+          .select("id")
+          .from("users")
+          .where("username", username)
+          .andWhere("password_hash", hashedPassword);
+        // .whereIn(["username", "password_hash"], [username, hashedPassword]);
+        // let row = result.rows[0];
+        return result[0];
+      }
     }
   }
 
