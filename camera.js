@@ -84,7 +84,7 @@ async function predict() {
       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
     labelContainer.childNodes[i].innerHTML = classPrediction;
   }
-  console.log(prediction);
+  //console.log(prediction);
   // label1: for (let check = 0; check < checklist.length; check++) {
   //   let targetItem = checklist[check];
   //   //console.log(targetItem);
