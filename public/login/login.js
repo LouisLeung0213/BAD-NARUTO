@@ -15,10 +15,27 @@ loginForm.addEventListener("submit", async (event) => {
   await res.json();
 
   if (!res.ok) {
-    if (res.status == 400) {
-      Swal.fire({});
+    if (res.status == 404) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "User does not exist",
+      });
+    }
+    if (res.status == 401) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "username or password is incorrect",
+      });
     }
   } else {
-    window.location = "../cutscenes/cutscenes.html";
+    Swal.fire({
+      icon: "success",
+      title: `Welcome back, ninja`,
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) window.location = "../cutscenes/cutscenes.html";
+    });
   }
 });
