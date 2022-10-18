@@ -167,3 +167,81 @@ body {
 #sakuraBlock {
   margin-right: 3rem;
 }
+
+/* dialog */
+#ninjaDia {
+  width: 1000px;
+  max-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 2%;
+  /* left: 20%; */
+  transform: translateX(-50%);
+  top: 50%;
+  transform: translateY(-50%);
+  overflow-y: auto;
+  border-radius: 1rem;
+  border: 0.8rem solid black;
+  background: rgb(255, 239, 218);
+  background: radial-gradient(
+    circle,
+    rgba(255, 239, 218, 1) 0%,
+    rgba(217, 189, 128, 1) 99.99%,
+    rgba(217, 189, 128, 1) 100%
+  );
+}
+
+.diaDiv {
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.missionBtn {
+  width: 50rem;
+  height: fit-content;
+  margin-bottom: 1rem;
+}
+
+#final {
+  background: url(../image/0.jpeg) no-repeat;
+  background-size: 100% 200%;
+}
+
+.missionNameBG {
+  background-color: rgba(240, 248, 255, 0.245);
+}
+
+#first {
+  background: url(../image/first.jpeg) no-repeat;
+  background-size: 100% 150%;
+}
+
+#second {
+  background: url(../image/snake.jpeg) no-repeat;
+  background-size: 100% 150%;
+}
+
+#third {
+  background: url(../image/pain.jpeg) no-repeat;
+  background-size: 100% 320%;
+}
+
+#four {
+  background: url(../image/moon1.jpeg) no-repeat;
+  background-size: 100% 220%;
+}
+
+.title_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.leave {
+  position: fixed;
+  top: 0;
+  right: 1rem;
+}
