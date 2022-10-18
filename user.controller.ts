@@ -22,8 +22,13 @@ export class UserController extends RestfulController {
       req.session.save();
       res.json(json);
     } catch (error) {
-      if (error instanceof HTTPError) {
-        res.status(400);
+      if (error instanceof HTTPError && error.status == 401) {
+        res.status(401);
+        res.json({ message: "wrong username or password" });
+        return;
+      }
+      if (error instanceof HTTPError && error.status == 402) {
+        res.status(402);
         res.json({ message: "wrong username or password" });
         return;
       } else {
