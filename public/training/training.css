@@ -1,0 +1,42 @@
+body {
+  margin: 0px;
+}
+
+.background {
+  backdrop-filter: blur(8px);
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../image/pho_9487a4fb_resize.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+}
+
+#container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.skillDiv {
+  width: 20rem;
+  height: 5rem;
+  background-color: rgba(251, 255, 0, 0.658);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+}
+
+.thurder {
+  background-color: rgba(251, 255, 0, 0.658);
+}
+.skillName {
+  width: 20rem;
+  height: 6rem;
+}
