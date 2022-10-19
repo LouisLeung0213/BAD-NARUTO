@@ -35,6 +35,12 @@ let damage = document.querySelector(".damage");
 let mudra = document.querySelector(".mudra");
 let mudraContainer = document.querySelector(".mudraContainer");
 
+const practiceDialog = document.querySelector("#practiceDialog");
+const dialogClose = practiceDialog.querySelector("#dialogClose");
+const skillCommand = document.querySelector("#skillCommand");
+
+const camera = document.querySelector("#camera");
+
 let mudraList_clone = mudraList.cloneNode(true);
 let mudraContainer_clone = mudraContainer.cloneNode(true);
 let mudra_clone = mudra.cloneNode(true);
@@ -57,6 +63,10 @@ damage.remove();
 mudraContainer.remove();
 skillSet.remove();
 
+if (typeof practiceDialog.showModal !== "function") {
+  practiceDialog.hidden = true;
+}
+
 for (let skillName of skillNames) {
   skillName.addEventListener("click", () => {
     //skill name tag
@@ -67,7 +77,6 @@ for (let skillName of skillNames) {
     skillName_clone.classList.add("selectedSkill");
 
     //skill introduction
-
     panel.appendChild(skill_introduction_clone);
     skill_introduction_clone.appendChild(mudraContainer_clone);
     mudraContainer_clone.appendChild(mudra_clone);
@@ -76,6 +85,21 @@ for (let skillName of skillNames) {
       if (skillName.id == skill) {
         console.log(skillList[skill]);
         mudra_clone.textContent = skillList[skill];
+        practiceBtn_clone.addEventListener("click", async () => {
+          if (typeof practiceDialog.showModal === "function") {
+            practiceDialog.style.display = "flex";
+          }
+
+          let mudra_list = skillList[skill].split("-");
+
+          console.log(mudra_list);
+          for (let mudra of mudra_list) {
+            console.log(mudra);
+            skillCommand.innerHTML = `<img src="../mudra/${mudra}-removebg-preview.png"></img>`;
+          }
+
+          
+        });
       }
     }
 
@@ -84,10 +108,15 @@ for (let skillName of skillNames) {
     button_clone.appendChild(practiceBtn_clone);
   });
 }
+
+dialogClose.addEventListener("click", () => {
+  practiceDialog.style.display = "none";
+});
+
 //show skills that user already equip
 async function showEquippedSkill() {
   let res = await fetch("/equippedSkills", {
-    method: "get",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
@@ -118,7 +147,7 @@ async function showEquippedSkill() {
       console.log(skill.id);
       skill.addEventListener("click", async (event) => {
         let res = await fetch("/removeSkill", {
-          method: "post",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -149,6 +178,7 @@ async function returnSkillResult() {
   console.log(results);
 }
 returnSkillResult();
+
 async function confirm_btn() {
   const res = await fetch("/setSkills", {
     method: "POST",
@@ -165,21 +195,3 @@ async function confirm_btn() {
   returnSkillResult();
   showEquippedSkill();
 }
-//set skill
-// if (skillResult.json.length >= 4) {
-//   confirmBtn_clone.addEventListener("click", async () => {
-//     const res = await fetch("/setSkills", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         skill: panel.firstChild.id,
-//       }),
-//     });
-
-//     let json = await res.json();
-//     console.log(json);
-//     showEquippedSkill();
-//   });
-// }

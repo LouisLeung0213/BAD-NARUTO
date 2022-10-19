@@ -48,6 +48,12 @@ export class CharacterService {
     return skill_name_array;
   }
 
+  async getSkillPattern() {
+    let pattern = await this.knex("skills").select("skill_pattern");
+    console.log(pattern);
+    return pattern;
+  }
+
   async removeSkill(removeSkill: string, userId: number) {
     let character_id = await this.knex("characters")
       .select("id")
