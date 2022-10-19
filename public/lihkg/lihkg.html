@@ -18,7 +18,16 @@
           <div>Content</div>
         </div>
       </div>
-      <div class="comment"></div>
+      <div class="comment">
+        <form action="/getPost" method="post" id="postForm">
+          <div class="belowContainer">
+            <div class="belowTitle"></div>
+            <textarea class="commentTextarea" name="postContent"></textarea>
+          </div>
+          <input type="submit" value="發表偉論" id="commentSubmitBtn" />
+        </form>
+      </div>
     </div>
+    <script src="lihkg.js"></script>
   </body>
 </html>

@@ -19,4 +19,16 @@ export class ChatroomService {
       .join("users", "post_user_id", "users.id");
     return postContent[0];
   }
+
+  async commentPost(userId: number, postContent: string) {
+    let comment = await this.knex("chatroom").insert({
+      post_content: postContent,
+      post_user_id: userId,
+    });
+
+    let done = comment[0];
+    if (!done) {
+      throw new HTTPError(401, "failed to post comment");
+    }
+  }
 }

@@ -25,7 +25,7 @@ body {
 .comment {
   width: 100vw;
   height: 25%;
-  background-color: rgba(127, 255, 212, 0.178);
+  /* background-color: rgba(127, 255, 212, 0.178); */
 }
 
 .postTitle {
@@ -41,4 +41,47 @@ body {
 
 .post {
   overflow-y: auto;
+}
+
+.commentTextarea {
+  width: 80%;
+  height: 11rem;
+  display: flex;
+  position: absolute;
+  bottom: 0.3rem;
+  right: 9rem;
+  background-color: rgba(0, 0, 0, 0.667);
+  color: rgba(255, 0, 0, 0.467);
+  font-size: 3rem;
+  padding-top: 2rem;
+  font-family: "Brush Script MT", cursive;
+}
+
+.belowContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#commentSubmitBtn {
+  /* width: 10rem;
+  height: 5rem; */
+  position: absolute;
+  right: 1.5rem;
+  bottom: 3rem;
+  /* background: url(../image/belowBtn.png) no-repeat;
+  background-size: 100% 100%; */
+  background-color: rgba(255, 240, 240, 0);
+  color: aliceblue;
+  font-size: 1.5rem;
+  font-family: "Brush Script MT", cursive;
+}
+
+.belowTitle {
+  width: 10rem;
+  height: 5rem;
+  position: absolute;
+  left: 0.5rem;
+  color: red;
+  background: url(../image/belowTitle.png) no-repeat;
+  background-size: 100% 100%;
 }

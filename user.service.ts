@@ -42,7 +42,7 @@ export class UserService {
     hashedPassWord: string,
     email: string,
     nickname: string
-  ): Promise<{ id: number; nickname: string }> {
+  ): Promise<{ id: number }> {
     // let id = 1;
     // return { id };
     let checkUser = await this.knex

@@ -6,7 +6,6 @@ export async function up(knex: Knex): Promise<void> {
   if (!hasChatrm) {
     let sql = knex.schema.createTable("chatroom", (table) => {
       table.increments("id");
-      table.string("post_title", 32).notNullable();
       table.string("post_content").notNullable();
       table.integer("post_user_id").references("users.id");
       table.timestamps(false, true);
