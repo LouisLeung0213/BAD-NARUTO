@@ -1,33 +1,39 @@
 // import { Client } from "pg";
 
+// import { log } from "console";
 import { Knex } from "knex";
+// import { CLIENT_RENEG_WINDOW } from "tls";
 import { HTTPError } from "./error";
 import { checkPassword } from "./hash";
 
 export class UserService {
   constructor(private knex: Knex) {}
 
-  async login(username: string, password: string): Promise<{ id: number }> {
-    let userPassword = await // this.knex.raw(
-    //   "select password_hash from users where username = $1",
-    //   [username]
-    // );
-    this.knex.select("password_hash").from("users").where("username", username);
-    let hashedPassword = userPassword[0];
-    const check = await checkPassword(password, hashedPassword);
-    if (!check) {
-      throw new HTTPError(401, "wrong username or password");
+  async login(
+    username: string,
+    password: string
+  ): Promise<{ id: number } | undefined> {
+    let userPassword = await this.knex
+      .select("password_hash")
+      .from("users")
+      .where("username", username);
+    if (!userPassword[0]) {
+      throw new HTTPError(404, "User does not exist");
     } else {
-      let result = await // this.knex.raw(
-      //   "select id from users where username = $1 and password_hash = $2",
-      //   [username, hashedPassword]
-      // );
-      this.knex
-        .select("id")
-        .from("users")
-        .whereIn(["username", "password_hash"], [username, hashedPassword]);
-      // let row = result.rows[0];
-      return result[0];
+      let hashedPassword = userPassword[0].password_hash;
+      const check = await checkPassword(password, hashedPassword);
+      if (!check) {
+        throw new HTTPError(401, "wrong username or password");
+      } else {
+        let result = await this.knex
+          .select("id")
+          .from("users")
+          .where("username", username)
+          .andWhere("password_hash", hashedPassword);
+        // .whereIn(["username", "password_hash"], [username, hashedPassword]);
+        // let row = result.rows[0];
+        return result[0];
+      }
     }
   }
 
@@ -37,11 +43,38 @@ export class UserService {
     email: string,
     nickname: string
   ): Promise<{ id: number }> {
-    let result = await this.knex.raw(
-      "insert into users (username,password_hash,email,nickname) values ($1,$2,$3,$4) returning id",
-      [username, hashedPassWord, email, nickname]
-    );
-    let row = result.rows[0];
+    // let id = 1;
+    // return { id };
+    let checkUser = await this.knex
+      .select("username")
+      .from("users")
+      .where("username", username);
+    if (checkUser[0]) {
+      throw new HTTPError(401, "username is taken");
+    }
+    let result = await this.knex("users")
+      .insert({
+        username,
+        password_hash: hashedPassWord,
+        email,
+        nickname,
+      })
+      .returning("id");
+
+    if (result) {
+      let createCharacter = await this.knex("characters").insert({
+        user_id: result[0].id,
+        name: nickname,
+        level: 1,
+        hp: 100,
+        exp: 0,
+        is_player: true,
+      });
+      console.log(result[0].id);
+    }
+
+    let row = result[0].id;
+    console.log(row);
     if (!row) {
       throw new HTTPError(401, "Invalid input");
     }

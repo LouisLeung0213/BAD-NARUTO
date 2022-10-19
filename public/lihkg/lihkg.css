@@ -1,0 +1,116 @@
+body {
+  margin: 0px;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-size: 100% 100%;
+  background-image: url(../image/dark.jpeg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.postWall {
+  width: 100vw;
+  height: 75%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  /* background-color: rgba(240, 255, 255, 0.533); */
+  overflow-y: auto;
+  color: red;
+}
+
+.comment {
+  width: 100vw;
+  height: 25%;
+  /* background-color: rgba(127, 255, 212, 0.178); */
+}
+
+.postTitle {
+  padding-left: 1rem;
+  width: 80vw;
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.postId {
+  margin-right: 0.8rem;
+}
+
+.postNickname {
+  margin-right: 0.8rem;
+}
+
+.post {
+  height: fit-content;
+  margin-bottom: 1rem;
+  font-family: "Brush Script MT", cursive;
+  font-size: 2rem;
+  border: 2px solid white;
+  border-radius: 2rem;
+  /* outline: 2px solid green; */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* position: absolute; */
+  /* left: 5rem; */
+  /* flex-direction: column; */
+}
+
+.commentTextarea {
+  width: 80%;
+  height: 10rem;
+  display: flex;
+  position: absolute;
+  bottom: 0.3rem;
+  right: 9rem;
+  background-color: rgba(0, 0, 0, 0.667);
+  color: rgba(255, 0, 0, 0.467);
+  font-size: 3rem;
+  padding-top: 2rem;
+  font-family: "Brush Script MT", cursive;
+}
+
+.belowContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#commentSubmitBtn {
+  /* width: 10rem;
+  height: 5rem; */
+  position: absolute;
+  right: 1.5rem;
+  bottom: 3rem;
+  /* background: url(../image/belowBtn.png) no-repeat;
+  background-size: 100% 100%; */
+  background-color: rgba(255, 240, 240, 0);
+  color: aliceblue;
+  font-size: 1.5rem;
+  font-family: "Brush Script MT", cursive;
+}
+
+.belowTitle {
+  width: 10rem;
+  height: 5rem;
+  position: absolute;
+  left: 0.5rem;
+  color: red;
+  background: url(../image/belowTitle.png) no-repeat;
+  background-size: 100% 100%;
+}
+
+.contentContainer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.postTime {
+  position: absolute;
+  right: 2rem;
+}

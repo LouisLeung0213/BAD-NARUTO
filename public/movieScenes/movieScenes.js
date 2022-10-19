@@ -11,3 +11,7 @@ document.getElementById("movie").addEventListener("click", function () {
     video.play();
   }
 });
+
+function go() {
+  window.location = "../cutscenes2/cutscenes2.html";
+}

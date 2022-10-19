@@ -1,16 +1,31 @@
 body {
   margin: 0px;
-
-  background-image: url(/public/image/eye.jpg);
   background-color: black;
 }
 
 #videoDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
 }
 
 video {
   width: 100%;
-  height: 100%;
+  height: 90%;
+}
+
+.av {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.avContainer {
+  display: flex;
+  justify-content: center;
 }

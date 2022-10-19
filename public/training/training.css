@@ -1,0 +1,171 @@
+body {
+  margin: 0px;
+}
+
+.space {
+  width: 100vw;
+  height: 10vh;
+  background-color: blueviolet;
+}
+
+.background {
+  backdrop-filter: blur(8px);
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../image/pho_9487a4fb_resize.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+#bothContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  display: flex;
+}
+
+#skillContainer {
+  width: 78vw;
+  height: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.skillDiv {
+  width: 80%;
+  height: 4rem;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  margin-bottom: 1rem;
+}
+
+.thurder {
+  background-color: rgba(251, 255, 0, 0.658);
+}
+.fire {
+  background-color: rgba(255, 0, 0, 0.658);
+}
+
+.normal {
+  background-color: rgba(97, 115, 150, 0.788);
+}
+
+.earth {
+  background-color: rgba(204, 135, 44, 0.788);
+}
+
+.water {
+  background-color: rgba(26, 110, 236, 0.801);
+}
+
+.skillName {
+  width: 90%;
+  height: 4rem;
+  border-radius: 30px;
+  font-size: 3rem;
+}
+
+#skillPanel {
+  width: 25vw;
+  height: 100vh;
+  background-color: rgba(0, 135, 245, 0.562);
+  border-left: 0.3rem solid rgba(235, 59, 83, 0.705);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.element {
+  width: 15%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.title {
+  width: 80%;
+  height: 7rem;
+  border-radius: 30px;
+  margin-bottom: 1rem;
+}
+
+#mySkills {
+  width: 80vw;
+  height: 20vh;
+  background-image: url(../image/wood2.jpg);
+  background-size: 25% 30%;
+}
+
+.selectedSkill {
+  width: 90%;
+  height: 10%;
+  border-radius: 2rem;
+}
+
+#introduction {
+  width: 95%;
+  height: 60%;
+  background-color: rgba(240, 186, 87, 0.849);
+  border-radius: 30px;
+}
+
+.mudraList {
+  width: 100%;
+  height: 70%;
+  padding: 8%;
+  font-size: 3rem;
+}
+
+.damage {
+  width: 100%;
+  height: 20%;
+  padding: 10%;
+}
+
+#buttonDiv {
+  width: 80%;
+  height: 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(28, 221, 221, 0.705);
+  border-radius: 30px;
+}
+
+.btn {
+  width: 6rem;
+  height: 3rem;
+  background-color: rgb(248, 252, 1);
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.mudra {
+  font-size: 2.5rem;
+}
+
+#mySkills {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.skill {
+  width: 20%;
+  height: 80%;
+  display: flex;
+}

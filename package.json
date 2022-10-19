@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "git@github.com:LouisLeung0213/BAD-NARUTO.git",
   "scripts": {
-    "start": "ts-node-dev server.ts",
+    "start": "npx ts-node-dev server.ts",
     "test": "tsc -p . --noEmit"
   },
   "author": "Louis Leung <louizleung@gmail.com>",
