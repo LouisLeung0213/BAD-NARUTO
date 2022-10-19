@@ -77,6 +77,7 @@ export async function up(knex: Knex): Promise<void> {
       table.string("skill_name").notNullable();
       table.integer("skill_damage").notNullable();
       table.string("skill_pattern").notNullable();
+      table.string("skill_image").notNullable();
     });
   }
 
