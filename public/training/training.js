@@ -106,27 +106,50 @@ async function showEquippedSkill() {
           let skillName_clone = skillName.cloneNode(true);
           mySkills.appendChild(skillName_clone);
           skillName_clone.classList.add("skill");
-
-          skillName_clone.addEventListener("click", async () => {
-            let res = await fetch("/removeSkill", {
-              method: "post",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                skill: skillName_clone.id,
-              }),
-            });
-          });
         }
       }
     }
+
+    //delete skill
+
+    let skills = document.querySelectorAll(".skill");
+    console.log(skills);
+    for (let skill of skills) {
+      console.log(skill.id);
+      skill.addEventListener("click", async (event) => {
+        let res = await fetch("/removeSkill", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            skill: skill.id,
+          }),
+        });
+
+        let json = await res.json();
+        console.log(json);
+        showEquippedSkill();
+        returnSkillResult();
+      });
+    }
   }
+
+  return skillResult;
 }
+async function returnSkillResult() {
+  let results = await showEquippedSkill();
+  console.log(results.json.length);
+  if (results.json.length <= 3) {
+    confirmBtn_clone.addEventListener("click", confirm_btn);
+  } else {
+    confirmBtn_clone.removeEventListener("click", confirm_btn);
+  }
 
-showEquippedSkill();
-
-confirmBtn_clone.addEventListener("click", async () => {
+  console.log(results);
+}
+returnSkillResult();
+async function confirm_btn() {
   const res = await fetch("/setSkills", {
     method: "POST",
     headers: {
@@ -137,8 +160,26 @@ confirmBtn_clone.addEventListener("click", async () => {
     }),
   });
 
-  console.log(res);
   let json = await res.json();
   console.log(json);
+  returnSkillResult();
   showEquippedSkill();
-});
+}
+//set skill
+// if (skillResult.json.length >= 4) {
+//   confirmBtn_clone.addEventListener("click", async () => {
+//     const res = await fetch("/setSkills", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         skill: panel.firstChild.id,
+//       }),
+//     });
+
+//     let json = await res.json();
+//     console.log(json);
+//     showEquippedSkill();
+//   });
+// }

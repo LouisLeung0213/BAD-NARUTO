@@ -52,5 +52,16 @@ export class CharacterService {
     let character_id = await this.knex("characters")
       .select("id")
       .where("user_id", userId);
+    let remove_skill_id = await this.knex("skills")
+      .select("id")
+      .where("skill_name", removeSkill);
+
+    await this.knex("characters_skills_relationships")
+      .select("id")
+      .where("skill_id", remove_skill_id[0].id)
+      .andWhere("character_id", character_id[0].id)
+      .del();
+
+    return "skill is set already";
   }
 }
