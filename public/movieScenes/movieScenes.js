@@ -13,6 +13,5 @@ document.getElementById("movie").addEventListener("click", function () {
 });
 
 function go() {
-  window.location =
-    "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
+  window.location = "../cutscenes2/cutscenes2.html";
 }
