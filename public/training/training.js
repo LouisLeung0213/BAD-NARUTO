@@ -23,6 +23,9 @@ let skillNames = document.querySelectorAll(".skillName");
 
 let selected_skill = document.querySelector(".selectedSkill");
 
+let mySkills = document.querySelector("#mySkills");
+let skillSet = document.querySelector(".skill");
+
 let skill_introduction = document.querySelector("#introduction");
 let button = document.querySelector("#buttonDiv");
 let confirmBtn = document.querySelector("#confirmBtn");
@@ -41,6 +44,7 @@ let skill_introduction_clone = skill_introduction.cloneNode(false);
 let button_clone = button.cloneNode(false);
 let confirmBtn_clone = confirmBtn.cloneNode(true);
 let practiceBtn_clone = practiceBtn.cloneNode(true);
+let skillSet_clone = skillSet.cloneNode(true);
 
 selected_skill.remove();
 skill_introduction.remove();
@@ -51,6 +55,7 @@ confirmBtn.remove();
 practiceBtn.remove();
 damage.remove();
 mudraContainer.remove();
+skillSet.remove();
 
 for (let skillName of skillNames) {
   skillName.addEventListener("click", () => {
@@ -79,6 +84,35 @@ for (let skillName of skillNames) {
     button_clone.appendChild(practiceBtn_clone);
   });
 }
+//show skills that user already equip
+async function showEquippedSkill() {
+  let res = await fetch("/equippedSkills", {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  let skillResult = await res.json();
+  console.log(skillResult);
+
+  mySkills.textContent = "";
+  if (skillResult.json.length != 0) {
+    for (let skill of skillResult.json) {
+      console.log(skill.skill_name);
+      for (let skillName of skillNames) {
+        let id_name = skillName.id.split("_")[1];
+        if (id_name == skill.skill_name) {
+          let skillName_clone = skillName.cloneNode(true);
+          mySkills.appendChild(skillName_clone);
+          skillName_clone.classList.add("skill");
+        }
+      }
+    }
+  }
+}
+
+showEquippedSkill();
 
 confirmBtn_clone.addEventListener("click", async () => {
   const res = await fetch("/setSkills", {
@@ -90,5 +124,9 @@ confirmBtn_clone.addEventListener("click", async () => {
       skill: panel.firstChild.id,
     }),
   });
-  await res.json();
+
+  console.log(res);
+  let json = await res.json();
+  console.log(json);
+  showEquippedSkill();
 });

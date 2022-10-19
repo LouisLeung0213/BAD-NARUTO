@@ -8,6 +8,7 @@ export class CharacterController extends RestfulController {
   constructor(private characterService: CharacterService) {
     super();
     this.router.post("/setSkills", this.settingSkills);
+    this.router.get("/equippedSkills", this.showSkills);
   }
 
   settingSkills = async (req: Request, res: Response) => {
@@ -23,7 +24,16 @@ export class CharacterController extends RestfulController {
         selectedSkill,
         userId
       );
-      res.json(json);
+      res.json({ json });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  showSkills = async (req: Request, res: Response) => {
+    try {
+      let json = await this.characterService.showSkills(req.session.user!.id);
+      res.json({ json });
     } catch (error) {
       console.log(error);
     }
