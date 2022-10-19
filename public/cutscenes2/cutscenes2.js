@@ -43,8 +43,9 @@ step();
 
 textDiv.addEventListener("click", () => {
   content.textContent = "";
-  step();
+
   scriptIndex++;
+  step();
   console.log(scriptIndex);
   if (scriptIndex == 5) {
     window.location = "../lobby/lobby.html";

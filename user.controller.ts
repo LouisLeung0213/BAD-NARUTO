@@ -80,7 +80,8 @@ export class UserController extends RestfulController {
           email,
           nickname
         );
-        req.session["user"] = { id: json.id, username: username };
+        console.log("JSON id and json", +json, json);
+        req.session["user"] = { id: +json, username: username };
         req.session.save();
         res.json({ json });
       }

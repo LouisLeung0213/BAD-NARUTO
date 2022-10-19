@@ -40,8 +40,9 @@ step();
 
 textDiv.addEventListener("click", () => {
   content.textContent = "";
-  step();
+
   scriptIndex++;
+  step();
   console.log(scriptIndex);
   if (scriptIndex == 6) {
     window.location = "../movieScenes/movieScenes.html";

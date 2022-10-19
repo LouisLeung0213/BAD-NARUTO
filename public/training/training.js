@@ -106,6 +106,18 @@ async function showEquippedSkill() {
           let skillName_clone = skillName.cloneNode(true);
           mySkills.appendChild(skillName_clone);
           skillName_clone.classList.add("skill");
+
+          skillName_clone.addEventListener("click", async () => {
+            let res = await fetch("/removeSkill", {
+              method: "post",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                skill: skillName_clone.id,
+              }),
+            });
+          });
         }
       }
     }

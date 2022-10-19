@@ -47,4 +47,10 @@ export class CharacterService {
     console.log(skill_name_array);
     return skill_name_array;
   }
+
+  async removeSkill(removeSkill: string, userId: number) {
+    let character_id = await this.knex("characters")
+      .select("id")
+      .where("user_id", userId);
+  }
 }
