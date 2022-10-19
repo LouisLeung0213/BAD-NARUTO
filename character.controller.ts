@@ -49,7 +49,7 @@ export class CharacterController extends RestfulController {
         throw new Error("not login yet");
       }
       let userId = req.session.user?.id;
-      let json = await this.characterService.settingSkills(removeSkill, userId);
+      let json = await this.characterService.removeSkill(removeSkill, userId);
       res.json({ json });
     } catch (error) {
       console.log(error);
