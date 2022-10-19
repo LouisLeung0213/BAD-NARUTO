@@ -13,7 +13,7 @@ export class ChatroomController extends RestfulController {
   getPost = async (req: Request, res: Response) => {
     try {
       let json = await this.chatroomService.getPost();
-      res.json(json);
+      res.json({ json });
     } catch (error) {
       console.log(error);
       res.status(500);
@@ -29,7 +29,7 @@ export class ChatroomController extends RestfulController {
       const userId: number = req.session.user?.id;
       const postContent: string = req.body.content;
       let json = await this.chatroomService.commentPost(userId, postContent);
-      res.json(json);
+      res.json({ json });
     } catch (error) {
       console.log(error);
       res.status(500);

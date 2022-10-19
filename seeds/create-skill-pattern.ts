@@ -48,7 +48,8 @@ export async function seed(knex: Knex): Promise<void> {
             skill_type: type_id,
             skill_name: name_of_skill,
             skill_damage: 30,
-            skill_pattern: skillList[skill],
+            skill_pattern: skillList[skill].mudra,
+            skill_image: skillList[skill].image,
           },
         ])
         .into("skills");
