@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ChatroomService } from "./chatroom.service";
 import { RestfulController } from "./restful.controller";
+import "./session";
 
 export class ChatroomController extends RestfulController {
   constructor(private chatroomService: ChatroomService) {

@@ -33,16 +33,18 @@ function step() {
     return;
   }
   //   content.textContent = sentence;
-
-  scriptIndex++;
 }
+console.log(scriptIndex);
 
 step();
 
 textDiv.addEventListener("click", () => {
   content.textContent = "";
+
+  scriptIndex++;
   step();
-  if (scriptIndex == 5) {
+  console.log(scriptIndex);
+  if (scriptIndex == 6) {
     window.location = "../movieScenes/movieScenes.html";
   }
 });

@@ -5,6 +5,7 @@ import { HTTPError } from "./error";
 import { hashPassword } from "./hash";
 import { RestfulController } from "./restful.controller";
 import { UserService } from "./user.service";
+import "./session";
 
 export class UserController extends RestfulController {
   constructor(private userService: UserService) {
@@ -20,7 +21,7 @@ export class UserController extends RestfulController {
       let json = await this.userService.login(username, password);
       req.session["user"] = { id: json!.id, username: username };
       req.session.save();
-      res.json(json);
+      res.json({ json });
     } catch (error) {
       if (error instanceof HTTPError && error.status == 404) {
         res.status(404);
@@ -79,9 +80,10 @@ export class UserController extends RestfulController {
           email,
           nickname
         );
-        req.session["user"] = { id: json.id, username: username };
+        console.log("JSON id and json", +json, json);
+        req.session["user"] = { id: +json, username: username };
         req.session.save();
-        res.json(json);
+        res.json({ json });
       }
     } catch (error) {
       if (error instanceof HTTPError && error.status == 401) {

@@ -12,7 +12,6 @@ let textScript = [
 // for (let i = 0; i < textScript.length; i++) {
 //   console.log(textScript[i]);
 // }
-
 let scriptIndex = 0;
 let textIndex = 0;
 
@@ -38,12 +37,17 @@ function step() {
   } else if (scriptIndex >= 2) {
     photo.src = "../image/clipart536020-removebg-preview.png";
   }
-  scriptIndex++;
 }
 
 step();
 
 textDiv.addEventListener("click", () => {
   content.textContent = "";
+
+  scriptIndex++;
   step();
+  console.log(scriptIndex);
+  if (scriptIndex == 5) {
+    window.location = "../lobby/lobby.html";
+  }
 });

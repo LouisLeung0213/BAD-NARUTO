@@ -11,12 +11,7 @@ export let sessionMiddleware = expressSession({
 
 declare module "express-session" {
   interface SessionData {
-    user?: SessionUser;
-    // grant?: {
-    //   response: {
-    //     access_token: string;
-    //   };
-    // };
+    user: SessionUser;
   }
 }
 
