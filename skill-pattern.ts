@@ -75,7 +75,7 @@ export let skillList: { [key: string]: { mudra: string; image: string } } = {
     mudra: "巳-子-寅",
     image: "../skill_name/灰積燒-removebg-preview.png",
   },
-  火遁_鳳仙火之術: {
+  火遁_鳳仙火: {
     mudra: "子-寅-戌-丑-卯-寅",
     image: "../skill_name/鳳仙火之術-removebg-preview.png",
   },
