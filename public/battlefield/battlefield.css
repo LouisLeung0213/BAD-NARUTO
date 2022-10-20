@@ -18,6 +18,8 @@ body {
   background-size: 25% 25%;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .hpLineDiv {
@@ -59,9 +61,85 @@ body {
 }
 
 .skill {
-  padding: 5rem;
   width: 25%;
-  height: 1rem;
   display: flex;
   justify-content: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.equippedSkillImage {
+  width: 23rem;
+  height: 9rem;
+}
+
+.type1 {
+  background-color: rgba(251, 255, 0, 0.658);
+  width: 90%;
+  border-radius: 30px;
+}
+
+.type4 {
+  background-color: rgba(255, 0, 0, 0.658);
+  width: 90%;
+  border-radius: 30px;
+}
+
+.type2 {
+  background-color: rgba(97, 115, 150, 0.788);
+  width: 90%;
+  border-radius: 30px;
+}
+
+.type5 {
+  background-color: rgba(204, 135, 44, 0.788);
+  width: 90%;
+  border-radius: 30px;
+}
+
+.type3 {
+  background-color: rgba(26, 110, 236, 0.801);
+  width: 90%;
+  border-radius: 30px;
+}
+
+#practiceDialog {
+  width: 85vw;
+  height: 85vh;
+  background-image: url(../image/battle.jpeg);
+  background-repeat: repeat;
+  background-size: 100% 100%;
+  padding: 0%;
+}
+
+.backdrop2 {
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  display: flex;
+}
+
+#skillCommandContainer {
+  width: 35%;
+  height: 80%;
+  background-color: rgba(170, 134, 215, 0.192);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#dialogContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  align-items: center;
+  justify-content: space-around;
+}
+
+.imageOfmudra {
+  width: 100%;
+  height: 80%;
 }

@@ -10,6 +10,8 @@ import { CharacterService } from "./character.service";
 import { CharacterController } from "./character.controller";
 import { ChatroomService } from "./chatroom.service";
 import { ChatroomController } from "./chatroom.controller";
+import { BattlefieldService } from "./battlefield.service";
+import { BattlefieldController } from "./battlefield.controller";
 
 const app = express();
 
@@ -24,10 +26,13 @@ let characterService = new CharacterService(knex);
 let characterController = new CharacterController(characterService);
 let chatroomService = new ChatroomService(knex);
 let chatroomController = new ChatroomController(chatroomService);
+let battlefieldService = new BattlefieldService(knex);
+let battlefieldController = new BattlefieldController(battlefieldService);
 
 app.use(userController.router);
 app.use(characterController.router);
 app.use(chatroomController.router);
+app.use(battlefieldController.router);
 
 app.listen(env.PORT, () => {
   print(env.PORT);

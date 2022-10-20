@@ -3,27 +3,25 @@ let postForm = document.querySelector("#postForm");
 let postWallContainer = document.querySelector(".postWall");
 
 async function getPost() {
-  try {
-    let res = await fetch("/getPost");
-    let json = await res.json();
-    // console.log(json);
-    console.log(json);
-    for (let post of json.json) {
-      console.log(post);
-      let node = postWall.cloneNode(true);
-      let nodeNick = node.querySelector(".postNickname");
-      let nodeId = node.querySelector(".postId");
-      let nodeContent = node.querySelector(".postValue");
-      let nodeTime = node.querySelector(".postTime");
-      nodeNick.textContent = post.nickname;
-      nodeId.textContent = post.post_user_id;
-      nodeContent.textContent = post.post_content;
-      nodeTime.textContent = moment(post.created_at).format(
-        "MMMM Do YYYY, h:mm:ss a"
-      );
-      postWallContainer.appendChild(node);
-    }
-  } catch (error) {}
+  let res = await fetch("/getPost");
+  let json = await res.json();
+  // console.log(json);
+  console.log(json);
+  for (let post of json.json) {
+    console.log(post);
+    let node = postWall.cloneNode(true);
+    let nodeNick = node.querySelector(".postNickname");
+    let nodeId = node.querySelector(".postId");
+    let nodeContent = node.querySelector(".postValue");
+    let nodeTime = node.querySelector(".postTime");
+    nodeNick.textContent = post.nickname;
+    nodeId.textContent = post.post_user_id;
+    nodeContent.textContent = post.post_content;
+    nodeTime.textContent = moment(post.created_at).format(
+      "MMMM Do YYYY, h:mm:ss a"
+    );
+    postWallContainer.appendChild(node);
+  }
 }
 
 getPost();

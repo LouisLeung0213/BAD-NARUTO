@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="battlefield.css" />
   </head>
   <body>
+    <dialog id="practiceDialog">
+      <div class="backdrop2">
+        <div id="dialogContainer">
+          <div id="webcam-container"></div>
+          <div id="skillCommandContainer">
+            <div id="skillCommand"></div>
+            <button id="dialogClose" value="cancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </dialog>
     <div id="background">
       <div class="hpLineDiv">
         <div class="hpLine">
@@ -37,10 +48,12 @@
       </div>
     </div>
     <div id="skillContainer">
-      <div class="skill"></div>
-      <div class="skill"></div>
-      <div class="skill"></div>
-      <div class="skill"></div>
+      <div class="skill">
+        <image class="equippedSkillImage" src=""></image>
+      </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <script src="battlefield.js"></script>
   </body>
 </html>

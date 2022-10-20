@@ -169,7 +169,7 @@ for (let skillName of skillNames) {
           mudraChecklist = [];
 
           let mudra_list = skillList[skill].split("-");
-          //console.log(mudra_list);
+          console.log(mudra_list);
           mudraChecklist.push(...mudra_list);
 
           // for (let i = 0; i < mudra_list.length; i++) {
