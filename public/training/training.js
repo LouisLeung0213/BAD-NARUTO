@@ -30,8 +30,9 @@ let skill_introduction = document.querySelector("#introduction");
 let button = document.querySelector("#buttonDiv");
 let confirmBtn = document.querySelector("#confirmBtn");
 let practiceBtn = document.querySelector("#practiceBtn");
+let backToLobby = document.querySelector("#backLobby");
 let mudraList = document.querySelector(".mudraList");
-let damage = document.querySelector(".damage");
+
 let mudra = document.querySelector(".mudra");
 let mudraContainer = document.querySelector(".mudraContainer");
 
@@ -44,12 +45,14 @@ const camera = document.querySelector("#camera");
 let mudraList_clone = mudraList.cloneNode(true);
 let mudraContainer_clone = mudraContainer.cloneNode(true);
 let mudra_clone = mudra.cloneNode(true);
-let damage_clone = damage.cloneNode(true);
+
 let selected_skill_clone = selected_skill.cloneNode(true);
 let skill_introduction_clone = skill_introduction.cloneNode(false);
 let button_clone = button.cloneNode(false);
 let confirmBtn_clone = confirmBtn.cloneNode(true);
 let practiceBtn_clone = practiceBtn.cloneNode(true);
+let backToLobby_clone = backToLobby.cloneNode(true);
+
 let skillSet_clone = skillSet.cloneNode(true);
 
 selected_skill.remove();
@@ -59,7 +62,7 @@ mudraList.remove();
 mudra.remove();
 confirmBtn.remove();
 practiceBtn.remove();
-damage.remove();
+
 mudraContainer.remove();
 skillSet.remove();
 
@@ -67,6 +70,80 @@ if (typeof practiceDialog.showModal !== "function") {
   practiceDialog.hidden = true;
 }
 
+////////For AI
+const URL = "../tm-my-image-model_v2/";
+let model, webcam, maxPredictions;
+async function init() {
+  const modelURL = URL + "model.json";
+  const metadataURL = URL + "metadata.json";
+  model = await tmImage.load(modelURL, metadataURL);
+  maxPredictions = model.getTotalClasses();
+  // Convenience function to setup a webcam
+  const flip = true; // whether to flip the webcam
+  webcam = new tmImage.Webcam(800, 800, flip); // width, height, flip
+  await webcam.setup(); // request access to the webcam
+  await webcam.play();
+  window.requestAnimationFrame(loop);
+  // append elements to the DOM
+  document.getElementById("webcam-container").appendChild(webcam.canvas);
+}
+
+async function loop() {
+  webcam.update(); // update the webcam frame
+  await predict();
+  window.requestAnimationFrame(loop);
+}
+
+async function predict() {
+  // predict can take in an image, video or canvas html element
+  const prediction = await model.predict(webcam.canvas);
+  for (let i = 0; i < maxPredictions; i++) {
+    const classPrediction =
+      prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+  }
+  //console.log(mudraChecklist);
+  let len = mudraChecklist.length;
+  appendMudraImageDiv(mudraChecklist[0]);
+  while (len != mudraChecklist.length && mudraChecklist.length != 0) {
+    appendMudraImageDiv(mudraChecklist[0]);
+  }
+  if (mudraChecklist.length == 0) {
+    appendMudraImageDiv(9889);
+  }
+  prediction.map((word) => {
+    if (word.className == mudraChecklist[0] && word.probability > 0.9) {
+      mudraChecklist.shift();
+
+      /*  if (mudraChecklist.length > 0) {
+        console.log(`The check list is ${mudraChecklist} now`);
+      } else {
+        console.log(
+          `!!!!!!!!!!!!!!!!!!!!!!忍----術----發----動!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`
+        );
+      }*/
+    }
+  });
+}
+
+/////end or AI
+
+init();
+
+// async function mudraMatch(mudraChecklist) {
+//   console.log(`The check list is ${mudraChecklist} now`);
+//   prediction.map((word) => {
+//     if (word.className == mudra_list[0] && word.probability > 0.9) {
+//       mudra_list.shift();
+//       if (mudra_list.length > 0) {
+//         console.log(`The check list is ${mudra_list} now`);
+//       } else {
+//         console.log(`水遁_水亂波!`);
+//       }
+//     }
+//   });
+// }
+let mudraChecklist = [];
+//////
 for (let skillName of skillNames) {
   skillName.addEventListener("click", () => {
     //skill name tag
@@ -83,22 +160,21 @@ for (let skillName of skillNames) {
     mudra_clone.textContent = "";
     for (let skill in skillList) {
       if (skillName.id == skill) {
-        console.log(skillList[skill]);
+        //console.log(skillList[skill]);
         mudra_clone.textContent = skillList[skill];
         practiceBtn_clone.addEventListener("click", async () => {
           if (typeof practiceDialog.showModal === "function") {
             practiceDialog.style.display = "flex";
           }
+          mudraChecklist = [];
 
           let mudra_list = skillList[skill].split("-");
+          //console.log(mudra_list);
+          mudraChecklist.push(...mudra_list);
 
-          console.log(mudra_list);
-          for (let mudra of mudra_list) {
-            console.log(mudra);
-            skillCommand.innerHTML = `<img src="../mudra/${mudra}-removebg-preview.png"></img>`;
-          }
-
-          
+          // for (let i = 0; i < mudra_list.length; i++) {
+          //   appendMudraImageDiv(mudra_list[i]);
+          // }
         });
       }
     }
@@ -106,7 +182,21 @@ for (let skillName of skillNames) {
     panel.appendChild(button_clone);
     button_clone.appendChild(confirmBtn_clone);
     button_clone.appendChild(practiceBtn_clone);
+    button_clone.appendChild(backToLobby_clone);
+    backToLobby_clone.addEventListener("click", () => {
+      window.location = "../lobby/lobby.html";
+    });
   });
+}
+
+function appendMudraImageDiv(element) {
+  skillCommand.textContent = "";
+  let imageDiv = document.createElement("div");
+  skillCommand.appendChild(imageDiv);
+  imageDiv.classList.add("mudraImage");
+  //console.log(mudraChecklist[0]);
+
+  imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`;
 }
 
 dialogClose.addEventListener("click", () => {

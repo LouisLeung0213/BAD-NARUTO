@@ -122,7 +122,7 @@ body {
 }
 
 .mudraList {
-  width: 100%;
+  width: 80%;
   height: 70%;
   padding: 8%;
   font-size: 3rem;
@@ -199,12 +199,42 @@ body {
 
 #camera {
   width: 60%;
-  height: 80%;
-  background-color: rgb(87, 25, 95);
+  height: 60%;
 }
 
 #skillCommandContainer {
   width: 35%;
   height: 80%;
-  background-color: aqua;
+  background-color: rgba(171, 134, 215, 0.873);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#skillCommand {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mudraImage {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageOfmudra {
+  width: 100%;
+  height: 80%;
+}
+
+#dialogClose {
+  width: 5rem;
+  height: 3rem;
+  border-radius: 30px;
 }

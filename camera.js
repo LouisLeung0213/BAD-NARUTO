@@ -23,7 +23,7 @@ let mudra = {
 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
 // the link to your model provided by Teachable Machine export panel
-const URL = "/tm-my-image-model/";
+const URL = "/ai-model/tm-my-image-model_v2/";
 
 let model, webcam, labelContainer, maxPredictions;
 
@@ -84,25 +84,7 @@ async function predict() {
       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
     labelContainer.childNodes[i].innerHTML = classPrediction;
   }
-  //console.log(prediction);
-  // label1: for (let check = 0; check < checklist.length; check++) {
-  //   let targetItem = checklist[check];
-  //   //console.log(targetItem);
-  //   let maxItem;
-  //   let max = 0.8;
-  //   label2: for (let i = 0; i < prediction.length; i++) {
-  //     if (prediction[i].probability > max) {
-  //       maxItem = prediction[i].className;
-  //     }
-  //     //console.log(maxItem);
-  //     if (maxItem == targetItem) {
-  //       //console.log("123");
-  //       continue label1;
-  //     } else {
-  //       continue label2;
-  //     }
-  //   }
-  // }
+
   // console.log(`The check list is ${checklist} now`);
   prediction.map((word) => {
     if (word.className == checklist[0] && word.probability > 0.9) {
@@ -119,5 +101,5 @@ async function predict() {
   //   console.log("You did the right mudra");
   // }
 }
-
+init();
 init();
