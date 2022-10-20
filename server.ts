@@ -14,7 +14,7 @@ import { ChatroomController } from "./chatroom.controller";
 const app = express();
 
 app.use(express.static("public"));
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(sessionMiddleware);
 
