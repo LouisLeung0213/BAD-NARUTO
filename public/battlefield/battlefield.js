@@ -5,10 +5,10 @@ const dialogClose = practiceDialog.querySelector("#dialogClose");
 const skillCommand = document.querySelector("#skillCommand");
 
 let skillList = {
-  1: { name: "", mudra: [] },
-  2: { name: "", mudra: [] },
-  3: { name: "", mudra: [] },
-  4: { name: "", mudra: [] },
+  skill1: { name: "", mudra: [] },
+  skill2: { name: "", mudra: [] },
+  skill3: { name: "", mudra: [] },
+  skill4: { name: "", mudra: [] },
 };
 
 let mudraChecklist = [];
@@ -21,7 +21,7 @@ async function showSkills() {
   skill.remove();
   let z = 1;
   for (let userSkill of userSkills) {
-    skillList[z].name = userSkill.skill_name;
+    skillList[`skill${z}`].name = userSkill.skill_name;
     console.log(userSkill.skill_image);
     let node = skill.cloneNode(true);
     node.classList.add("type" + userSkill.skill_type);
@@ -32,58 +32,76 @@ async function showSkills() {
     for (var i = 0; i < userSkill.skill_pattern.length; i++) {
       switch (userSkill.skill_pattern[i]) {
         case "0":
-          skillList[z].mudra.push("子");
+          skillList[`skill${z}`].mudra.push("子");
           break;
         case "1":
-          skillList[z].mudra.push("丑");
+          skillList[`skill${z}`].mudra.push("丑");
           break;
         case "2":
-          skillList[z].mudra.push("寅");
+          skillList[`skill${z}`].mudra.push("寅");
           break;
         case "3":
-          skillList[z].mudra.push("卯");
+          skillList[`skill${z}`].mudra.push("卯");
           break;
         case "4":
-          skillList[z].mudra.push("辰");
+          skillList[`skill${z}`].mudra.push("辰");
           break;
         case "5":
-          skillList[z].mudra.push("巳");
+          skillList[`skill${z}`].mudra.push("巳");
           break;
         case "6":
-          skillList[z].mudra.push("午");
+          skillList[`skill${z}`].mudra.push("午");
           break;
         case "7":
-          skillList[z].mudra.push("未");
+          skillList[`skill${z}`].mudra.push("未");
           break;
         case "8":
-          skillList[z].mudra.push("申");
+          skillList[`skill${z}`].mudra.push("申");
           break;
         case "9":
-          skillList[z].mudra.push("酉");
+          skillList[`skill${z}`].mudra.push("酉");
           break;
         case "a":
-          skillList[z].mudra.push("戌");
+          skillList[`skill${z}`].mudra.push("戌");
           break;
         case "b":
-          skillList[z].mudra.push("亥");
+          skillList[`skill${z}`].mudra.push("亥");
           break;
         case "c":
-          skillList[z].mudra.push("壬");
+          skillList[`skill${z}`].mudra.push("壬");
           break;
       }
     }
     node.addEventListener("click", (event) => {
-      console.log(event);
+      console.log(userSkill.skill_name);
       if (typeof practiceDialog.showModal === "function") {
         practiceDialog.style.display = "flex";
       }
+      // let count = 0;
+      // let stopper = false;
       mudraChecklist = [];
-      for (let skills in skillList) {
-        for (let skill in skillList[skills]) {
-          mudraChecklist.push(...skillList[skills].mudra);
+      // while (stopper == false) {
+      for (let skill in skillList) {
+        console.log(
+          "skill.name: ",
+          skillList[skill].name,
+          "userSkill.skill_name: ",
+          userSkill.skill_name
+        );
+        if (userSkill.skill_name == skillList[skill].name) {
+          console.log("THE SAME!!");
+          for (let mudra of skillList[skill].mudra) {
+            mudraChecklist.push(mudra);
+            console.log("mudraChecklist: ", mudraChecklist);
+          }
+          // mudraChecklist.push(...skillList[`skill${z}`].mudra);
         }
+        // count++;
+        // if (count == skillList[skills].mudra.length) {
+        //   stopper = true;
+        // }
       }
-      console.log(mudraChecklist);
+      // }
     });
     z++;
   }
