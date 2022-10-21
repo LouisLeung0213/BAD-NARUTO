@@ -34,6 +34,7 @@ export async function up(knex: Knex): Promise<void> {
       table.integer("level").notNullable();
       table.integer("hp").notNullable();
       table.integer("exp").notNullable().defaultTo(0);
+      table.string("character_image").notNullable();
       table.boolean("is_player").notNullable();
     });
   }
@@ -79,6 +80,7 @@ export async function up(knex: Knex): Promise<void> {
       table.integer("skill_damage").notNullable();
       table.string("skill_pattern").notNullable();
       table.string("skill_image").notNullable();
+      table.string("skill_animation_pic").notNullable();
     });
   }
 

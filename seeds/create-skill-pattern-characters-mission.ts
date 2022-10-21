@@ -50,6 +50,7 @@ export async function seed(knex: Knex): Promise<void> {
             skill_damage: 30,
             skill_pattern: skillList[skill].mudra,
             skill_image: skillList[skill].image,
+            skill_animation_pic: `../skills_image/${name_of_skill}.png`,
           },
         ])
         .into("skills");
@@ -57,11 +58,46 @@ export async function seed(knex: Knex): Promise<void> {
 
     let character = await txn("characters")
       .insert([
-        { name: "kidSasuke", level: 1, hp: 100, exp: 0, is_player: false },
-        { name: "orochimaru", level: 2, hp: 150, exp: 0, is_player: false },
-        { name: "pain", level: 3, hp: 200, exp: 0, is_player: false },
-        { name: "Madara", level: 4, hp: 300, exp: 0, is_player: false },
-        { name: "adultSasuke", level: 5, hp: 400, exp: 0, is_player: false },
+        {
+          name: "kidSasuke",
+          level: 1,
+          hp: 100,
+          exp: 0,
+          is_player: false,
+          character_image: "../character_image/youngSasuke.png",
+        },
+        {
+          name: "orochimaru",
+          level: 2,
+          hp: 150,
+          exp: 0,
+          is_player: false,
+          character_image: "../character_image/snake3.png",
+        },
+        {
+          name: "pain",
+          level: 3,
+          hp: 200,
+          exp: 0,
+          is_player: false,
+          character_image: "../character_image/pain.png",
+        },
+        {
+          name: "Madara",
+          level: 4,
+          hp: 300,
+          exp: 0,
+          is_player: false,
+          character_image: "../character_image/ben.png",
+        },
+        {
+          name: "adultSasuke",
+          level: 5,
+          hp: 400,
+          exp: 0,
+          is_player: false,
+          character_image: "../character_image/BossSasuke.png",
+        },
       ])
       .returning(["id"]);
     console.log(character[0].id);
