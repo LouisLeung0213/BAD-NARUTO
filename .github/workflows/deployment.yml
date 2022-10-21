@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -name: ssh to pull latest version
-      uses: fifsky/ssh-action@master
-      with:
-        command: |
-          cd BAD-NARUTO/
-          git pull
-          npm install
-          yarn knex migrate:latest 
-          forever restart 0
-        host: www.aininja.games
-        user: ubuntu
-        key: ${{secrets.SSH_PRIVATE_KEY}}
+       uses: fifsky/ssh-action@master
+       with:
+         command: |
+           cd BAD-NARUTO/
+           git pull
+           npm install
+           yarn knex migrate:latest 
+           forever restart 0
+         host: www.aininja.games
+         user: ubuntu
+         key: ${{secrets.SSH_PRIVATE_KEY}}
