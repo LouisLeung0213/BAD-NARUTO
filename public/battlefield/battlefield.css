@@ -146,22 +146,24 @@ body {
 }
 
 .player2character {
-  position: absolute;
-  right: 12rem;
-  width: 20%;
-  height: 45%;
+  /* position: absolute;
+  right: 12rem; */
+  padding-top: 3%;
+  width: 15%;
+  height: 95%;
   /* object-fit: contain; */
   /* background-color: aliceblue; */
-  background-image: url(../image/Sasuke-removebg-preview.png);
+  background-image: url();
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
 .player1character {
-  position: absolute;
-  left: 12rem;
-  width: 20%;
-  height: 45%;
+  /* position: absolute;
+  left: 12rem; */
+  padding-top: 6%;
+  width: 15%;
+  height: 80%;
   /* object-fit: contain; */
   /* background-color: aliceblue; */
   background-image: url(../image/naruto.png);

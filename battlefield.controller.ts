@@ -10,6 +10,7 @@ export class BattlefieldController extends RestfulController {
     this.router.get("/showSkills", this.showSkills);
     this.router.get("/getMission", this.getMission);
     this.router.get("/npcSkills", this.npcSkills);
+    this.router.get("/getPlayerModal", this.getPlayer);
   }
 
   showSkills = async (req: Request, res: Response) => {
@@ -64,6 +65,22 @@ export class BattlefieldController extends RestfulController {
       }
       let missionID = +req.query.missionId;
       let json = await this.battlefieldService.npcSkills(missionID);
+      res.json(json);
+    } catch (error) {
+      console.log(error);
+      res.status(500);
+      return;
+    }
+  };
+
+  getPlayer = async (req: Request, res: Response) => {
+    try {
+      if (!req.session.user) {
+        throw new HTTPError(401, "Please login first");
+      }
+
+      let id = req.session.user?.id;
+      let json = await this.battlefieldService.getPlayer(id);
       res.json(json);
     } catch (error) {
       console.log(error);

@@ -62,4 +62,13 @@ export class BattlefieldService {
 
     return npc_skills;
   }
+
+  async getPlayer(id: number): Promise<Array<object>> {
+    let player = await this.knex
+      .select("*")
+      .from("characters")
+      .where("user_id", id);
+
+    return player;
+  }
 }

@@ -4,6 +4,7 @@ const practiceDialog = document.querySelector("#practiceDialog");
 const dialogClose = practiceDialog.querySelector("#dialogClose");
 const skillCommand = document.querySelector("#skillCommand");
 let background = document.querySelector("#background");
+let playerImage = document.querySelector(".player2character");
 let params = new URL(document.location).searchParams;
 missionId = params.get("missionId");
 // let missionId;
@@ -122,17 +123,36 @@ async function showSkills() {
   }
 }
 
-async function npcSkills() {
+async function npcModal() {
   console.log("here");
   let res = await fetch(`/npcSkills?missionId=${missionId}`);
-  let npcSkills = await res.json();
+  let npc = await res.json();
 
-  console.log("NPC:", npcSkills);
+  console.log("NPC:", npc);
+
+  playerImage.style.backgroundImage = `url(${npc[0].character_image})`;
+
+  // function npcAttack() {
+  //   let npcSkill = npc.skill_name;
+  //   let npcDamage = npc.skill_damage;
+  //   let npcHp = npc.hp;
+  //   let skill_animation_pic;
+  // }
+
+  // npcAttack();
+}
+
+async function playerModal() {
+  let res = await fetch(`/getPlayerModal`);
+  let player = await res.json();
+
+  console.log("player: ", player);
 }
 
 showSkills();
 getMission();
-npcSkills();
+playerModal();
+npcModal();
 
 console.log(skillList);
 
