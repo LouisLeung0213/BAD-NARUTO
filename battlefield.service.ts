@@ -36,9 +36,11 @@ export class BattlefieldService {
     return missionDetail[0];
   }
 
-  async npcSkills(): Promise<Array<object>> {
+  async npcSkills(missionId: number): Promise<Array<object>> {
     let npc_skills = await this.knex
       .select(
+        "missions.id",
+        "npc_id",
         "characters.id",
         "hp",
         "exp",
@@ -51,10 +53,12 @@ export class BattlefieldService {
         "skill_animation_pic",
         "skill_damage"
       )
-      .from("characters")
+      .from("missions")
+      .join("characters", "characters.id", "npc_id")
       .join("characters_skills_relationships", "characters.id", "character_id")
       .join("skills", "skill_id", "skills.id")
-      .where("is_player", false);
+      .where("is_player", false)
+      .andWhere("missions.id", missionId);
 
     return npc_skills;
   }

@@ -59,7 +59,11 @@ export class BattlefieldController extends RestfulController {
 
   npcSkills = async (req: Request, res: Response) => {
     try {
-      let json = await this.battlefieldService.npcSkills();
+      if (!req.query.missionId) {
+        throw new HTTPError(404, "mission not found");
+      }
+      let missionID = +req.query.missionId;
+      let json = await this.battlefieldService.npcSkills(missionID);
       res.json(json);
     } catch (error) {
       console.log(error);

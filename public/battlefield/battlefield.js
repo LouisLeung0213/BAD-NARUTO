@@ -124,7 +124,7 @@ async function showSkills() {
 
 async function npcSkills() {
   console.log("here");
-  let res = await fetch("/npcSkills");
+  let res = await fetch(`/npcSkills?missionId=${missionId}`);
   let npcSkills = await res.json();
 
   console.log("NPC:", npcSkills);
