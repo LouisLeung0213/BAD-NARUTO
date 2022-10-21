@@ -1,6 +1,7 @@
 let postWall = document.querySelector(".post");
 let postForm = document.querySelector("#postForm");
 let postWallContainer = document.querySelector(".postWall");
+let returnBtn = document.querySelector(".back");
 
 async function getPost() {
   let res = await fetch("/getPost");
@@ -37,13 +38,20 @@ postForm.addEventListener("submit", async (event) => {
       content: postForm.postContent.value,
     }),
   });
-
+  await res.json();
   if (!res.ok) {
     if (res.status == 401) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Please login first",
+      });
+    }
+    if (res.status == 404) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You did not type anything",
       });
     }
   } else {
@@ -55,4 +63,8 @@ postForm.addEventListener("submit", async (event) => {
       if (result.isConfirmed) window.location.reload();
     });
   }
+});
+
+returnBtn.addEventListener("click", () => {
+  window.location = "../lobby/lobby.html";
 });

@@ -4,6 +4,7 @@ let training = document.querySelector(".trainingLogo");
 let pvp = document.querySelector(".pvpLogo");
 let ninjaDia = document.querySelector("#ninjaDia");
 let leave = document.querySelector(".leave");
+let missionBtns = document.querySelectorAll(".missionBtn");
 
 let naruto = document.querySelector("#naruto");
 let sasuke = document.querySelector("#sasuke");
@@ -63,3 +64,10 @@ function toChat() {
 leave.addEventListener("click", (event) => {
   ninjaDia.style.display = "none";
 });
+
+for (let missionBtn of missionBtns) {
+  missionBtn.addEventListener("click", async (event) => {
+    let missionId = event.path[1].querySelector(".missionId").textContent;
+    window.location = `../battlefield/battlefield.html?missionId=${missionId}`;
+  });
+}

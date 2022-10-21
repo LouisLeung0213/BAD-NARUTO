@@ -44,6 +44,7 @@ export async function up(knex: Knex): Promise<void> {
       table.string("mission_name").notNullable();
       table.integer("mission_reward").notNullable();
       table.integer("npc_id").unsigned().references("characters.id");
+      table.string("mission_background").notNullable();
     });
   }
 

@@ -5,7 +5,7 @@ body {
 #background {
   width: 100vw;
   height: 77vh;
-  background-image: url(../image/start\ game.jpg);
+  background-image: url();
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -111,6 +111,7 @@ body {
   background-repeat: repeat;
   background-size: 100% 100%;
   padding: 0%;
+  display: none;
 }
 
 .backdrop2 {

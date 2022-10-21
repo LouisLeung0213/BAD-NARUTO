@@ -3,6 +3,11 @@ let skill = document.querySelector(".skill");
 const practiceDialog = document.querySelector("#practiceDialog");
 const dialogClose = practiceDialog.querySelector("#dialogClose");
 const skillCommand = document.querySelector("#skillCommand");
+let background = document.querySelector("#background");
+let params = new URL(document.location).searchParams;
+missionId = params.get("missionId");
+// let missionId;
+// background.style.backgroundImage = `url(../image/missionbg2.jpeg)`;
 
 let skillList = {
   skill1: { name: "", mudra: [] },
@@ -12,6 +17,16 @@ let skillList = {
 };
 
 let mudraChecklist = [];
+
+// window.onload = () => {};
+
+async function getMission() {
+  let res = await fetch(`/getMission?missionId=${missionId}`);
+  let missionDetail = await res.json();
+
+  background.style.backgroundImage = `url(${missionDetail.mission_background})`;
+  console.log("missionDetail:", missionDetail);
+}
 
 async function showSkills() {
   let res = await fetch("/showSkills");
@@ -108,6 +123,7 @@ async function showSkills() {
 }
 
 showSkills();
+getMission();
 
 console.log(skillList);
 
@@ -116,11 +132,11 @@ dialogClose.addEventListener("click", () => {
 });
 
 // AI
-const URL = "../tm-my-image-model_v2/";
+const url = "../tm-my-image-model_v2/";
 let model, webcam, maxPredictions;
 async function init() {
-  const modelURL = URL + "model.json";
-  const metadataURL = URL + "metadata.json";
+  const modelURL = url + "model.json";
+  const metadataURL = url + "metadata.json";
   model = await tmImage.load(modelURL, metadataURL);
   maxPredictions = model.getTotalClasses();
   // Convenience function to setup a webcam
