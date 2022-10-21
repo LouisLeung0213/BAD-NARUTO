@@ -39,7 +39,7 @@ export class BattlefieldController extends RestfulController {
         throw new HTTPError(404, "mission not found");
       }
       let missionID = +req.query.missionId;
-      console.log(missionID);
+      console.log("mission id: ", missionID);
       let json = await this.battlefieldService.getMission(missionID);
       res.json(json);
     } catch (error) {

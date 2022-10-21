@@ -58,3 +58,11 @@ body {
   animation: bounce;
   animation-duration: 4s;
 }
+
+.signupBtn {
+  margin-top: 2rem;
+  padding: 1rem;
+  width: 8rem;
+  border-radius: 30px;
+  margin-left: 1rem;
+}
