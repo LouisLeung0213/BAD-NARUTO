@@ -18,6 +18,6 @@ jobs:
             npm install
             yarn knex migrate:latest
             forever restart 0
-          host: www.aininja.games
+          host: aininja.games
           user: ubuntu
           key: ${{secrets.SSH_PRIVATE_KEY}}
