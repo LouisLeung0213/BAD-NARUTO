@@ -1,0 +1,23 @@
+name: deployment
+on:
+  push:
+    branches:
+      - "*"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ssh to pull latest version
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd BAD-NARUTO/
+            git pull
+            npm install
+            yarn knex migrate:latest
+            forever restart 0
+          host: 13.112.153.42
+          user: ubuntu
+          key: ${{secrets.SSH_PRIVATE_KEY}}
