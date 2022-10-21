@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      -name: ssh to pull latest version
+    - name: ssh to pull latest version
         uses: fifsky/ssh-action@master
         with:
           command: |
