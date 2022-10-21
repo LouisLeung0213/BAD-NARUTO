@@ -32,7 +32,7 @@ async function showSkills() {
   let res = await fetch("/showSkills");
   let userSkills = await res.json();
 
-  console.log(userSkills);
+  console.log("userSkills:", userSkills);
   skill.remove();
   let z = 1;
   for (let userSkill of userSkills) {
@@ -122,8 +122,17 @@ async function showSkills() {
   }
 }
 
+async function npcSkills() {
+  console.log("here");
+  let res = await fetch("/npcSkills");
+  let npcSkills = await res.json();
+
+  console.log("NPC:", npcSkills);
+}
+
 showSkills();
 getMission();
+npcSkills();
 
 console.log(skillList);
 

@@ -13,12 +13,16 @@ export class BattlefieldService {
         "skill_type",
         "skill_pattern",
         "skill_name",
-        "user_id"
+        "user_id",
+        "is_player",
+        "skill_animation_pic",
+        "skill_damage"
       )
       .from("characters_skills_relationships")
       .join("skills", "skill_id", "skills.id")
       .join("characters", "character_id", "characters.id")
       .where("user_id", id);
+
     console.log("showSkill:", result);
     return result;
   }
@@ -30,5 +34,28 @@ export class BattlefieldService {
       .where("id", missionID);
     console.log("missionDetail:", missionDetail);
     return missionDetail[0];
+  }
+
+  async npcSkills(): Promise<Array<object>> {
+    let npc_skills = await this.knex
+      .select(
+        "characters.id",
+        "hp",
+        "exp",
+        "is_player",
+        "character_image",
+        "level",
+        "name",
+        "skill_id",
+        "skill_name",
+        "skill_animation_pic",
+        "skill_damage"
+      )
+      .from("characters")
+      .join("characters_skills_relationships", "characters.id", "character_id")
+      .join("skills", "skill_id", "skills.id")
+      .where("is_player", false);
+
+    return npc_skills;
   }
 }

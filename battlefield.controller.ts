@@ -9,6 +9,7 @@ export class BattlefieldController extends RestfulController {
     super();
     this.router.get("/showSkills", this.showSkills);
     this.router.get("/getMission", this.getMission);
+    this.router.get("/npcSkills", this.npcSkills);
   }
 
   showSkills = async (req: Request, res: Response) => {
@@ -53,6 +54,17 @@ export class BattlefieldController extends RestfulController {
         res.status(500);
         return;
       }
+    }
+  };
+
+  npcSkills = async (req: Request, res: Response) => {
+    try {
+      let json = await this.battlefieldService.npcSkills();
+      res.json(json);
+    } catch (error) {
+      console.log(error);
+      res.status(500);
+      return;
     }
   };
 }

@@ -27,6 +27,8 @@ export async function seed(knex: Knex): Promise<void> {
       console.log(type.id);
     }
 
+    let skill_id_array: Array<object> = [];
+
     for (let skill in skillList) {
       console.log(skill);
       let type_of_skill_array = skill.split("_");
@@ -42,7 +44,7 @@ export async function seed(knex: Knex): Promise<void> {
 
       console.log(type_id);
 
-      await txn
+      let skill_id = await txn
         .insert([
           {
             skill_type: type_id,
@@ -53,7 +55,10 @@ export async function seed(knex: Knex): Promise<void> {
             skill_animation_pic: `../skills_image/${name_of_skill}.png`,
           },
         ])
-        .into("skills");
+        .into("skills")
+        .returning("id");
+
+      skill_id_array.push(skill_id[0].id);
     }
 
     let character = await txn("characters")
@@ -136,7 +141,16 @@ export async function seed(knex: Knex): Promise<void> {
         },
       ])
       .returning(["id"]);
-    console.log(mission);
+    // console.log(mission);
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!", skill_id_array[1]);
+
+    let npc_skills = await txn("characters_skills_relationships").insert([
+      { character_id: character[0].id, skill_id: skill_id_array[11] },
+      { character_id: character[1].id, skill_id: skill_id_array[1] },
+      { character_id: character[2].id, skill_id: skill_id_array[3] },
+      { character_id: character[3].id, skill_id: skill_id_array[15] },
+      { character_id: character[4].id, skill_id: skill_id_array[0] },
+    ]);
 
     await txn.commit();
     return;
