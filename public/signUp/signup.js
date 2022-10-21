@@ -4,6 +4,7 @@ let userNickname = document.querySelector("[name=nickname]");
 let userPassword = document.querySelector("[name=password]");
 let userEmail = document.querySelector("[name=email]");
 let signUpForm = document.querySelector("#signUpForm");
+let backBtn = document.querySelector(".backBtn");
 
 signUpForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -58,6 +59,10 @@ signUpForm.addEventListener("submit", async (event) => {
       if (result.isConfirmed) window.location = "../cutscenes/cutscenes.html";
     });
   }
+});
+
+backBtn.addEventListener("click", () => {
+  window.location = "../login/login.html";
 });
 // function getLocalStream() {
 //   navigator.mediaDevices
