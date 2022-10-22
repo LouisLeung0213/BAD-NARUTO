@@ -36,6 +36,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  padding-left: 0.5%;
 }
 
 .skillDiv {
@@ -87,7 +88,7 @@ body {
 }
 
 .element {
-  width: 15%;
+  width: 19%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -237,4 +238,10 @@ body {
   width: 5rem;
   height: 3rem;
   border-radius: 30px;
+}
+
+#webcam-container {
+  width: 60%;
+  display: flex;
+  justify-content: center;
 }

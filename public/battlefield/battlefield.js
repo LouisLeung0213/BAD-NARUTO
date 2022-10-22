@@ -5,6 +5,13 @@ const dialogClose = practiceDialog.querySelector("#dialogClose");
 const skillCommand = document.querySelector("#skillCommand");
 let background = document.querySelector("#background");
 let playerImage = document.querySelector(".player2character");
+
+let backBtn = document.querySelector("#backBtn");
+
+backBtn.addEventListener("click", () => {
+  window.location = "../lobby/lobby.html";
+});
+
 let params = new URL(document.location).searchParams;
 missionId = params.get("missionId");
 // let missionId;
@@ -170,7 +177,7 @@ async function init() {
   maxPredictions = model.getTotalClasses();
   // Convenience function to setup a webcam
   const flip = true; // whether to flip the webcam
-  webcam = new tmImage.Webcam(800, 800, flip); // width, height, flip
+  webcam = new tmImage.Webcam(500, 500, flip); // width, height, flip
   await webcam.setup(); // request access to the webcam
   await webcam.play();
   window.requestAnimationFrame(loop);
