@@ -5,8 +5,10 @@ const dialogClose = practiceDialog.querySelector("#dialogClose");
 const skillCommand = document.querySelector("#skillCommand");
 let background = document.querySelector("#background");
 let playerImage = document.querySelector(".player2character");
-
+let characterContainer = document.querySelector(".characterContainer");
 let backBtn = document.querySelector("#backBtn");
+let player1 = document.querySelector(".player1character");
+let player2 = document.querySelector(".player2character");
 
 backBtn.addEventListener("click", () => {
   window.location = "../lobby/lobby.html";
@@ -129,9 +131,15 @@ async function showSkills() {
     z++;
   }
 }
+///for battle logic
 
+let npcSkill;
+let npcDamage;
+let npcHp;
+let npc_skill_pic;
+let npc_id;
+let playerHp = 100;
 async function npcModal() {
-  console.log("here");
   let res = await fetch(`/npcSkills?missionId=${missionId}`);
   let npc = await res.json();
 
@@ -139,14 +147,34 @@ async function npcModal() {
 
   playerImage.style.backgroundImage = `url(${npc[0].character_image})`;
 
-  // function npcAttack() {
-  //   let npcSkill = npc.skill_name;
-  //   let npcDamage = npc.skill_damage;
-  //   let npcHp = npc.hp;
-  //   let skill_animation_pic;
-  // }
+  npcSkill = npc[0].skill_name;
+  npcDamage = npc[0].skill_damage;
+  npcHp = npc[0].hp;
+  npc_skill_pic = npc[0].skill_animation_pic;
+  npc_id = npc[0].skill_id;
+  //console.log("halo:", npcSkill, npcDamage);
 
-  // npcAttack();
+  function npcAttack() {
+    let skillMotion = document.createElement("div");
+
+    characterContainer.insertBefore(skillMotion, player2);
+    skillMotion.classList.add("player2_skillMotion");
+
+    setTimeout(() => {
+      skillMotion.remove();
+    }, 1000);
+    console.log("play hp left!!!: ", playerHp);
+    if (playerHp != 0 && playerHp > 0) {
+      playerHp -= 30;
+    } else if (playerHp <= 0) {
+      clearInterval(attackLoop);
+      console.log("!!!!!!!!!!!!!!!!!!!!Player is dead!!!!!!!!!!!!!!!!!!!!!!!");
+    }
+  }
+
+  let attackLoop = setInterval(() => {
+    npcAttack();
+  }, 1000);
 }
 
 async function playerModal() {
@@ -163,10 +191,12 @@ npcModal();
 
 console.log(skillList);
 
+///for player 出招
 dialogClose.addEventListener("click", () => {
   practiceDialog.style.display = "none";
 });
 
+////////////////////////////////////////////////////////////////
 // AI
 const url = "../tm-my-image-model_v2/";
 let model, webcam, maxPredictions;
@@ -185,7 +215,7 @@ async function init() {
   document.getElementById("webcam-container").appendChild(webcam.canvas);
 }
 
-init();
+// init();
 
 async function loop() {
   webcam.update(); // update the webcam frame

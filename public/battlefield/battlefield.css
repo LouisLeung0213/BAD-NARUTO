@@ -85,8 +85,8 @@ body {
 }
 
 .equippedSkillImage {
-  width: 23rem;
-  height: 9rem;
+  width: 100%;
+  height: 175%;
 }
 
 .type1 {
@@ -191,9 +191,9 @@ body {
   /* position: absolute;
   left: 12rem; */
   padding-top: 6%;
-  width: 13%;
+  width: 14%;
   height: 80%;
-  margin-left: 7rem;
+  margin-left: 10%;
   /* object-fit: contain; */
   /* background-color: aliceblue; */
   background-image: url(../image/naruto.png);
@@ -217,3 +217,42 @@ body {
   display: flex;
   justify-content: center;
 }
+
+/* for player skill motion */
+.player2_skillMotion {
+  width: 15%;
+  height: 90%;
+  background-image: url(../skills_image/大火球之術.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition: transform 1s ease-out;
+  animation: right-to-left 1s ease-in;
+}
+
+@keyframes right-to-left {
+  0% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
+}
+
+/* .player1_skillMotion {
+  width: 15%;
+  height: 90%;
+  background-image: url(../skills_image/大火球之術.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition: transform 1s ease-out;
+  animation: left-to-right 1s ease-in;
+}
+
+@keyframes left-to-right {
+  0% {
+    transform: translateX(-170%);
+  }
+  100% {
+    transform: translateX(160%);
+  }
+} */
