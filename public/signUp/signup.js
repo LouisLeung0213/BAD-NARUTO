@@ -56,7 +56,7 @@ signUpForm.addEventListener("submit", async (event) => {
       title: `Welcome, ninja`,
       showConfirmButton: true,
     }).then((result) => {
-      if (result.isConfirmed) window.location = "../cutscenes/cutscenes.html";
+      if (result.isConfirmed) window.location = "../demo_page/demo.html";
     });
   }
 });
