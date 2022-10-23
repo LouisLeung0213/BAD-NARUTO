@@ -53,7 +53,7 @@ body {
   background-color: #abcfdba1;
   border-radius: 10px;
 }
-
+/* 
 .p1Hp {
   height: 1rem;
   width: 1rem;
@@ -68,7 +68,7 @@ body {
   background-color: red;
   margin-left: 0.4rem;
   border-radius: 5px;
-}
+} */
 
 .blood {
   width: 1.25rem;
@@ -120,6 +120,7 @@ body {
 }
 
 #practiceDialog {
+  z-index: 1;
   width: 85vw;
   height: 85vh;
   background-image: url(../image/battle.jpeg);
@@ -220,9 +221,10 @@ body {
 
 /* for player skill motion */
 .player2_skillMotion {
+  z-index: 0;
   width: 15%;
   height: 90%;
-  background-image: url(../skills_image/大火球之術.png);
+  background-image: url();
   background-size: 100% 100%;
   background-repeat: no-repeat;
   transition: transform 1s ease-out;
@@ -238,10 +240,11 @@ body {
   }
 }
 
-/* .player1_skillMotion {
+.player1_skillMotion {
+  z-index: 0;
   width: 15%;
   height: 90%;
-  background-image: url(../skills_image/大火球之術.png);
+  background-image: url();
   background-size: 100% 100%;
   background-repeat: no-repeat;
   transition: transform 1s ease-out;
@@ -250,9 +253,9 @@ body {
 
 @keyframes left-to-right {
   0% {
-    transform: translateX(-170%);
+    transform: translateX(-150%);
   }
   100% {
-    transform: translateX(160%);
+    transform: translateX(150%);
   }
-} */
+}
