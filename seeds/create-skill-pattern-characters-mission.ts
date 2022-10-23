@@ -101,7 +101,7 @@ export async function seed(knex: Knex): Promise<void> {
           hp: 400,
           exp: 0,
           is_player: false,
-          character_image: "../character_image/BossSasuke.png",
+          character_image: "../character_image/bossSasuke.png",
         },
       ])
       .returning(["id"]);

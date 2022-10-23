@@ -4,7 +4,6 @@ const practiceDialog = document.querySelector("#practiceDialog");
 const dialogClose = practiceDialog.querySelector("#dialogClose");
 const skillCommand = document.querySelector("#skillCommand");
 let background = document.querySelector("#background");
-let playerImage = document.querySelector(".player2character");
 let characterContainer = document.querySelector(".characterContainer");
 let backBtn = document.querySelector("#backBtn");
 let player1 = document.querySelector(".player1character");
@@ -133,25 +132,25 @@ async function showSkills() {
 }
 ///for battle logic
 
-let npcSkill;
-let npcDamage;
-let npcHp;
-let npc_skill_pic;
-let npc_id;
-let playerHp = 100;
 async function npcModal() {
   let res = await fetch(`/npcSkills?missionId=${missionId}`);
   let npc = await res.json();
 
+  let playerRes = await fetch(`/getPlayerModal`);
+  let player = await playerRes.json();
+
   console.log("NPC:", npc);
+  console.log("player", player);
 
-  playerImage.style.backgroundImage = `url(${npc[0].character_image})`;
+  let playerHp = player[0].hp;
 
-  npcSkill = npc[0].skill_name;
-  npcDamage = npc[0].skill_damage;
-  npcHp = npc[0].hp;
-  npc_skill_pic = npc[0].skill_animation_pic;
-  npc_id = npc[0].skill_id;
+  player2.style.backgroundImage = `url(${npc[0].character_image})`;
+
+  let npcSkill = npc[0].skill_name;
+  let npcDamage = npc[0].skill_damage;
+  let npcHp = npc[0].hp;
+  let npc_skill_pic = npc[0].skill_animation_pic;
+  let npc_id = npc[0].skill_id;
   //console.log("halo:", npcSkill, npcDamage);
 
   function npcAttack() {
@@ -177,16 +176,16 @@ async function npcModal() {
   }, 1000);
 }
 
-async function playerModal() {
-  let res = await fetch(`/getPlayerModal`);
-  let player = await res.json();
+// async function playerModal() {
+//   let res = await fetch(`/getPlayerModal`);
+//   let player = await res.json();
 
-  console.log("player: ", player);
-}
+//   console.log("player: ", player);
+// }
 
 showSkills();
 getMission();
-playerModal();
+// playerModal();
 npcModal();
 
 console.log(skillList);
