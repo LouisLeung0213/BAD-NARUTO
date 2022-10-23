@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 // import { stringify } from "querystring";
 // import { textChangeRangeIsUnchanged } from "typescript";
-import { HTTPError } from "./error";
+import { HTTPError, handleError } from "./error";
 import { hashPassword } from "./hash";
 import { RestfulController } from "./restful.controller";
 import { UserService } from "./user.service";
@@ -13,6 +13,7 @@ export class UserController extends RestfulController {
     this.router.post("/login", this.login);
     this.router.post("/signup", this.signup);
     this.router.get("/isNewBie", this.isNewBie);
+    this.router.get("/logout", this.logout);
   }
 
   login = async (req: Request, res: Response) => {
@@ -113,6 +114,21 @@ export class UserController extends RestfulController {
       console.log(error);
       res.status(500);
       return;
+    }
+  };
+  logout = async (req: Request, res: Response) => {
+    try {
+      req.session?.destroy((err) => {
+        if (err) {
+          handleError(res, err);
+          return;
+        }
+        // res.redirect(303, "../login/login.html");
+        res.status(303);
+        res.json({});
+      });
+    } catch (error) {
+      handleError(res, error);
     }
   };
 }

@@ -22,6 +22,8 @@ export class CharacterController extends RestfulController {
         throw new Error("not login yet");
       }
       let userId = req.session.user?.id;
+
+      // io.to('user:' + friend.id).emit('diu nei la')
       let json = await this.characterService.settingSkills(
         selectedSkill,
         userId

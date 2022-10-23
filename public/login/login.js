@@ -2,6 +2,7 @@ let loginForm = document.querySelector("#loginForm");
 let signupBtn = document.querySelector(".signupBtn");
 
 loginForm.addEventListener("submit", async (event) => {
+  console.log("hi");
   event.preventDefault();
   const res = await fetch("/login", {
     method: "POST",
@@ -13,6 +14,7 @@ loginForm.addEventListener("submit", async (event) => {
       password: loginForm.password.value,
     }),
   });
+  console.log("res: ", res);
   await res.json();
 
   if (!res.ok) {
@@ -49,5 +51,6 @@ loginForm.addEventListener("submit", async (event) => {
 });
 
 signupBtn.addEventListener("click", (event) => {
+  
   window.location = "../signUp/signup.html";
 });
