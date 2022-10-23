@@ -71,7 +71,7 @@ if (typeof practiceDialog.showModal !== "function") {
 }
 
 ////////For AI
-const URL = "../tm-my-image-model_v2/";
+const URL = "../tm-my-image-model_v3/";
 let model, webcam, maxPredictions;
 async function init() {
   const modelURL = URL + "model.json";
