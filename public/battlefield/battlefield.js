@@ -245,7 +245,7 @@ dialogClose.addEventListener("click", () => {
 
 ////////////////////////////////////////////////////////////////
 // AI
-const url = "../tm-my-image-model_v2/";
+const url = "../tm-my-image-model_v3/";
 let model, webcam, maxPredictions;
 async function init() {
   const modelURL = url + "model.json";
