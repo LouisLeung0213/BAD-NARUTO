@@ -163,7 +163,7 @@ async function battleLogic() {
   let npc_id = npc[0].skill_id;
   //console.log("halo:", npcSkill, npcDamage);
 
-  function playerAttack() {
+  async function playerAttack() {
     if (playerIsAttack) {
       for (let skill of player_1_Skill) {
         if (currentSkill == skill.skill_name) {
@@ -184,6 +184,13 @@ async function battleLogic() {
       if (npcHp != 0 && npcHp > 0) {
         npcHp -= player_skill_damage;
       } else if (npcHp <= 0) {
+        let missionDetail = {};
+        missionDetail.id = missionId;
+        await fetch("/missionComplete", {
+          method: "post",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(missionDetail),
+        });
         Swal.fire("成功通關").then(() => {
           window.location = `../battlefield/battlefield.html?missionId=${
             +missionId + 1

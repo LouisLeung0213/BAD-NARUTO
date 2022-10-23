@@ -12,6 +12,7 @@ export class UserController extends RestfulController {
     super();
     this.router.post("/login", this.login);
     this.router.post("/signup", this.signup);
+    this.router.get("/isNewBie", this.isNewBie);
     this.router.get("/logout", this.logout);
   }
 
@@ -101,6 +102,20 @@ export class UserController extends RestfulController {
     }
   };
 
+  isNewBie = async (req: Request, res: Response) => {
+    try {
+      if (!req.session.user) {
+        throw new HTTPError(401, "cannot get user id ");
+      }
+      let userId = req.session.user.id;
+      let json = await this.userService.isNewBie(userId);
+      res.json({ json });
+    } catch (error) {
+      console.log(error);
+      res.status(500);
+      return;
+    }
+  };
   logout = async (req: Request, res: Response) => {
     try {
       req.session?.destroy((err) => {
@@ -109,8 +124,8 @@ export class UserController extends RestfulController {
           return;
         }
         // res.redirect(303, "../login/login.html");
-        res.status(303)
-        res.json({})
+        res.status(303);
+        res.json({});
       });
     } catch (error) {
       handleError(res, error);

@@ -71,4 +71,26 @@ export class BattlefieldService {
 
     return player;
   }
+
+  async missionComplete(
+    id: number,
+    missionId: number
+  ): Promise<{ id: number }> {
+    let getCharactersId = await this.knex
+      .select("id")
+      .from("characters")
+      .where("user_id", id)
+      .returning("id");
+
+    console.log("characters_id:", getCharactersId[0].id);
+
+    let completeMission = await this.knex("mission_statuses")
+      .insert({
+        character_id: getCharactersId[0].id,
+        mission_id: missionId,
+      })
+      .returning("id");
+
+    return completeMission[0];
+  }
 }

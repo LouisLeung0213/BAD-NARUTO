@@ -80,4 +80,20 @@ export class UserService {
     }
     return row;
   }
+
+  async isNewBie(userId: number): Promise<{ id: number }> {
+    let checkUserCharacterId = await this.knex
+      .select("id")
+      .from("characters")
+      .where("user_id", userId)
+      .returning("id");
+    console.log(checkUserCharacterId);
+    let oldSeafood = await this.knex
+      .select("*")
+      .from("mission_statuses")
+      .where("character_id", checkUserCharacterId[0].id)
+      .returning("id");
+
+    return oldSeafood[0];
+  }
 }
