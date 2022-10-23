@@ -35,8 +35,15 @@ loginForm.addEventListener("submit", async (event) => {
       icon: "success",
       title: `Welcome back, ninja`,
       showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) window.location = "../cutscenes/cutscenes.html";
+    }).then(async (result) => {
+      let checkUser = await fetch("/isNewBie");
+      let passedMission1 = await checkUser.json();
+      console.log("here", passedMission1.json);
+      if (passedMission1.json) {
+        window.location = "../lobby/lobby.html";
+      } else {
+        window.location = "../cutscenes/cutscenes.html";
+      }
     });
   }
 });
