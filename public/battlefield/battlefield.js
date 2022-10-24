@@ -179,12 +179,12 @@ async function battleLogic() {
       }, 1000);
       playerIsAttack = false;
       console.log(playerIsAttack);
-
-      if (npcHp != 0 && npcHp > 0) {
+      while (npcHp > 0) {
         npcHp -= player_skill_damage;
         console.log(player_skill_damage);
         p2Hp.textContent = `HP剩餘: ${npcHp}`;
-      } else if (npcHp <= 0) {
+      }
+      if (npcHp <= 0) {
         let missionDetail = {};
         missionDetail.id = missionId;
         await fetch("/missionComplete", {
@@ -211,10 +211,11 @@ async function battleLogic() {
       skillMotion.remove();
     }, 1000);
     console.log("play hp left!!!: ", playerHp);
-    if (playerHp != 0 && playerHp > 0) {
+    while (playerHp > 0) {
       playerHp -= npcDamage;
       p1Hp.textContent = `HP剩餘: ${playerHp}`;
-    } else if (playerHp <= 0) {
+    }
+    if (playerHp <= 0) {
       clearInterval(attackLoop);
       Swal.fire({
         title: "你已經死了！！！",
