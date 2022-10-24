@@ -10,21 +10,57 @@
   <body>
     <div class="container">
         <div class="room">
+            <div class="roomId"></div>
             <div class="tagContainer">
                 <div>戰場名稱： </div>
-                <div class="roomName">Room Name</div>
+                <div class="roomName"></div>
             </div>
-                <div class="roomPassword">公了場</div>
+                <div class="roomPassword"></div>
             <div class="tagContainer">
                 <div>漩渦鳴人： </div>
-                <div class="playerOne">Caleb</div>
+                <div class="playerOne"></div>
             </div>
             <div class="tagContainer">
                 <div>宇智波佐助： </div>
-                <div class="playerTwo">Louis</div>
+                <div class="playerTwo"></div>
             </div>
         </div>
     </div>
+    <div class="user-only">
+      <dialog id="favDialog">
+        <form id="createRoomForm" method="dialog">
+        <p>
+          <label
+            >戰場名稱:
+            <input type="text" name="roomNameInput" placeholder="請輸入戰場名稱" />
+          </label>
+        </p>
+          <p>
+            <label
+              >戰場暗號:
+              <input
+                type="text"
+                name="roomPasswordInput"
+                placeholder="選填"
+              />
+            </label>
+          </p>
+          <div>
+            <button id="cancelBtn" type="reset">忍痛離開</button>
+            <input type="submit" id="confirmBtn" value="等待值得一戰的對手" />
+          </div>
+        </form>
+      </dialog>
+
+      <p>
+        <button id="updateDetails">開啟戰場</button>
+      </p>
+      <p>
+        <button id="leaveRoom">戰略性撤退</button>
+      </p>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="pvp_room.js"></script>
   </body>
 </html>
