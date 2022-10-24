@@ -13,6 +13,7 @@ export async function up(knex: Knex): Promise<void> {
   const hasCharacters_skills_relationships = await knex.schema.hasTable(
     "hasCharacters_skills_relationships"
   );
+  const hasRooms = await knex.schema.hasTable("rooms");
 
   if (!hasUsers) {
     let sql = knex.schema.createTable("users", (table) => {
@@ -94,9 +95,24 @@ export async function up(knex: Knex): Promise<void> {
       }
     );
   }
+
+  if (!hasRooms){
+    await knex.schema.createTable(
+      "rooms",
+      (table)=>{
+        table.increments("id");
+        table.string("room_name").notNullable()
+        table.string("room_password")
+        table.integer("player_1").unsigned().references("users.id")
+        table.integer("player_2").unsigned().references("users.id")
+        table.boolean("is_started").defaultTo("false")
+      }
+    )
+  }
 }
 
 export async function down(knex: Knex): Promise<void> {
+  await knex.schema.dropTableIfExists("rooms");
   await knex.schema.dropTableIfExists("characters_skills_relationships");
   await knex.schema.dropTableIfExists("characters_type_relationships");
   await knex.schema.dropTableIfExists("mission_statuses");

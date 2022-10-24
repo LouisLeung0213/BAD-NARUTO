@@ -1,0 +1,10 @@
+.room {
+    border: 2px solid black;
+    padding: 5px 10px;
+    height: fit-content;
+    width: fit-content;
+}
+
+.tagContainer {
+    display: flex;
+}

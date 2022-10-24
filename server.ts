@@ -14,6 +14,8 @@ import { ChatroomService } from "./chatroom.service";
 import { ChatroomController } from "./chatroom.controller";
 import { BattlefieldService } from "./battlefield.service";
 import { BattlefieldController } from "./battlefield.controller";
+import { RoomService } from "./room.service";
+import { RoomController } from "./room.controller";
 
 const app = express();
 let server = http.createServer(app); // alternative: let server = new http.Server(app) <--- OOP call method, 效果等同於直接 call function
@@ -32,11 +34,15 @@ let chatroomService = new ChatroomService(knex);
 let chatroomController = new ChatroomController(chatroomService);
 let battlefieldService = new BattlefieldService(knex);
 let battlefieldController = new BattlefieldController(battlefieldService);
+let roomService = new RoomService(knex);
+let roomController = new RoomController(roomService);
+
 
 app.use(userController.router);
 app.use(characterController.router);
 app.use(chatroomController.router);
 app.use(battlefieldController.router);
+app.use(roomController.router);
 
 // 要socket用到session, 加個middleware俾佢
 io.use((socket, _next) => {

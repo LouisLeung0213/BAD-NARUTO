@@ -75,13 +75,16 @@ for (let missionBtn of missionBtns) {
 }
 
 logoutBtn.addEventListener("click", async () => {
-  console.log("hi");
   let res = await fetch("/logout");
   let json = await res.json();
   if (res.status == 303){
     window.location = "../login/login.html"
   }
 });
+
+gaara.addEventListener("click", () => {
+  window.location = "../pvp_room/pvp_room.html"
+})
 
 // Socket
 
