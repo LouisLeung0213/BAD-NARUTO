@@ -26,7 +26,7 @@ export class UserService {
         throw new HTTPError(401, "wrong username or password");
       } else {
         let result = await this.knex
-          .select("id")
+          .select("id", "nickname")
           .from("users")
           .where("username", username)
           .andWhere("password_hash", hashedPassword);

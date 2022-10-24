@@ -69,11 +69,12 @@ body {
   background-color: rgba(26, 110, 236, 0.801);
 }
 
-.skillName {
+.skillName:not(.selectedSkill) {
   width: 90%;
   height: 4rem;
   border-radius: 30px;
   font-size: 3rem;
+  cursor: pointer;
 }
 
 #skillPanel {
@@ -152,6 +153,7 @@ body {
   border-radius: 30px;
   font-weight: bold;
   font-size: 1.25rem;
+  cursor: pointer;
 }
 
 .mudra {

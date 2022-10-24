@@ -92,6 +92,7 @@ body {
   color: aliceblue;
   font-size: 1.5rem;
   font-family: "Brush Script MT", cursive;
+  cursor: pointer;
 }
 
 .belowTitle {
@@ -123,4 +124,5 @@ body {
   color: aliceblue;
   font-size: 1.5rem;
   font-family: "Brush Script MT", cursive;
+  cursor: pointer;
 }

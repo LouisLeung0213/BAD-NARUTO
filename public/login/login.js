@@ -15,27 +15,29 @@ loginForm.addEventListener("submit", async (event) => {
     }),
   });
   console.log("res: ", res);
-  await res.json();
+  let userInfo = await res.json();
+  console.log(userInfo.json.nickname);
 
   if (!res.ok) {
     if (res.status == 404) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: "User does not exist",
+        title: "噢。。。",
+        text: "忍者不存在",
       });
     }
     if (res.status == 401) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: "username or password is incorrect",
+        title: "噢。。。",
+        text: "用戶或密碼錯誤",
       });
     }
   } else {
     Swal.fire({
       icon: "success",
-      title: `Welcome back, ninja`,
+      title: `歡迎回來，${userInfo.json.nickname}`,
+      confirmButtonText: "進入忍村",
       showConfirmButton: true,
     }).then(async (result) => {
       let checkUser = await fetch("/isNewBie");

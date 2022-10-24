@@ -26,11 +26,11 @@ export async function seed(knex: Knex): Promise<void> {
       console.log(type.type_name);
       console.log(type.id);
     }
-
+    // let skill_damage = undefined;
     let skill_id_array: Array<object> = [];
 
     for (let skill in skillList) {
-      console.log(skill);
+      console.log("skill: ", skillList[skill].mudra.length * 5);
       let type_of_skill_array = skill.split("_");
       let type_of_skill = type_of_skill_array[0];
       let name_of_skill = type_of_skill_array[1];
@@ -49,7 +49,7 @@ export async function seed(knex: Knex): Promise<void> {
           {
             skill_type: type_id,
             skill_name: name_of_skill,
-            skill_damage: 30,
+            skill_damage: skillList[skill].mudra.length * 5,
             skill_pattern: skillList[skill].mudra,
             skill_image: skillList[skill].image,
             skill_animation_pic: `../skills_image/${name_of_skill}.png`,
