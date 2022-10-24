@@ -11,6 +11,19 @@ let player2 = document.querySelector(".player2character");
 let p1Hp = document.querySelector("#p1Hp");
 let p2Hp = document.querySelector("#p2Hp");
 
+async function getUserInfo(){
+  let res = await fetch("/getUserInfo")
+  let result = await res.json()
+  console.log(result.json[0].player_1);
+  console.log(result.userId);
+  if (result.json[0].player_1 == result.userId){
+    currentPosition = "player1"
+  } else {
+    currentPosition = "player2"
+  }
+  return currentPosition
+}
+
 backBtn.addEventListener("click", () => {
   window.location = "../lobby/lobby.html";
 });
@@ -32,16 +45,7 @@ let skillPatternArray_for_attack_animation = ["1"];
 let currentSkill = "";
 let playerIsAttack = false;
 
-async function getMission() {
-
-    let res = await fetch(`/getMission?missionId=${missionId}`);
-    let missionDetail = await res.json();
-  
-    background.style.backgroundImage = `url(${missionDetail.mission_background})`;
-    console.log("missionDetail:", missionDetail);
-
-}
-
+    background.style.backgroundImage = `url(../image/finalmissionbg.jpg)`;
 
 async function showSkills() {
   let res = await fetch("/showSkills");
@@ -134,22 +138,23 @@ async function showSkills() {
 
 async function battleLogic() {
 
-    let res = await fetch(`/npcSkills?missionId=${missionId}`);
-    let npc = await res.json();
-    console.log("NPC:", npc);
+    // let res = await fetch(`/npcSkills?missionId=${missionId}`);
+    // let npc = await res.json();
+    // console.log("NPC:", npc);
 
 
-    player2.style.backgroundImage = `url(${npc[0].character_image})`;
+    player2.style.backgroundImage = `url(../character_image/youngSasuke.png)`;
   
-    let npcSkill = npc[0].skill_name;
-    let npcDamage = npc[0].skill_damage;
-    let npcHp = npc[0].hp;
-    let npc_skill_pic = npc[0].skill_animation_pic;
-    let npc_id = npc[0].skill_id;
-    //console.log("halo:", npcSkill, npcDamage);
-    p2Hp.textContent = `HP剩餘: ${npcHp}`;
+    // let npcSkill = npc[0].skill_name;
+    // let npcDamage = npc[0].skill_damage;
+    // let npcHp = npc[0].hp;
+    // let npc_skill_pic = npc[0].skill_animation_pic;
+    // let npc_id = npc[0].skill_id;
+    // //console.log("halo:", npcSkill, npcDamage);
+    // p2Hp.textContent = `HP剩餘: ${npcHp}`;
 
-  
+  let userInfo = await getUserInfo()
+  console.log("userInfo: ", userInfo)
   let playerRes = await fetch(`/getPlayerModal`);
   let player = await playerRes.json();
   
@@ -178,7 +183,7 @@ async function battleLogic() {
       //console.log("skill damage is :", player_skill_damage);
       let skillMotion = document.createElement("div");
       characterContainer.insertBefore(skillMotion, player2);
-      skillMotion.classList.add("player1_skillMotion");
+      skillMotion.classList.add(`${userInfo}_skillMotion`);
       skillMotion.style.backgroundImage = `url(../skills_image/${currentSkill}.png)`;
       setTimeout(() => {
         skillMotion.remove();
@@ -187,63 +192,62 @@ async function battleLogic() {
       console.log(playerIsAttack);
 
       
-      if (npcHp != 0 && npcHp > 0) {
-        npcHp -= player_skill_damage;
-        console.log(player_skill_damage);
-        p2Hp.textContent = `HP剩餘: ${npcHp}`;
-      } else if (npcHp <= 0) {
-        let missionDetail = {};
-        missionDetail.id = missionId;
-        await fetch("/missionComplete", {
-          method: "post",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(missionDetail),
-        });
-        Swal.fire("成功通關").then(() => {
-          window.location = `../battlefield/battlefield.html?missionId=${
-            +missionId + 1
-          }`;
-        });
-      }
+      // if (npcHp != 0 && npcHp > 0) {
+      //   npcHp -= player_skill_damage;
+      //   console.log(player_skill_damage);
+      //   p2Hp.textContent = `HP剩餘: ${npcHp}`;
+      // } else if (npcHp <= 0) {
+      //   let missionDetail = {};
+      //   missionDetail.id = missionId;
+      //   await fetch("/missionComplete", {
+      //     method: "post",
+      //     headers: { "content-type": "application/json" },
+      //     body: JSON.stringify(missionDetail),
+      //   });
+      //   Swal.fire("成功通關").then(() => {
+      //     window.location = `../battlefield/battlefield.html?missionId=${
+      //       +missionId + 1
+      //     }`;
+      //   });
+      // }
     }
   }
 
-  function npcAttack(missionId) {
-    let skillMotion = document.createElement("div");
-    characterContainer.insertBefore(skillMotion, player2);
-    skillMotion.classList.add("player2_skillMotion");
-    skillMotion.style.backgroundImage = `url(${npc_skill_pic})`;
+  // function npcAttack(missionId) {
+  //   let skillMotion = document.createElement("div");
+  //   characterContainer.insertBefore(skillMotion, player2);
+  //   skillMotion.classList.add("player2_skillMotion");
+  //   skillMotion.style.backgroundImage = `url(${npc_skill_pic})`;
 
-    setTimeout(() => {
-      skillMotion.remove();
-    }, 1000);
-    console.log("play hp left!!!: ", playerHp);
-    if (playerHp != 0 && playerHp > 0) {
-      playerHp -= npcDamage;
-      p1Hp.textContent = `HP剩餘: ${playerHp}`;
-    } else if (playerHp <= 0) {
-      clearInterval(attackLoop);
-      Swal.fire({
-        title: "你已經死了！！！",
-        // text: "你已經死了！！！",
-        confirmButtonText: "納尼？！",
-      }).then(() => {
-        window.location = "../lobby/lobby.html";
-      });
-    }
-  }
+  //   setTimeout(() => {
+  //     skillMotion.remove();
+  //   }, 1000);
+  //   console.log("play hp left!!!: ", playerHp);
+  //   if (playerHp != 0 && playerHp > 0) {
+  //     playerHp -= npcDamage;
+  //     p1Hp.textContent = `HP剩餘: ${playerHp}`;
+  //   } else if (playerHp <= 0) {
+  //     clearInterval(attackLoop);
+  //     Swal.fire({
+  //       title: "你已經死了！！！",
+  //       // text: "你已經死了！！！",
+  //       confirmButtonText: "納尼？！",
+  //     }).then(() => {
+  //       window.location = "../lobby/lobby.html";
+  //     });
+  //   }
+  // }
 
   let player_attack_loop = setInterval(() => {
     playerAttack();
   }, 100);
 
-  let attackLoop = setInterval(() => {
-    npcAttack(missionId);
-  }, 15000);
+  // let attackLoop = setInterval(() => {
+  //   npcAttack(missionId);
+  // }, 15000);
 }
 
 showSkills();
-getMission();
 battleLogic();
 
 //console.log(skillList);

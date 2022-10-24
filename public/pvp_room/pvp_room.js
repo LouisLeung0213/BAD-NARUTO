@@ -4,13 +4,12 @@ room_template.remove();
 
 // Show room
 
-
 async function showRooms() {
-    let res = await fetch("/getRooms");
-    // console.log(res.json().msg);
+  let res = await fetch("/getRooms");
+  // console.log(res.json().msg);
   if (!res.ok) {
-    if (res.status == 401){
-        window.location = "../login/login.html"
+    if (res.status == 401) {
+      window.location = "../login/login.html";
     }
     return;
   } else {
@@ -32,26 +31,24 @@ async function showRooms() {
       playerTwo.textContent = room.player_2_name;
       container.appendChild(room_clone);
 
-
       // Join room
 
-      room_clone.addEventListener("click", async ()=>{
+      room_clone.addEventListener("click", async () => {
         let res = await fetch("/joinRoom", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ room_id: room.id, player_1: room.player_1 }),
-          });
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ room_id: room.id, player_1: room.player_1 }),
+        });
         //   socket.join("roomId:" + room.id)
 
         //   let joinRes = await fetch(`/f10?roomId=${room.id}`)
         //   let msg = joinRes.json()
         //   console.log("msg: ", msg);
 
-          res.json({});
+        res.json({});
       });
-
     }
   }
 }
@@ -138,11 +135,6 @@ leaveRoomBtn.addEventListener("click", async () => {
 
 // Enter battlefield
 
-
-socket.on("diu nei la", () => {
-    console.log("why diu me???");
-  });
-
-  socket.on("enterBattlefield", (data) => {
-    window.location = `../battlefield/battlefield.html?pvpRoomId=${data.roomId}`
-  });
+socket.on("enterBattlefield", (data) => {
+  window.location = `../pvp/pvp.html?pvpRoomId=${data.roomId}`;
+});
