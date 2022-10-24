@@ -16,7 +16,7 @@ loginForm.addEventListener("submit", async (event) => {
   });
   console.log("res: ", res);
   let userInfo = await res.json();
-  console.log(userInfo.json.nickname);
+  console.log(userInfo);
 
   if (!res.ok) {
     if (res.status == 404) {
@@ -36,7 +36,7 @@ loginForm.addEventListener("submit", async (event) => {
   } else {
     Swal.fire({
       icon: "success",
-      title: `歡迎回來，${userInfo.json.nickname}`,
+      title: `歡迎回來，${userInfo.nickname}`,
       confirmButtonText: "進入忍村",
       showConfirmButton: true,
     }).then(async (result) => {

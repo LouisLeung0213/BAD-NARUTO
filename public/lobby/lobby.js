@@ -97,3 +97,6 @@ socket.on("connect", () => {
   // socket.emit("showRoomList")
 });
 
+socket.on("pong", () => {
+  console.log("you pong me");
+})

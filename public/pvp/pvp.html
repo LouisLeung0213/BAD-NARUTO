@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ninja battlefield</title>
+    <link rel="stylesheet" href="pvp.css" />
+  </head>
+  <body>
+    <dialog id="practiceDialog">
+      <div class="backdrop2">
+        <div id="dialogContainer">
+          <div id="webcam-container"></div>
+          <div id="skillCommandContainer">
+            <div id="skillCommand"></div>
+            <button id="dialogClose" value="cancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+    <div id="background">
+      <div class="hpLineDiv">
+        <div class="hpLine"><div id="p1Hp">HP剩餘:</div></div>
+        <div id="backBtn">我是垃圾</div>
+        <div class="hpLine"><div id="p2Hp">HP剩餘:</div></div>
+      </div>
+      <div class="characterContainer">
+        <div class="player1character"></div>
+        <div class="player2character"></div>
+      </div>
+    </div>
+
+    <div id="skillContainer">
+      <div class="skill">
+        <image class="equippedSkillImage" src=""></image>
+      </div>
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+
+    <script src="pvp.js"></script>
+  </body>
+</html>

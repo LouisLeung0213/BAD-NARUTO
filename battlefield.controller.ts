@@ -12,6 +12,7 @@ export class BattlefieldController extends RestfulController {
     this.router.get("/npcSkills", this.npcSkills);
     this.router.get("/getPlayerModal", this.getPlayer);
     this.router.post("/missionComplete", this.missionComplete);
+    this.router.get("/getUserInfo", this.getUserInfo)
   }
 
   showSkills = async (req: Request, res: Response) => {
@@ -109,4 +110,22 @@ export class BattlefieldController extends RestfulController {
       return;
     }
   };
+
+  getUserInfo = async (req: Request, res: Response) => {
+    try {
+      if (!req.session.user) {
+        res.status(401);
+        res.json({ msg: "Please login first" });
+      } else {
+        let user = req.session.user;
+        let userId = user.id;
+        let json = await this.battlefieldService.getUserInfo(userId);
+        res.json({json, userId});
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500);
+      return;
+    }
+  }
 }

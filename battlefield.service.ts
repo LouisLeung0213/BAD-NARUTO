@@ -93,4 +93,16 @@ export class BattlefieldService {
 
     return completeMission[0];
   }
+
+  async getUserInfo(userId: number){
+    let result = await this.knex
+    .select("player_1", "player_2")
+    .from("rooms")
+    .where("player_1", userId)
+    .orWhere("player_2", userId)
+
+    console.log("result: ", result);
+    return result
+  }
+
 }

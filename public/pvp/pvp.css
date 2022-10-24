@@ -1,0 +1,270 @@
+body {
+  margin: 0px;
+}
+
+#background {
+  width: 100vw;
+  height: 77vh;
+  background-image: url();
+  background-size: 113% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#skillContainer {
+  width: 100vw;
+  height: 23vh;
+  outline: 8px solid rgb(236, 123, 17);
+  background-image: url(../image/wood2.jpg);
+  background-size: 25% 25%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.hpLineDiv {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#backBtn {
+  width: 8%;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  border: 0.15rem solid black;
+  border-radius: 30px;
+  font-weight: bold;
+  background-color: rgba(95, 196, 236, 0.567);
+  cursor: pointer;
+}
+
+.hpLine {
+  width: 45%;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #abcfdba1;
+  border-radius: 10px;
+}
+/* 
+.p1Hp {
+  height: 1rem;
+  width: 1rem;
+  background-color: red;
+  margin-left: 0.4rem;
+  border-radius: 5px;
+}
+
+.p2Hp {
+  height: 1rem;
+  width: 1rem;
+  background-color: red;
+  margin-left: 0.4rem;
+  border-radius: 5px;
+} */
+
+.blood {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.skill {
+  max-width: 25%;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.equippedSkillImage {
+  width: 100%;
+  height: 175%;
+}
+
+.type1 {
+  background-color: rgba(251, 255, 0, 0.658);
+  width: 90%;
+  border-radius: 30px;
+}
+
+.type4 {
+  background-color: rgba(255, 0, 0, 0.658);
+  width: 90%;
+  border-radius: 30px;
+}
+
+.type2 {
+  background-color: rgba(97, 115, 150, 0.788);
+  width: 90%;
+  border-radius: 30px;
+}
+
+.type5 {
+  background-color: rgba(204, 135, 44, 0.788);
+  width: 90%;
+  border-radius: 30px;
+}
+
+.type3 {
+  background-color: rgba(26, 110, 236, 0.801);
+  width: 90%;
+  border-radius: 30px;
+}
+
+#practiceDialog {
+  z-index: 1;
+  width: 85vw;
+  height: 85vh;
+  background-image: url(../image/battle.jpeg);
+  background-repeat: repeat;
+  background-size: 100% 100%;
+  padding: 0%;
+  display: none;
+}
+
+.backdrop2 {
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  display: flex;
+}
+
+#skillCommandContainer {
+  width: 35%;
+  height: 80%;
+  background-color: rgba(187, 153, 228, 0.808);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#skillCommand {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#dialogContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  align-items: center;
+  justify-content: space-around;
+}
+
+#camera {
+  width: 60%;
+  height: 60%;
+}
+
+.mudraImage {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imageOfmudra {
+  width: 100%;
+  height: 80%;
+}
+
+.player2character {
+  /* position: absolute;
+  right: 12rem; */
+  padding-top: 3%;
+  width: 15%;
+  height: 95%;
+  margin-right: 7rem;
+  /* object-fit: contain; */
+  /* background-color: aliceblue; */
+  background-image: url();
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.player1character {
+  /* position: absolute;
+  left: 12rem; */
+  padding-top: 6%;
+  width: 14%;
+  height: 80%;
+  margin-left: 10%;
+  /* object-fit: contain; */
+  /* background-color: aliceblue; */
+  background-image: url(../image/naruto.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.characterContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* margin-top: 8rem; */
+  padding: 8rem 0rem;
+  width: 100vw;
+  height: 40vh;
+  /* background-color: #abcfdba1; */
+}
+
+#webcam-container {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+}
+
+/* for player skill motion */
+.player2_skillMotion {
+  z-index: 0;
+  width: 15%;
+  height: 90%;
+  background-image: url();
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition: transform 1s ease-out;
+  animation: right-to-left 1s ease-in;
+}
+
+@keyframes right-to-left {
+  0% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
+}
+
+.player1_skillMotion {
+  z-index: 0;
+  width: 15%;
+  height: 90%;
+  background-image: url();
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition: transform 1s ease-out;
+  animation: left-to-right 1s ease-in;
+}
+
+@keyframes left-to-right {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
