@@ -46,9 +46,7 @@ describe("UserController Unit Test", () => {
     await userController.login(req, res);
 
     // expect(res.status).toBeCalledWith(400);
-    expect(res.json).toBeCalledWith({
-      id: mockId,
-    });
+    expect(res.json).toBeCalledWith({ id: mockId });
   });
 
   it("should not success login", async () => {
@@ -135,8 +133,6 @@ describe("UserController Unit Test", () => {
       .spyOn(userService, "signup")
       .mockReturnValue(Promise.resolve({ id: mockId }));
     await userController.signup(req, res);
-    expect(res.json).toBeCalledWith({
-      id: mockId,
-    });
+    expect(res.json).toBeCalledWith({ json: { id: mockId } });
   });
 });

@@ -8,6 +8,8 @@ let characterContainer = document.querySelector(".characterContainer");
 let backBtn = document.querySelector("#backBtn");
 let player1 = document.querySelector(".player1character");
 let player2 = document.querySelector(".player2character");
+let p1Hp = document.querySelector("#p1Hp");
+let p2Hp = document.querySelector("#p2Hp");
 
 backBtn.addEventListener("click", () => {
   window.location = "../lobby/lobby.html";
@@ -143,6 +145,7 @@ async function battleLogic() {
   console.log("player 1 skills", player_1_Skill);
 
   let playerHp = player[0].hp;
+  p1Hp.textContent = `HP剩餘: ${playerHp}`;
   let playerSkill_1 = player_1_Skill[0];
   let playerSkill_2 = player_1_Skill[1];
   let playerSkill_3 = player_1_Skill[2];
@@ -151,17 +154,13 @@ async function battleLogic() {
 
   player2.style.backgroundImage = `url(${npc[0].character_image})`;
 
-  // let playerSkill_1 = player_1_Skill[0];
-  // let playerSkill_1 = player_1_Skill[0];
-  // let playerSkill_1 = player_1_Skill[0];
-  // let playerSkill_1 = player_1_Skill[0];
-
   let npcSkill = npc[0].skill_name;
   let npcDamage = npc[0].skill_damage;
   let npcHp = npc[0].hp;
   let npc_skill_pic = npc[0].skill_animation_pic;
   let npc_id = npc[0].skill_id;
   //console.log("halo:", npcSkill, npcDamage);
+  p2Hp.textContent = `HP剩餘: ${npcHp}`;
 
   async function playerAttack() {
     if (playerIsAttack) {
@@ -183,6 +182,8 @@ async function battleLogic() {
 
       if (npcHp != 0 && npcHp > 0) {
         npcHp -= player_skill_damage;
+        console.log(player_skill_damage);
+        p2Hp.textContent = `HP剩餘: ${npcHp}`;
       } else if (npcHp <= 0) {
         let missionDetail = {};
         missionDetail.id = missionId;
@@ -212,11 +213,13 @@ async function battleLogic() {
     console.log("play hp left!!!: ", playerHp);
     if (playerHp != 0 && playerHp > 0) {
       playerHp -= npcDamage;
+      p1Hp.textContent = `HP剩餘: ${playerHp}`;
     } else if (playerHp <= 0) {
       clearInterval(attackLoop);
       Swal.fire({
-        title: "Oops...",
-        text: "You Die!!!",
+        title: "你已經死了！！！",
+        // text: "你已經死了！！！",
+        confirmButtonText: "納尼？！",
       }).then(() => {
         window.location = "../lobby/lobby.html";
       });
@@ -229,7 +232,7 @@ async function battleLogic() {
 
   let attackLoop = setInterval(() => {
     npcAttack(missionId);
-  }, 20000);
+  }, 15000);
 }
 
 showSkills();

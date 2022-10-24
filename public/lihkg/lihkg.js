@@ -43,15 +43,15 @@ postForm.addEventListener("submit", async (event) => {
     if (res.status == 401) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: "Please login first",
+        title: "不接納",
+        text: "請先登入",
       });
     }
     if (res.status == 404) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: "You did not type anything",
+        title: "不接納",
+        text: "內容不能空白",
       });
     }
   } else {

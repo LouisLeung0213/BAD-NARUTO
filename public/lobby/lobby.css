@@ -26,6 +26,7 @@ body {
   background-color: #705f35;
   border-radius: 40px;
   border: 3px solid black;
+  cursor: pointer;
 }
 
 #ninja:hover {
@@ -208,6 +209,7 @@ body {
   width: 50rem;
   height: fit-content;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 #final {
@@ -259,5 +261,9 @@ body {
   border: 5px solid black;
   padding: 2px 10px;
   margin-top: 5rem;
+  cursor: pointer;
+}
+
+.x {
   cursor: pointer;
 }
