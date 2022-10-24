@@ -177,12 +177,12 @@ async function battleLogic() {
       }, 1000);
       playerIsAttack = false;
       console.log(playerIsAttack);
-      while (npcHp > 0) {
+
+      if (npcHp > 0) {
         npcHp -= player_skill_damage;
         console.log(player_skill_damage);
         p2Hp.textContent = `HP剩餘: ${npcHp}`;
-      }
-      if (npcHp <= 0) {
+      } else if (npcHp <= 0) {
         let missionDetail = {};
         missionDetail.id = missionId;
         await fetch("/missionComplete", {
@@ -209,11 +209,10 @@ async function battleLogic() {
       skillMotion.remove();
     }, 1000);
     console.log("play hp left!!!: ", playerHp);
-    while (playerHp > 0) {
+    if (playerHp > 0) {
       playerHp -= npcDamage;
       p1Hp.textContent = `HP剩餘: ${playerHp}`;
-    }
-    if (playerHp <= 0) {
+    } else if (playerHp <= 0) {
       clearInterval(attackLoop);
       Swal.fire({
         title: "你已經死了！！！",
@@ -225,8 +224,40 @@ async function battleLogic() {
     }
   }
 
-  let player_attack_loop = setInterval(() => {
-    playerAttack();
+  let player_attack_loop_and_check_hp_loop = setInterval(async () => {
+    if (npcHp > 0) {
+      playerAttack();
+    } else if (npcHp <= 0) {
+      p2Hp.textContent = `HP剩餘: 0`;
+      clearInterval(player_attack_loop_and_check_hp_loop);
+      let missionDetail = {};
+      missionDetail.id = missionId;
+      await fetch("/missionComplete", {
+        method: "post",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(missionDetail),
+      });
+      Swal.fire("成功通關").then(() => {
+        window.location = `../battlefield/battlefield.html?missionId=${
+          +missionId + 1
+        }`;
+      });
+    }
+
+    if (playerHp > 0) {
+      p1Hp.textContent = `HP剩餘: ${playerHp}`;
+    } else if (playerHp <= 0) {
+      p1Hp.textContent = `HP剩餘: 0`;
+      clearInterval(attackLoop);
+      clearInterval(player_attack_loop_and_check_hp_loop);
+      Swal.fire({
+        title: "你已經死了！！！",
+        // text: "你已經死了！！！",
+        confirmButtonText: "納尼？！",
+      }).then(() => {
+        window.location = "../lobby/lobby.html";
+      });
+    }
   }, 100);
 
   let attackLoop = setInterval(() => {
