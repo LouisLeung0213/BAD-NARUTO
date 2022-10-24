@@ -44,13 +44,12 @@ loginForm.addEventListener("submit", async (event) => {
       if (passedMission1.json) {
         window.location = "../lobby/lobby.html";
       } else {
-        window.location = "../cutscenes/cutscenes.html";
+        window.location = "../demo_page/demo.html";
       }
     });
   }
 });
 
 signupBtn.addEventListener("click", (event) => {
-  
   window.location = "../signUp/signup.html";
 });
