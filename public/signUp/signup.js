@@ -47,13 +47,13 @@ signUpForm.addEventListener("submit", async (event) => {
   if (!res.ok) {
     Swal.fire({
       icon: "error",
-      title: "Oops...",
-      text: "Username is taken",
+      title: "真不幸",
+      text: "此大名已被使用",
     });
   } else {
     Swal.fire({
       icon: "success",
-      title: `Welcome, ninja`,
+      title: `歡迎加入，${userInformation.nickname}`,
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) window.location = "../demo_page/demo.html";

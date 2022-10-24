@@ -215,8 +215,9 @@ async function battleLogic() {
     } else if (playerHp <= 0) {
       clearInterval(attackLoop);
       Swal.fire({
-        title: "Oops...",
-        text: "You Die!!!",
+        title: "你已經死了！！！",
+        // text: "你已經死了！！！",
+        confirmButtonText: "納尼？！",
       }).then(() => {
         window.location = "../lobby/lobby.html";
       });
