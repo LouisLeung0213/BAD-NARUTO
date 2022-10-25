@@ -15,7 +15,7 @@ export class BattlefieldController extends RestfulController {
     this.router.get("/getPlayerModal", this.getPlayer);
     this.router.post("/missionComplete", this.missionComplete);
     this.router.get("/getUserInfo", this.getUserInfo);
-    this.router.get("/showAttackMotion", this.showAttackMotion);
+    this.router.get("/showMotion", this.showMotion);
     this.router.get("/updateHp", this.updateHp)
   }
 
@@ -135,15 +135,11 @@ export class BattlefieldController extends RestfulController {
     }
   };
 
-  showAttackMotion = async (req: Request, res: Response) => {
-    let userInfo = req.query.userInfo;
-    let roomId = req.query.roomId;
+  showMotion = async (req: Request, res: Response) => {
+    let enemyId = +req.query.enemyId!;
     let currentSkill = req.query.currentSkill
 
-    console.log("userInfo: ", userInfo);
-    
-
-    io.to("roomId:" + roomId).emit("showMotion", { msg: {userInfo, currentSkill}});
+    io.to("user:" + enemyId).emit("showMotion", { msg: currentSkill});
 
     res.json({})
   };

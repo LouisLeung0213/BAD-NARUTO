@@ -104,6 +104,7 @@ body {
   margin-bottom: 7%;
   border-radius: 30px;
   border: 0ch;
+  cursor: pointer;
 }
 
 #confirmBtn:hover {
@@ -146,6 +147,7 @@ body {
   margin: 3%;
   border-radius: 30px;
   border: 0ch;
+  cursor: pointer;
 }
 
 .room:hover {
