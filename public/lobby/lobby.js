@@ -77,14 +77,14 @@ for (let missionBtn of missionBtns) {
 logoutBtn.addEventListener("click", async () => {
   let res = await fetch("/logout");
   let json = await res.json();
-  if (res.status == 303){
-    window.location = "../login/login.html"
+  if (res.status == 303) {
+    window.location = "../login/login.html";
   }
 });
 
 gaara.addEventListener("click", () => {
-  window.location = "../pvp_room/pvp_room.html"
-})
+  window.location = "../pvp_room/pvp_room.html";
+});
 
 // Socket
 
@@ -99,4 +99,4 @@ socket.on("connect", () => {
 
 socket.on("pong", () => {
   console.log("you pong me");
-})
+});
