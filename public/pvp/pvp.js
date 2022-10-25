@@ -183,11 +183,11 @@ async function battleLogic() {
         }
       }
 
-      // let res = await fetch(`showAttackMotion?userInfo=${userInfo}`)
-
+      
       let skillMotion = document.createElement("div");
       characterContainer.insertBefore(skillMotion, player2);
-
+      
+      // let res = await fetch(`showAttackMotion?userInfo=${userInfo}`)
       skillMotion.classList.add(`${userInfo}_skillMotion`);
       skillMotion.style.backgroundImage = `url(../skills_image/${currentSkill}.png)`;
       setTimeout(() => {
