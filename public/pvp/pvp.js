@@ -158,40 +158,45 @@ async function battleLogic() {
   let playerRes = await fetch(`/getPlayerModal`);
   let player = await playerRes.json();
   
-  let player_1_SkillRes = await fetch("/showSkills");
-  let player_1_Skill = await player_1_SkillRes.json();
+  let player_SkillRes = await fetch("/showSkills");
+  let player_Skill = await player_SkillRes.json();
   
   console.log("player 1 data", player);
   console.log("player 1 skills", player_1_Skill);
 
   let playerHp = player[0].hp;
   p1Hp.textContent = `HP剩餘: ${playerHp}`;
-  let playerSkill_1 = player_1_Skill[0];
-  let playerSkill_2 = player_1_Skill[1];
-  let playerSkill_3 = player_1_Skill[2];
-  let playerSkill_4 = player_1_Skill[3];
+  let playerSkill_1 = player_Skill[0];
+  let playerSkill_2 = player_Skill[1];
+  let playerSkill_3 = player_Skill[2];
+  let playerSkill_4 = player_Skill[3];
   let player_skill_damage;
+
+  
 
 
   async function playerAttack() {
     if (playerIsAttack) {
-      for (let skill of player_1_Skill) {
+      for (let skill of player_Skill) {
         if (currentSkill == skill.skill_name) {
           player_skill_damage = skill.skill_damage;
         }
       }
-      //console.log("skill damage is :", player_skill_damage);
+
+      // let res = await fetch(`showAttackMotion?userInfo=${userInfo}`)
+
       let skillMotion = document.createElement("div");
       characterContainer.insertBefore(skillMotion, player2);
+
       skillMotion.classList.add(`${userInfo}_skillMotion`);
       skillMotion.style.backgroundImage = `url(../skills_image/${currentSkill}.png)`;
       setTimeout(() => {
         skillMotion.remove();
       }, 1000);
-      playerIsAttack = false;
-      console.log(playerIsAttack);
 
-      
+
+      playerIsAttack = false;
+
       // if (npcHp != 0 && npcHp > 0) {
       //   npcHp -= player_skill_damage;
       //   console.log(player_skill_damage);

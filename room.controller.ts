@@ -72,12 +72,20 @@ export class RoomController extends RestfulController {
       let player_1 = req.body.player_1;
       let player_2 = req.session.user.id;
       let roomId = req.body.room_id;
+      let needPassword = req.body.needPassword
+      let password = ""
+      if (needPassword){
+          password = req.body.password
+      }
+
       if (player_1 == player_2) {
         throw new HTTPError(401, "what the fk are you doing??");
       } else {
-        let result = await this.roomService.joinRoom(roomId, player_2);
-        io.to("user:" + player_1).emit("enterBattlefield", {roomId});
-        io.to("user:" + player_2).emit("enterBattlefield", {roomId});
+        let result = await this.roomService.joinRoom(roomId, player_2, password);
+        if (result != "wtf" && result != "wrong password"){
+            io.to("user:" + player_1).emit("enterBattlefield", { roomId });
+            io.to("user:" + player_2).emit("enterBattlefield", { roomId });
+        }
         io.emit("showRooms");
         res.json(result);
       }
