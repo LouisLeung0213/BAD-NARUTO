@@ -59,7 +59,8 @@ async function showRooms() {
                 title: "暗號唔啱，你係卧底！？",
                 confirmButtonText: "裝傻扮矇",
               });
-        }
+        } 
+        
       });
     }
   }
@@ -157,10 +158,6 @@ leaveRoomBtn.addEventListener("click", async () => {
 // Enter battlefield
 
 socket.on("enterBattlefield", async (data) => {
-  let res = await fetch("/leaveRoom");
-  if (!res.ok) {
-    return;
-  } else {
-  window.location = `../pvp/pvp.html?pvpRoomId=${data.roomId}`;
-  }
+    window.location = `../pvp/pvp.html?pvpRoomId=${data.roomId}`;
 });
+

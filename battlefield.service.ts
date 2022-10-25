@@ -107,8 +107,8 @@ export class BattlefieldService {
     return result
   }
 
-  // async showAttackMotion(){
+  async showAttackMotion(){
     
-  // }
+  }
 
 }

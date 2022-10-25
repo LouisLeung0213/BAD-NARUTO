@@ -10,18 +10,21 @@ let player1 = document.querySelector(".player1character");
 let player2 = document.querySelector(".player2character");
 let p1Hp = document.querySelector("#p1Hp");
 let p2Hp = document.querySelector("#p2Hp");
+let skillMotion = document.createElement("div");
 
-async function getUserInfo(){
-  let res = await fetch("/getUserInfo")
-  let result = await res.json()
-  console.log(result.json[0].player_1);
+let socket = io.connect();
+
+async function getUserInfo() {
+  let res = await fetch("/getUserInfo");
+  let result = await res.json();
+  // console.log(result.json[0].player_1);
   console.log(result.userId);
-  if (result.json[0].player_1 == result.userId){
-    currentPosition = "player1"
+  if (result.json[0].player_1 == result.userId) {
+    currentPosition = "player1";
   } else {
-    currentPosition = "player2"
+    currentPosition = "player2";
   }
-  return currentPosition
+  return currentPosition;
 }
 
 backBtn.addEventListener("click", () => {
@@ -29,8 +32,7 @@ backBtn.addEventListener("click", () => {
 });
 
 let params = new URL(document.location).searchParams;
-missionId = params.get("missionId");
-
+let roomId = params.get("pvpRoomId");
 
 let skillList = {
   skill1: { name: "", mudra: [] },
@@ -45,7 +47,7 @@ let skillPatternArray_for_attack_animation = ["1"];
 let currentSkill = "";
 let playerIsAttack = false;
 
-    background.style.backgroundImage = `url(../image/finalmissionbg.jpg)`;
+background.style.backgroundImage = `url(../image/finalmissionbg.jpg)`;
 
 async function showSkills() {
   let res = await fetch("/showSkills");
@@ -137,32 +139,30 @@ async function showSkills() {
 ///for battle logic
 
 async function battleLogic() {
+  // let res = await fetch(`/npcSkills?missionId=${missionId}`);
+  // let npc = await res.json();
+  // console.log("NPC:", npc);
 
-    // let res = await fetch(`/npcSkills?missionId=${missionId}`);
-    // let npc = await res.json();
-    // console.log("NPC:", npc);
+  player2.style.backgroundImage = `url(../character_image/youngSasuke.png)`;
 
+  // let npcSkill = npc[0].skill_name;
+  // let npcDamage = npc[0].skill_damage;
+  // let npcHp = npc[0].hp;
+  // let npc_skill_pic = npc[0].skill_animation_pic;
+  // let npc_id = npc[0].skill_id;
+  // //console.log("halo:", npcSkill, npcDamage);
+  // p2Hp.textContent = `HP剩餘: ${npcHp}`;
 
-    player2.style.backgroundImage = `url(../character_image/youngSasuke.png)`;
-  
-    // let npcSkill = npc[0].skill_name;
-    // let npcDamage = npc[0].skill_damage;
-    // let npcHp = npc[0].hp;
-    // let npc_skill_pic = npc[0].skill_animation_pic;
-    // let npc_id = npc[0].skill_id;
-    // //console.log("halo:", npcSkill, npcDamage);
-    // p2Hp.textContent = `HP剩餘: ${npcHp}`;
-
-  let userInfo = await getUserInfo()
-  console.log("userInfo: ", userInfo)
+  let userInfo = await getUserInfo();
+  console.log("userInfo: ", userInfo);
   let playerRes = await fetch(`/getPlayerModal`);
   let player = await playerRes.json();
-  
+
   let player_SkillRes = await fetch("/showSkills");
   let player_Skill = await player_SkillRes.json();
-  
+
   console.log("player 1 data", player);
-  console.log("player 1 skills", player_1_Skill);
+  console.log("player 1 skills", player_Skill);
 
   let playerHp = player[0].hp;
   p1Hp.textContent = `HP剩餘: ${playerHp}`;
@@ -172,9 +172,6 @@ async function battleLogic() {
   let playerSkill_4 = player_Skill[3];
   let player_skill_damage;
 
-  
-
-
   async function playerAttack() {
     if (playerIsAttack) {
       for (let skill of player_Skill) {
@@ -183,16 +180,12 @@ async function battleLogic() {
         }
       }
 
-      
-      let skillMotion = document.createElement("div");
-      characterContainer.insertBefore(skillMotion, player2);
-      
-      // let res = await fetch(`showAttackMotion?userInfo=${userInfo}`)
-      skillMotion.classList.add(`${userInfo}_skillMotion`);
-      skillMotion.style.backgroundImage = `url(../skills_image/${currentSkill}.png)`;
-      setTimeout(() => {
-        skillMotion.remove();
-      }, 1000);
+
+      console.log("userInfo: ", userInfo);
+      console.log("roomId: ", roomId);
+
+      let res = await fetch(`/showAttackMotion?userInfo=${userInfo}&roomId=${roomId}&currentSkill=${currentSkill}`)
+
 
 
       playerIsAttack = false;
@@ -338,3 +331,18 @@ function appendMudraImageDiv(element) {
 
   imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`;
 }
+
+socket.emit("joinRoom", { msg: roomId });
+
+socket.on("Hi", (data) => {
+  console.log("data.msg: ", data.msg);
+});
+
+socket.on("showMotion", (data) => {
+  characterContainer.insertBefore(skillMotion, player2);
+  skillMotion.classList.add(`${data.msg.userInfo}_skillMotion`);
+  skillMotion.style.backgroundImage = `url(../skills_image/${data.msg.currentSkill}.png)`;
+  setTimeout(() => {
+    skillMotion.remove();
+  }, 1000);
+})

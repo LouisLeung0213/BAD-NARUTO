@@ -3,6 +3,7 @@ import { RestfulController } from "./restful.controller";
 import { Request, Response } from "express";
 import "./session";
 import { HTTPError } from "./error";
+import { io } from "./server";
 
 export class BattlefieldController extends RestfulController {
   constructor(private battlefieldService: BattlefieldService) {
@@ -12,7 +13,8 @@ export class BattlefieldController extends RestfulController {
     this.router.get("/npcSkills", this.npcSkills);
     this.router.get("/getPlayerModal", this.getPlayer);
     this.router.post("/missionComplete", this.missionComplete);
-    this.router.get("/getUserInfo", this.getUserInfo)
+    this.router.get("/getUserInfo", this.getUserInfo);
+    this.router.get("/showAttackMotion", this.showAttackMotion);
   }
 
   showSkills = async (req: Request, res: Response) => {
@@ -111,6 +113,8 @@ export class BattlefieldController extends RestfulController {
     }
   };
 
+  // for PvP
+
   getUserInfo = async (req: Request, res: Response) => {
     try {
       if (!req.session.user) {
@@ -120,12 +124,23 @@ export class BattlefieldController extends RestfulController {
         let user = req.session.user;
         let userId = user.id;
         let json = await this.battlefieldService.getUserInfo(userId);
-        res.json({json, userId});
+        res.json({ json, userId });
       }
     } catch (error) {
       console.log(error);
       res.status(500);
       return;
     }
-  }
+  };
+
+  showAttackMotion = async (req: Request, res: Response) => {
+    let userInfo = req.query.userInfo;
+    let roomId = req.query.roomId;
+    let currentSkill = req.query.currentSkill
+    console.log("roomId: ", roomId);
+
+    io.to("roomId:" + roomId).emit("showMotion", { msg: {userInfo, currentSkill}});
+
+    res.json({})
+  };
 }

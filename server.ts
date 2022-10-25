@@ -69,7 +69,16 @@ io.on("connection", (socket) => {
     socket.emit("pong")
     console.log("pong");
   });
+
+  socket.on("joinRoom", (data) => {
+    socket.join("roomId:" + data.msg);
+    // io.to("roomId:"+data.msg).emit("Hi", {msg: "Hello"})
+  })
+
+
+
 });
+
 
 server.listen(env.PORT, () => {
   print(env.PORT);
