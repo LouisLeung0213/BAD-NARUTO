@@ -10,13 +10,6 @@
   margin-right: 2rem;
 }
 
-.room {
-  border: 2px solid black;
-  padding: 5px 10px;
-  height: fit-content;
-  width: 20vw;
-}
-
 .tagContainer {
   display: flex;
 }
@@ -85,11 +78,22 @@ body {
   width: 100vw;
   height: 100vh;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .btnDiv {
   display: flex;
   align-items: center;
+}
+
+#leaveRoom:hover {
+  box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
+  -webkit-box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
+  -moz-box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
 }
 
 #confirmBtn {
@@ -102,13 +106,19 @@ body {
   border: 0ch;
 }
 
+#confirmBtn:hover {
+  box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
+  -webkit-box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
+  -moz-box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
+}
+
 .room {
   outline: 0.65rem solid purple;
   border: 2px solid rgb(216, 27, 27);
   margin: 1.5rem;
   padding: 5px 10px;
-  height: 25%;
-  width: 25%;
+  height: 32%;
+  width: 35%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -126,4 +136,26 @@ body {
   font-size: 1.25rem;
   color: yellow;
   margin-left: 0.25rem;
+}
+
+.joinRoomBtn {
+  width: 30%;
+  outline: 0.3rem solid rgba(255, 0, 0, 0.712);
+  background-color: rgb(54, 54, 173);
+  color: bisque;
+  margin: 3%;
+  border-radius: 30px;
+  border: 0ch;
+}
+
+.room:hover {
+  box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
+  -webkit-box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
+  -moz-box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
+}
+
+.joinRoomBtn:hover {
+  box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
+  -webkit-box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
+  -moz-box-shadow: 14px 8px 17px 4px rgba(0, 0, 0, 0.65);
 }
