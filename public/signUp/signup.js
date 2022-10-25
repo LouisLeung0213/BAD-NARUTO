@@ -79,3 +79,5 @@ backBtn.addEventListener("click", () => {
 // }
 
 // getLocalStream();
+
+let a = 123;
