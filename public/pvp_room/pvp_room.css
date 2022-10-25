@@ -1,10 +1,25 @@
+.createRoom {
+    border: 2px solid black;
+    padding: 5px 10px;
+    height: fit-content;
+    width: 20vw;
+}
+
 .room {
     border: 2px solid black;
     padding: 5px 10px;
     height: fit-content;
-    width: fit-content;
+    width: 20vw;
 }
 
 .tagContainer {
+    display: flex;
+}
+
+.navBar {
+    display: flex;
+}
+
+.roomPassword {
     display: flex;
 }

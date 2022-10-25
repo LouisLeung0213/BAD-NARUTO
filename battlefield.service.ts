@@ -94,6 +94,8 @@ export class BattlefieldService {
     return completeMission[0];
   }
 
+  // for PvP only
+
   async getUserInfo(userId: number){
     let result = await this.knex
     .select("player_1", "player_2")
@@ -104,5 +106,9 @@ export class BattlefieldService {
     console.log("result: ", result);
     return result
   }
+
+  // async showAttackMotion(){
+    
+  // }
 
 }

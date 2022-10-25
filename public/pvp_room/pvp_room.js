@@ -20,12 +20,16 @@ async function showRooms() {
       let roomName = room_clone.querySelector(".roomName");
       let playerOne = room_clone.querySelector(".playerOne");
       let playerTwo = room_clone.querySelector(".playerTwo");
-      let need_password = room_clone.querySelector(".roomPassword");
+      let passwordType = room_clone.querySelector(".passwordType");
+      let enterPassword = room_clone.querySelector(".enterPassword")
+      let enterPasswordForm = room_clone.querySelector(".enterPasswordForm")
+      let joinRoomBtn = room_clone.querySelector(".joinRoomBtn")
       roomName.textContent = room.room_name;
       if (room.room_password) {
-        need_password.textContent = "私了場";
+        passwordType.textContent = "私了場";
       } else {
-        need_password.textContent = "公了場";
+        passwordType.textContent = "公了場";
+        enterPassword.remove()
       }
       playerOne.textContent = room.player_1_name;
       playerTwo.textContent = room.player_2_name;
@@ -33,21 +37,29 @@ async function showRooms() {
 
       // Join room
 
-      room_clone.addEventListener("click", async () => {
+      joinRoomBtn.addEventListener("click", async () => {
+        let password = ""
+        let needPassword = false
+        if (passwordType.textContent = "私了場"){
+            password = enterPasswordForm.enterPassword?.value
+            needPassword = true
+        } 
         let res = await fetch("/joinRoom", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ room_id: room.id, player_1: room.player_1 }),
+          body: JSON.stringify({ room_id: room.id, player_1: room.player_1, needPassword, password }),
         });
-        //   socket.join("roomId:" + room.id)
 
-        //   let joinRes = await fetch(`/f10?roomId=${room.id}`)
-        //   let msg = joinRes.json()
-        //   console.log("msg: ", msg);
-
-        res.json({});
+        let result = await res.json();
+        if (result == "wrong password"){
+            Swal.fire({
+                icon: "error",
+                title: "暗號唔啱，你係卧底！？",
+                confirmButtonText: "裝傻扮矇",
+              });
+        }
       });
     }
   }
@@ -65,26 +77,27 @@ socket.on("showRooms", () => {
 
 const updateButton = document.getElementById("updateDetails");
 const favDialog = document.getElementById("favDialog");
-const selectEl = favDialog.querySelector("select");
-const confirmBtn = favDialog.querySelector("#confirmBtn");
-const cancelBtn = favDialog.querySelector("#cancelBtn");
-const createRoomForm = favDialog.querySelector("#createRoomForm");
+const selectEl = document.querySelector("select");
+const confirmBtn = document.querySelector("#confirmBtn");
+const cancelBtn = document.querySelector("#cancelBtn");
+const createRoomForm = document.querySelector("#createRoomForm");
 
-if (typeof favDialog.showModal !== "function") {
-  favDialog.hidden = true;
-}
+// if (typeof favDialog.showModal !== "function") {
+//   favDialog.hidden = true;
+// }
 
-updateButton.addEventListener("click", () => {
-  if (typeof favDialog.showModal === "function") {
-    favDialog.showModal();
-  } else {
-    outputBox.value =
-      "Sorry, the <dialog> API is not supported by this browser.";
-  }
-});
+// updateButton.addEventListener("click", () => {
+//   if (typeof favDialog.showModal === "function") {
+//     favDialog.showModal();
+//   } else {
+//     outputBox.value =
+//       "Sorry, the <dialog> API is not supported by this browser.";
+//   }
+// });
 let url = window.location.href;
 
-createRoomForm.addEventListener("submit", async () => {
+createRoomForm.addEventListener("submit", async (e) => {
+    e.preventDefault()
   // 同backend講話想加間房，俾埋detail
   let roomInfo = {
     roomName: createRoomForm.roomNameInput.value,
@@ -107,18 +120,26 @@ createRoomForm.addEventListener("submit", async () => {
       });
     }
   } else {
-    Swal.fire({
-      icon: "success",
-      title: "okok",
-      confirmButtonText: "okok",
-    });
+    if (roomId == "dllm"){
+        Swal.fire({
+            icon: "error",
+            title: "你已經開左房啦",
+            confirmButtonText: "sor",
+          });
+    } else {
+        Swal.fire({
+          icon: "success",
+          title: "正在尋找值得一戰的對手",
+          confirmButtonText: "耐心等待",
+        });
+    }
     // socket.join("roomId:" + roomId[0].id)
   }
 });
 
-cancelBtn.addEventListener("click", () => {
-  favDialog.close();
-});
+// cancelBtn.addEventListener("click", () => {
+//   favDialog.close();
+// });
 
 // Leave room
 
@@ -135,6 +156,11 @@ leaveRoomBtn.addEventListener("click", async () => {
 
 // Enter battlefield
 
-socket.on("enterBattlefield", (data) => {
+socket.on("enterBattlefield", async (data) => {
+  let res = await fetch("/leaveRoom");
+  if (!res.ok) {
+    return;
+  } else {
   window.location = `../pvp/pvp.html?pvpRoomId=${data.roomId}`;
+  }
 });
