@@ -16,6 +16,7 @@ body {
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
+
 #bothContainer {
   width: 100vw;
   height: 100vh;
@@ -69,8 +70,9 @@ body {
   background-color: rgba(26, 110, 236, 0.801);
 }
 
-.skillName:not(.selectedSkill) {
-  width: 90%;
+/* .skillName:not(.selectedSkill) { */
+.skillName {
+  width: 95%;
   height: 4rem;
   border-radius: 30px;
   font-size: 3rem;
@@ -104,10 +106,13 @@ body {
 }
 
 #mySkills {
-  width: 80vw;
+  width: 100%;
   height: 20vh;
   background-image: url(../image/wood2.jpg);
   background-size: 25% 30%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .selectedSkill {
@@ -160,17 +165,9 @@ body {
   font-size: 2.5rem;
 }
 
-#mySkills {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
 .skill {
   width: 20%;
   height: 80%;
-  display: flex;
 }
 
 /* dialog */

@@ -9,40 +9,40 @@
   </head>
   <body>
     <div class="container">
-        <div class="room">
-            <div class="roomId"></div>
-            <div class="tagContainer">
-                <div>戰場名稱： </div>
-                <div class="roomName"></div>
-            </div>
-                <div class="roomPassword"></div>
-            <div class="tagContainer">
-                <div>漩渦鳴人： </div>
-                <div class="playerOne"></div>
-            </div>
-            <div class="tagContainer">
-                <div>宇智波佐助： </div>
-                <div class="playerTwo"></div>
-            </div>
+      <div class="room">
+        <div class="roomId"></div>
+        <div class="tagContainer">
+          <div>戰場名稱：</div>
+          <div class="roomName"></div>
         </div>
+        <div class="roomPassword"></div>
+        <div class="tagContainer">
+          <div>漩渦鳴人：</div>
+          <div class="playerOne"></div>
+        </div>
+        <div class="tagContainer">
+          <div>宇智波佐助：</div>
+          <div class="playerTwo"></div>
+        </div>
+      </div>
     </div>
     <div class="user-only">
       <dialog id="favDialog">
         <form id="createRoomForm" method="dialog">
-        <p>
-          <label
-            >戰場名稱:
-            <input type="text" name="roomNameInput" placeholder="請輸入戰場名稱" />
-          </label>
-        </p>
+          <p>
+            <label
+              >戰場名稱:
+              <input
+                type="text"
+                name="roomNameInput"
+                placeholder="請輸入戰場名稱"
+              />
+            </label>
+          </p>
           <p>
             <label
               >戰場暗號:
-              <input
-                type="text"
-                name="roomPasswordInput"
-                placeholder="選填"
-              />
+              <input type="text" name="roomPasswordInput" placeholder="選填" />
             </label>
           </p>
           <div>
@@ -51,13 +51,17 @@
           </div>
         </form>
       </dialog>
+      <div class="background">
+        <div class="backdrop">
+          <div class="box">
+            <div class="backdrop">
+              <button id="updateDetails">開啟戰場</button>
 
-      <p>
-        <button id="updateDetails">開啟戰場</button>
-      </p>
-      <p>
-        <button id="leaveRoom">戰略性撤退</button>
-      </p>
+              <button id="leaveRoom">戰略性撤退</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
