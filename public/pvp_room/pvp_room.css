@@ -92,7 +92,18 @@ body {
   align-items: center;
 }
 
+#confirmBtn {
+  width: 100%;
+  outline: 0.3rem solid rgba(255, 0, 0, 0.712);
+  background-color: rgb(54, 54, 173);
+  color: bisque;
+  margin-bottom: 7%;
+  border-radius: 30px;
+  border: 0ch;
+}
+
 .room {
+  outline: 0.65rem solid purple;
   border: 2px solid rgb(216, 27, 27);
   margin: 1.5rem;
   padding: 5px 10px;
