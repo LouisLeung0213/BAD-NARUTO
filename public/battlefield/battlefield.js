@@ -253,7 +253,7 @@ async function battleLogic() {
       Swal.fire({
         title: "你已經死了！！！",
         // text: "你已經死了！！！",
-        confirmButtonText: "納尼？！",
+        confirmButtonText: "納尼？！ ＼(º □ º l|l)/",
       }).then(() => {
         window.location = "../lobby/lobby.html";
       });

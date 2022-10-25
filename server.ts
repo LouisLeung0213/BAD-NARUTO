@@ -75,6 +75,15 @@ io.on("connection", (socket) => {
     // io.to("roomId:"+data.msg).emit("Hi", {msg: "Hello"})
   })
 
+  socket.on("leaveRoom", (data) => {
+    socket.leave("roomId:" + data.msg)
+    io.to("roomId:"+data.msg).emit("leaveMsg")
+  })
+
+  socket.on("battleFinished", (data) => {
+    socket.leave("roomId:"+data.msg)
+    io.to("roomId:"+data.msg).emit("battleFinishedMsg")
+  })
 
 
 });

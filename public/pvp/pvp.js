@@ -14,21 +14,30 @@ let skillMotion = document.createElement("div");
 
 let socket = io.connect();
 
+let playerHp = 100
+let enemyHp = 100
+
 async function getUserInfo() {
   let res = await fetch("/getUserInfo");
   let result = await res.json();
   // console.log(result.json[0].player_1);
   console.log(result.userId);
+  let enemyId
   if (result.json[0].player_1 == result.userId) {
     currentPosition = "player1";
+    enemyId = result.json[0].player_2
   } else {
     currentPosition = "player2";
+    enemyId = result.json[0].player_1
   }
-  return currentPosition;
+  
+  return {currentPosition, enemyId};
 }
 
-backBtn.addEventListener("click", () => {
-  window.location = "../lobby/lobby.html";
+backBtn.addEventListener("click", async () => {
+  socket.emit("leaveRoom", {msg: roomId})
+  await fetch("/leaveRoom")
+  window.location = "../pvp_room/pvp_room.html"
 });
 
 let params = new URL(document.location).searchParams;
@@ -120,7 +129,6 @@ async function showSkills() {
 
       for (let skill in skillList) {
         if (userSkill.skill_name == skillList[skill].name) {
-          // console.log("THE SAME!!");
           for (let mudra of skillList[skill].mudra) {
             mudraChecklist.push(mudra);
             skillPatternArray_for_attack_animation.push(mudra);
@@ -151,21 +159,25 @@ async function battleLogic() {
   // let npc_skill_pic = npc[0].skill_animation_pic;
   // let npc_id = npc[0].skill_id;
   // //console.log("halo:", npcSkill, npcDamage);
-  // p2Hp.textContent = `HP剩餘: ${npcHp}`;
-
+  
   let userInfo = await getUserInfo();
-  console.log("userInfo: ", userInfo);
   let playerRes = await fetch(`/getPlayerModal`);
   let player = await playerRes.json();
-
+  
   let player_SkillRes = await fetch("/showSkills");
   let player_Skill = await player_SkillRes.json();
-
+  
   console.log("player 1 data", player);
   console.log("player 1 skills", player_Skill);
-
-  let playerHp = player[0].hp;
-  p1Hp.textContent = `HP剩餘: ${playerHp}`;
+  
+  // let playerHp = player[0].hp;
+  if (userInfo.currentPosition == "player1"){
+    p1Hp.textContent = `HP剩餘: ${playerHp}`;
+    p2Hp.textContent = `HP剩餘: ${enemyHp}`;
+  } else {
+    p1Hp.textContent = `HP剩餘: ${enemyHp}`;
+    p2Hp.textContent = `HP剩餘: ${playerHp}`;
+  }
   let playerSkill_1 = player_Skill[0];
   let playerSkill_2 = player_Skill[1];
   let playerSkill_3 = player_Skill[2];
@@ -179,35 +191,35 @@ async function battleLogic() {
           player_skill_damage = skill.skill_damage;
         }
       }
+      let userInfo = await getUserInfo()
 
-
-      console.log("userInfo: ", userInfo);
-      console.log("roomId: ", roomId);
-
-      let res = await fetch(`/showAttackMotion?userInfo=${userInfo}&roomId=${roomId}&currentSkill=${currentSkill}`)
-
-
+      let res = await fetch(`/showAttackMotion?userInfo=${userInfo.currentPosition}&roomId=${roomId}&currentSkill=${currentSkill}`)
 
       playerIsAttack = false;
 
-      // if (npcHp != 0 && npcHp > 0) {
-      //   npcHp -= player_skill_damage;
-      //   console.log(player_skill_damage);
-      //   p2Hp.textContent = `HP剩餘: ${npcHp}`;
-      // } else if (npcHp <= 0) {
-      //   let missionDetail = {};
-      //   missionDetail.id = missionId;
-      //   await fetch("/missionComplete", {
-      //     method: "post",
-      //     headers: { "content-type": "application/json" },
-      //     body: JSON.stringify(missionDetail),
-      //   });
-      //   Swal.fire("成功通關").then(() => {
-      //     window.location = `../battlefield/battlefield.html?missionId=${
-      //       +missionId + 1
-      //     }`;
-      //   });
-      // }
+
+      if (enemyHp > 0) {
+        enemyHp -= player_skill_damage;
+        
+        if (userInfo.currentPosition == "player1"){
+          p2Hp.textContent = `HP剩餘: ${enemyHp}`;
+        } else {
+          p1Hp.textContent = `HP剩餘: ${enemyHp}`;
+        }
+        await fetch(`/updateHp/?damage=${player_skill_damage}&enemyId=${userInfo.enemyId}`)
+        console.log("enermy hp :", enemyHp)
+        
+      } else if (enemyHp <= 0) {
+        await fetch(`/leaveRoom`);
+        socket.io("battleFinished", {msg: roomId})
+        Swal.fire({
+          title: "對手已成為你的手下敗將",
+          confirmButtonText: "好嘢！ (≧∇≦*)",
+        }).then(() => {
+          window.location = "../pvp_room/pvp_room.html"
+        });
+      }
+      
     }
   }
 
@@ -341,8 +353,46 @@ socket.on("Hi", (data) => {
 socket.on("showMotion", (data) => {
   characterContainer.insertBefore(skillMotion, player2);
   skillMotion.classList.add(`${data.msg.userInfo}_skillMotion`);
+  console.log(`${data.msg.userInfo}_skillMotion`)
   skillMotion.style.backgroundImage = `url(../skills_image/${data.msg.currentSkill}.png)`;
   setTimeout(() => {
     skillMotion.remove();
   }, 1000);
+})
+
+socket.on("leaveRoomTgt", () =>{
+  window.location = "../lobby/lobby.html";
+})
+
+socket.on("leaveMsg", () => {
+  socket.emit("leaveRoom", {msg: roomId})
+  Swal.fire({
+    icon: "warning",
+    title: "對手已臨陣退縮",
+    confirmButtonText: "好嘢！ (≧∇≦*)",
+  }).then(() => {
+    window.location = "../pvp_room/pvp_room.html"
+  });
+})
+
+socket.on("battleFinishedMsg", () => {
+  socket.emit("leaveRoom", {msg: roomId})
+  Swal.fire({
+    title: "你已經死了！！！",
+    confirmButtonText: "納尼？！ ＼(º □ º l|l)/",
+  }).then(() => {
+    window.location = "../pvp_room/pvp_room.html"
+  });
+})
+
+socket.on("updateHp", async (data) => {
+  let userInfo = await getUserInfo()
+  
+  playerHp -= data.msg
+  if (userInfo.currentPosition == "player1"){
+    p1Hp.textContent = `HP剩餘: ${playerHp}`
+  } else {
+    p2Hp.textContent = `HP剩餘: ${playerHp}`
+
+  }
 })
