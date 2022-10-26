@@ -69,4 +69,5 @@ body {
 .rick {
   width: 3rem;
   height: 2rem;
+  cursor: pointer;
 }
