@@ -36,7 +36,7 @@ loginForm.addEventListener("submit", async (event) => {
   } else {
     Swal.fire({
       icon: "success",
-      title: `歡迎回來，${userInfo.nickname}`,
+      title: `歡迎回來，${userInfo.json.nickname}`,
       confirmButtonText: "進入忍村",
       showConfirmButton: true,
     }).then(async (result) => {
