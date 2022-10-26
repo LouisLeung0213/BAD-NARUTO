@@ -41,6 +41,7 @@ body {
   padding: 1rem;
   width: 8rem;
   border-radius: 30px;
+  cursor: pointer;
 }
 
 .logo {
@@ -65,4 +66,5 @@ body {
   width: 8rem;
   border-radius: 30px;
   margin-left: 1rem;
+  cursor: pointer;
 }
