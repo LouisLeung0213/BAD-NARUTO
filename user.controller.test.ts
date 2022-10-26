@@ -46,7 +46,7 @@ describe("UserController Unit Test", () => {
     await userController.login(req, res);
 
     // expect(res.status).toBeCalledWith(400);
-    expect(res.json).toBeCalledWith({ id: mockId });
+    expect(res.json).toBeCalledWith({ json: { id: mockId } });
   });
 
   it("should not success login", async () => {

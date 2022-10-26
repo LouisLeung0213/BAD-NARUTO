@@ -23,7 +23,7 @@ export class UserController extends RestfulController {
       let json = await this.userService.login(username, password);
       req.session["user"] = { id: json!.id, username: username };
       req.session.save();
-      res.json(json);
+      res.json({ json });
     } catch (error) {
       if (error instanceof HTTPError && error.status == 404) {
         res.status(404);
