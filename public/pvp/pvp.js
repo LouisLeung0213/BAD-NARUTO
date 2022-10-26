@@ -322,7 +322,9 @@ function appendMudraImageDiv(element) {
   imageDiv.classList.add("mudraImage");
   //console.log(mudraChecklist[0]);
 
-  imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`;
+  if (element) {
+    imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`;
+  }
 }
 
 socket.emit("joinRoom", { msg: roomId });

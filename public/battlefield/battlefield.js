@@ -288,11 +288,20 @@ async function init() {
   // Convenience function to setup a webcam
   const flip = true; // whether to flip the webcam
   webcam = new tmImage.Webcam(500, 500, flip); // width, height, flip
-  await webcam.setup(); // request access to the webcam
-  await webcam.play();
-  window.requestAnimationFrame(loop);
-  // append elements to the DOM
-  document.getElementById("webcam-container").appendChild(webcam.canvas);
+  //await webcam.setup(); // request access to the webcam
+  //await webcam.play();
+  //window.requestAnimationFrame(loop);
+
+  webcam
+    .setup()
+    .then(() => {
+      return webcam.play();
+    })
+    .then(() => {
+      window.requestAnimationFrame(loop);
+      // append elements to the DOM
+      document.getElementById("webcam-container").appendChild(webcam.canvas);
+    });
 }
 
 init();
@@ -350,5 +359,7 @@ function appendMudraImageDiv(element) {
   imageDiv.classList.add("mudraImage");
   //console.log(mudraChecklist[0]);
 
-  imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`;
+  if (element) {
+    imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`;
+  }
 }

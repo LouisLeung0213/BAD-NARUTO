@@ -34,10 +34,10 @@ export async function seed(knex: Knex): Promise<void> {
       let type_of_skill_array = skill.split("_");
       let type_of_skill = type_of_skill_array[0];
       let name_of_skill = type_of_skill_array[1];
-      let type_id;
+      let type_id = "";
       for (let type of types) {
         console.log(type);
-        if (type_of_skill == type.type_name) {
+        if (type_of_skill === type.type_name) {
           type_id = type.id;
         }
       }

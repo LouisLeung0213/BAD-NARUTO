@@ -16,6 +16,7 @@ import { BattlefieldService } from "./battlefield.service";
 import { BattlefieldController } from "./battlefield.controller";
 import { RoomService } from "./room.service";
 import { RoomController } from "./room.controller";
+import { IOService } from "./io";
 
 const app = express();
 let server = http.createServer(app); // alternative: let server = new http.Server(app) <--- OOP call method, 效果等同於直接 call function
@@ -26,7 +27,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(sessionMiddleware);
 
-let userService = new UserService(knex);
+const ioService = new IOService(io);
+
+let userService = new UserService(knex /*,ioService*/);
 let userController = new UserController(userService);
 let characterService = new CharacterService(knex);
 let characterController = new CharacterController(characterService);
@@ -37,12 +40,16 @@ let battlefieldController = new BattlefieldController(battlefieldService);
 let roomService = new RoomService(knex);
 let roomController = new RoomController(roomService);
 
-
 app.use(userController.router);
 app.use(characterController.router);
 app.use(chatroomController.router);
 app.use(battlefieldController.router);
 app.use(roomController.router);
+
+// ioService.addEvent("ping", () => {
+//   socket.emit("pong");
+//   console.log("pong");
+// });
 
 // 要socket用到session, 加個middleware俾佢
 io.use((socket, _next) => {
@@ -52,7 +59,7 @@ io.use((socket, _next) => {
   sessionMiddleware(req, res, next);
 });
 
-io.on("connection", (socket) => {
+/*io.on("connection", (socket) => {
   console.log("socket connection established: ", socket.id);
   let req = socket.request as express.Request;
   let user = req.session.user;
@@ -66,28 +73,25 @@ io.on("connection", (socket) => {
   socket.join("user:" + user.id);
 
   socket.on("ping", () => {
-    socket.emit("pong")
+    socket.emit("pong");
     console.log("pong");
   });
 
   socket.on("joinRoom", (data) => {
     socket.join("roomId:" + data.msg);
     // io.to("roomId:"+data.msg).emit("Hi", {msg: "Hello"})
-  })
+  });
 
   socket.on("leaveRoom", (data) => {
-    socket.leave("roomId:" + data.msg)
-    io.to("roomId:"+data.msg).emit("leaveMsg")
-  })
+    socket.leave("roomId:" + data.msg);
+    io.to("roomId:" + data.msg).emit("leaveMsg");
+  });
 
   socket.on("battleFinished", (data) => {
-    socket.leave("roomId:"+data.msg)
-    io.to("roomId:"+data.msg).emit("battleFinishedMsg")
-  })
-
-
-});
-
+    socket.leave("roomId:" + data.msg);
+    io.to("roomId:" + data.msg).emit("battleFinishedMsg");
+  });
+});*/
 
 server.listen(env.PORT, () => {
   print(env.PORT);

@@ -27,8 +27,10 @@ export async function up(knex: Knex): Promise<void> {
     await sql;
   }
 
-  if (!hasCharacters) {
-    await knex.schema.createTable("characters", (table) => {
+  //if (!hasCharacters) {
+  await /*knex.schema.createTable*/ knex.schema.createTableIfNotExists(
+    "characters",
+    (table) => {
       table.increments("id");
       table.integer("user_id").unsigned().references("users.id");
       table.string("name");
@@ -36,9 +38,10 @@ export async function up(knex: Knex): Promise<void> {
       table.integer("hp").notNullable();
       table.integer("exp").notNullable().defaultTo(0);
       table.string("character_image");
-      table.boolean("is_player").notNullable();
-    });
-  }
+      table.boolean("is_player").defaultTo(true);
+    }
+  );
+  //}
 
   if (!hasMissions) {
     await knex.schema.createTable("missions", (table) => {
@@ -96,18 +99,15 @@ export async function up(knex: Knex): Promise<void> {
     );
   }
 
-  if (!hasRooms){
-    await knex.schema.createTable(
-      "rooms",
-      (table)=>{
-        table.increments("id");
-        table.string("room_name").notNullable()
-        table.string("room_password")
-        table.integer("player_1").unsigned().references("users.id")
-        table.integer("player_2").unsigned().references("users.id")
-        table.boolean("is_started").defaultTo("false")
-      }
-    )
+  if (!hasRooms) {
+    await knex.schema.createTable("rooms", (table) => {
+      table.increments("id");
+      table.string("room_name").notNullable();
+      table.string("room_password");
+      table.integer("player_1").unsigned().references("users.id");
+      table.integer("player_2").unsigned().references("users.id");
+      table.boolean("is_started").defaultTo(false);
+    });
   }
 }
 

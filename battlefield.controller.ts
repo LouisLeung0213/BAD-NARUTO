@@ -4,7 +4,6 @@ import { Request, Response } from "express";
 import "./session";
 import { HTTPError } from "./error";
 import { io } from "./server";
-import { isThisTypeNode } from "typescript";
 
 export class BattlefieldController extends RestfulController {
   constructor(private battlefieldService: BattlefieldService) {
@@ -16,7 +15,7 @@ export class BattlefieldController extends RestfulController {
     this.router.post("/missionComplete", this.missionComplete);
     this.router.get("/getUserInfo", this.getUserInfo);
     this.router.get("/showMotion", this.showMotion);
-    this.router.get("/updateHp", this.updateHp)
+    this.router.get("/updateHp", this.updateHp);
   }
 
   showSkills = async (req: Request, res: Response) => {
@@ -137,20 +136,19 @@ export class BattlefieldController extends RestfulController {
 
   showMotion = async (req: Request, res: Response) => {
     let enemyId = +req.query.enemyId!;
-    let currentSkill = req.query.currentSkill
+    let currentSkill = req.query.currentSkill;
 
-    io.to("user:" + enemyId).emit("showMotion", { msg: currentSkill});
+    io.to("user:" + enemyId).emit("showMotion", { msg: currentSkill });
+    //this.ioService.emit("user:" + enemyId, "showMotion", { msg: currentSkill });
 
-    res.json({})
+    res.json({});
   };
 
-
   updateHp = async (req: Request, res: Response) => {
-    let damage = req.query.damage
-    let enemyId = req.query.enemyId
-    io.to("user:" + enemyId).emit("updateHp", {msg: damage})
+    let damage = req.query.damage;
+    let enemyId = req.query.enemyId;
+    io.to("user:" + enemyId).emit("updateHp", { msg: damage });
     console.log("fetched");
-    res.json({})
-  }
-
+    res.json({});
+  };
 }

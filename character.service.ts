@@ -7,20 +7,20 @@ export class CharacterService {
   async settingSkills(selectedSkill: string, userId: number) {
     let character_id = await this.knex("characters")
       .select("id")
-      .where("user_id", userId);
+      .where("user_id", userId); //[]
 
     let skill_id = await this.knex("skills")
       .select("id")
-      .where("skill_name", selectedSkill);
+      .where("skill_name", selectedSkill); //[]
 
     console.log(skill_id);
-    if (character_id && skill_id) {
-      let settingSkill = await this.knex(
-        "characters_skills_relationships"
-      ).insert({
+    if (character_id.length > 0 && skill_id.length > 0) {
+      await this.knex("characters_skills_relationships").insert({
         character_id: character_id[0].id,
         skill_id: skill_id[0].id,
       });
+    } else {
+      //TODO: ??
     }
 
     return "skill is set already";
@@ -30,6 +30,10 @@ export class CharacterService {
     let character_id = await this.knex("characters")
       .select("id")
       .where("user_id", userId);
+
+    if (character_id.length == 0) {
+      throw new HTTPError(404, "User does not exist");
+    }
 
     let skill_id_array = await this.knex("characters_skills_relationships")
       .select("skill_id")
@@ -41,6 +45,10 @@ export class CharacterService {
       let name = await this.knex("skills")
         .select("skill_name")
         .where("id", skill_id.skill_id);
+
+      // if (name.length == 0) {
+      //   throw new HTTPError(404, "User does not exist");
+      // }
 
       skill_name_array.push(name[0]);
     }

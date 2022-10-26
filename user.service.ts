@@ -5,9 +5,16 @@ import { Knex } from "knex";
 // import { CLIENT_RENEG_WINDOW } from "tls";
 import { HTTPError } from "./error";
 import { checkPassword } from "./hash";
+import { IOService } from "./io";
 
 export class UserService {
-  constructor(private knex: Knex) {}
+  constructor(private knex: Knex /*, private io: IOService*/) {
+    //io.addEvent("join", this.action);
+  }
+
+  // action = () => {
+
+  // };
 
   async login(
     username: string,
@@ -17,7 +24,7 @@ export class UserService {
       .select("password_hash")
       .from("users")
       .where("username", username);
-    if (!userPassword[0]) {
+    if (!userPassword.length) {
       throw new HTTPError(404, "User does not exist");
     } else {
       let hashedPassword = userPassword[0].password_hash;
@@ -25,14 +32,14 @@ export class UserService {
       if (!check) {
         throw new HTTPError(401, "wrong username or password");
       } else {
-        let result = await this.knex
-          .select("id", "nickname")
-          .from("users")
-          .where("username", username)
-          .andWhere("password_hash", hashedPassword);
-        // .whereIn(["username", "password_hash"], [username, hashedPassword]);
+        // let result = await this.knex
+        //   .select("id", "nickname")
+        //   .from("users")
+        //   .where("username", username)
+        //   .andWhere("password_hash", hashedPassword);
+        // // .whereIn(["username", "password_hash"], [username, hashedPassword]);
         // let row = result.rows[0];
-        return result[0];
+        return userPassword[0];
       }
     }
   }

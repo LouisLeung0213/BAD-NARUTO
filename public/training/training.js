@@ -74,24 +74,28 @@ if (typeof practiceDialog.showModal !== "function") {
 const URL = "../tm-my-image-model_v3/";
 let model, webcam, maxPredictions;
 async function init() {
-  const modelURL = URL + "model.json";
-  const metadataURL = URL + "metadata.json";
-  model = await tmImage.load(modelURL, metadataURL);
-  maxPredictions = model.getTotalClasses();
-  // Convenience function to setup a webcam
-  const flip = true; // whether to flip the webcam
-  webcam = new tmImage.Webcam(500, 500, flip); // width, height, flip
-  await webcam.setup(); // request access to the webcam
-  await webcam.play();
-  window.requestAnimationFrame(loop);
-  // append elements to the DOM
-  document.getElementById("webcam-container").appendChild(webcam.canvas);
+  try {
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+    // Convenience function to setup a webcam
+    const flip = true; // whether to flip the webcam
+    webcam = new tmImage.Webcam(500, 500, flip); // width, height, flip
+    await webcam.setup(); // request access to the webcam
+    await webcam.play();
+    window.requestAnimationFrame(loop);
+    // append elements to the DOM
+    document.getElementById("webcam-container").appendChild(webcam.canvas);
+  } catch {}
 }
 
 async function loop() {
-  webcam.update(); // update the webcam frame
-  await predict();
-  window.requestAnimationFrame(loop);
+  try {
+    webcam.update(); // update the webcam frame
+    await predict();
+    window.requestAnimationFrame(loop);
+  } catch {}
 }
 
 async function predict() {
@@ -195,8 +199,9 @@ function appendMudraImageDiv(element) {
   skillCommand.appendChild(imageDiv);
   imageDiv.classList.add("mudraImage");
   //console.log(mudraChecklist[0]);
-
-  imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`;
+  if (element) {
+    imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`;
+  }
 }
 
 dialogClose.addEventListener("click", () => {

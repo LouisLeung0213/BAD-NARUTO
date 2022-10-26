@@ -18,26 +18,17 @@ export class UserController extends RestfulController {
 
   login = async (req: Request, res: Response) => {
     try {
-      const username: string = req.body.username;
-      const password: string = req.body.password;
+      const { username, password } = req.body;
       let json = await this.userService.login(username, password);
       req.session["user"] = { id: json!.id, username: username };
       req.session.save();
       res.json({ json });
-    } catch (error) {
-      if (error instanceof HTTPError && error.status == 404) {
-        res.status(404);
-        res.json({ message: "User does not exist" });
-        return;
-      }
-      if (error instanceof HTTPError && error.status == 401) {
-        res.status(401);
-        res.json({ message: "wrong username or password" });
-        return;
+    } catch (message) {
+      if (message instanceof HTTPError) {
+        return res.status(message.status).json({ message });
       } else {
-        console.log(error);
-        res.status(500);
-        return;
+        console.log(message);
+        return res.status(500).json({ message });
       }
     }
   };
@@ -52,28 +43,19 @@ export class UserController extends RestfulController {
 
       // const birthday: number = req.body.birthday;
       if (!password2) {
-        res.status(400);
-        res.json({ message: "Please double confirm your password" });
-        return;
+        return res
+          .status(400)
+          .json({ message: "Please double confirm your password" });
       } else if (!username) {
-        res.status(400);
-        res.json({ message: "Missing username" });
-        return;
+        return res.status(400).json({ message: "Missing username" });
       } else if (!password) {
-        res.status(400);
-        res.json({ message: "Missing password" });
-        return;
+        return res.status(400).json({ message: "Missing password" });
       } else if (password !== password2) {
-        res.status(400);
-        res.json({ message: "Password does not match" });
-        return;
+        return res.status(400).json({ message: "Password does not match" });
       } else if (!email) {
-        res.status(400);
-        res.json({ message: "Missing email" });
-        return;
+        return res.status(400).json({ message: "Missing email" });
       } else if (!nickname) {
-        res.status(400);
-        res.json({ message: "Missing nickname" });
+        return res.status(400).json({ message: "Missing nickname" });
       } else {
         let hashedPassWord = await hashPassword(password as string);
         let json = await this.userService.signup(
@@ -112,8 +94,7 @@ export class UserController extends RestfulController {
       res.json({ json });
     } catch (error) {
       console.log(error);
-      res.status(500);
-      return;
+      return res.status(500).json({ message: "013" });
     }
   };
   logout = async (req: Request, res: Response) => {
@@ -124,8 +105,7 @@ export class UserController extends RestfulController {
           return;
         }
         // res.redirect(303, "../login/login.html");
-        res.status(303);
-        res.json({});
+        res.status(303).json({});
       });
     } catch (error) {
       handleError(res, error);
