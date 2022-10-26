@@ -48,10 +48,12 @@ body {
   margin-top: 2rem;
   width: 6rem;
   border-radius: 1rem;
+  cursor: pointer;
 }
 
 .backBtn {
   margin-top: 2rem;
   width: 6rem;
   border-radius: 1rem;
+  cursor: pointer;
 }

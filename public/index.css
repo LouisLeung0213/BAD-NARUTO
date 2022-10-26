@@ -45,4 +45,5 @@ body {
   border-radius: 40px;
   font-size: 1rem;
   font-weight: bold;
+  cursor: pointer;
 }
