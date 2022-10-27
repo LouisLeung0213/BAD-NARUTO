@@ -101,7 +101,7 @@ async function predict() {
     const classPrediction =
       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
   }
-  //console.log(mudraChecklist);
+
   let len = mudraChecklist.length;
   appendMudraImageDiv(mudraChecklist[0]);
   while (len != mudraChecklist.length && mudraChecklist.length != 0) {
@@ -113,14 +113,6 @@ async function predict() {
   prediction.map((word) => {
     if (word.className == mudraChecklist[0] && word.probability > 0.9) {
       mudraChecklist.shift();
-
-      /*  if (mudraChecklist.length > 0) {
-        console.log(`The check list is ${mudraChecklist} now`);
-      } else {
-        console.log(
-          `!!!!!!!!!!!!!!!!!!!!!!忍----術----發----動!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`
-        );
-      }*/
     }
   });
 }
@@ -129,19 +121,7 @@ async function predict() {
 
 init();
 
-// async function mudraMatch(mudraChecklist) {
-//   console.log(`The check list is ${mudraChecklist} now`);
-//   prediction.map((word) => {
-//     if (word.className == mudra_list[0] && word.probability > 0.9) {
-//       mudra_list.shift();
-//       if (mudra_list.length > 0) {
-//         console.log(`The check list is ${mudra_list} now`);
-//       } else {
-//         console.log(`水遁_水亂波!`);
-//       }
-//     }
-//   });
-// }
+
 let mudraChecklist = [];
 //////
 for (let skillName of skillNames) {
@@ -160,7 +140,7 @@ for (let skillName of skillNames) {
     mudra_clone.textContent = "";
     for (let skill in skillList) {
       if (skillName.id == skill) {
-        //console.log(skillList[skill]);
+
         mudra_clone.textContent = skillList[skill];
         practiceBtn_clone.addEventListener("click", async () => {
           if (typeof practiceDialog.showModal === "function") {
@@ -169,7 +149,7 @@ for (let skillName of skillNames) {
           mudraChecklist = [];
 
           let mudra_list = skillList[skill].split("-");
-          console.log(mudra_list);
+
           mudraChecklist.push(...mudra_list);
 
           // for (let i = 0; i < mudra_list.length; i++) {
@@ -194,7 +174,6 @@ function appendMudraImageDiv(element) {
   let imageDiv = document.createElement("div");
   skillCommand.appendChild(imageDiv);
   imageDiv.classList.add("mudraImage");
-  //console.log(mudraChecklist[0]);
 
   if (element){
     imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`
@@ -216,12 +195,9 @@ async function showEquippedSkill() {
   });
 
   let skillResult = await res.json();
-  console.log(skillResult);
-
   mySkills.textContent = "";
   if (skillResult.json.length != 0) {
     for (let skill of skillResult.json) {
-      console.log(skill.skill_name);
       for (let skillName of skillNames) {
         let id_name = skillName.id.split("_")[1];
         if (id_name == skill.skill_name) {
@@ -235,9 +211,7 @@ async function showEquippedSkill() {
     //delete skill
 
     let skills = document.querySelectorAll(".skill");
-    console.log(skills);
     for (let skill of skills) {
-      console.log(skill.id);
       skill.addEventListener("click", async (event) => {
         let res = await fetch("/removeSkill", {
           method: "POST",
@@ -250,7 +224,7 @@ async function showEquippedSkill() {
         });
 
         let json = await res.json();
-        console.log(json);
+
         showEquippedSkill();
         returnSkillResult();
       });
@@ -261,14 +235,12 @@ async function showEquippedSkill() {
 }
 async function returnSkillResult() {
   let results = await showEquippedSkill();
-  console.log(results.json.length);
   if (results.json.length <= 3) {
     confirmBtn_clone.addEventListener("click", confirm_btn);
   } else {
     confirmBtn_clone.removeEventListener("click", confirm_btn);
   }
 
-  console.log(results);
 }
 returnSkillResult();
 
@@ -284,7 +256,7 @@ async function confirm_btn() {
   });
 
   let json = await res.json();
-  console.log(json);
+
   returnSkillResult();
   showEquippedSkill();
 }

@@ -36,25 +36,21 @@ async function getMission() {
   let missionDetail = await res.json();
 
   background.style.backgroundImage = `url(${missionDetail.mission_background})`;
-  console.log("missionDetail:", missionDetail);
 }
 
 async function showSkills() {
   let res = await fetch("/showSkills");
   let userSkills = await res.json();
 
-  console.log("userSkills:", userSkills);
   skill.remove();
   let z = 1;
   for (let userSkill of userSkills) {
     skillList[`skill${z}`].name = userSkill.skill_name;
-    console.log(userSkill.skill_image);
     let node = skill.cloneNode(true);
     node.classList.add("type" + userSkill.skill_type);
     let nodeImage = node.querySelector(".equippedSkillImage");
     nodeImage.src = userSkill.skill_image;
     skillContainer.appendChild(node);
-    // console.log(image.skill_pattern[1]);
     for (var i = 0; i < userSkill.skill_pattern.length; i++) {
       switch (userSkill.skill_pattern[i]) {
         case "0":
@@ -99,7 +95,6 @@ async function showSkills() {
       }
     }
     node.addEventListener("click", (event) => {
-      console.log(userSkill.skill_name);
       currentSkill = userSkill.skill_name;
       if (typeof practiceDialog.showModal === "function") {
         practiceDialog.style.display = "flex";
@@ -110,15 +105,9 @@ async function showSkills() {
 
       for (let skill in skillList) {
         if (userSkill.skill_name == skillList[skill].name) {
-          // console.log("THE SAME!!");
           for (let mudra of skillList[skill].mudra) {
             mudraChecklist.push(mudra);
             skillPatternArray_for_attack_animation.push(mudra);
-            console.log("mudraChecklist: ", mudraChecklist);
-            console.log(
-              "skillPatternArray_for_attack_animation",
-              skillPatternArray_for_attack_animation
-            );
           }
         }
       }
@@ -131,7 +120,6 @@ async function showSkills() {
 async function battleLogic() {
   let res = await fetch(`/npcSkills?missionId=${missionId}`);
   let npc = await res.json();
-  console.log("NPC:", npc);
 
   player2.style.backgroundImage = `url(${npc[0].character_image})`;
 
@@ -140,7 +128,6 @@ async function battleLogic() {
   let npcHp = npc[0].hp;
   let npc_skill_pic = npc[0].skill_animation_pic;
   let npc_id = npc[0].skill_id;
-  //console.log("halo:", npcSkill, npcDamage);
   p2Hp.textContent = `HP剩餘: ${npcHp}`;
 
   let playerRes = await fetch(`/getPlayerModal`);
@@ -148,9 +135,6 @@ async function battleLogic() {
 
   let player_1_SkillRes = await fetch("/showSkills");
   let player_1_Skill = await player_1_SkillRes.json();
-
-  console.log("player 1 data", player);
-  console.log("player 1 skills", player_1_Skill);
 
   let playerHp = player[0].hp;
   p1Hp.textContent = `HP剩餘: ${playerHp}`;
@@ -167,7 +151,6 @@ async function battleLogic() {
           player_skill_damage = skill.skill_damage;
         }
       }
-      //console.log("skill damage is :", player_skill_damage);
       let skillMotion = document.createElement("div");
       characterContainer.insertBefore(skillMotion, player2);
       skillMotion.classList.add("player1_skillMotion");
@@ -176,11 +159,9 @@ async function battleLogic() {
         skillMotion.remove();
       }, 1000);
       playerIsAttack = false;
-      console.log(playerIsAttack);
 
       if (npcHp > 0) {
         npcHp -= player_skill_damage;
-        console.log(player_skill_damage);
         p2Hp.textContent = `HP剩餘: ${npcHp}`;
       } else if (npcHp <= 0) {
         let missionDetail = {};
@@ -208,7 +189,6 @@ async function battleLogic() {
     setTimeout(() => {
       skillMotion.remove();
     }, 1000);
-    console.log("play hp left!!!: ", playerHp);
     if (playerHp > 0) {
       playerHp -= npcDamage;
       p1Hp.textContent = `HP剩餘: ${playerHp}`;
@@ -269,8 +249,6 @@ showSkills();
 getMission();
 battleLogic();
 
-//console.log(skillList);
-
 ///for player 出招
 dialogClose.addEventListener("click", () => {
   practiceDialog.style.display = "none";
@@ -310,7 +288,6 @@ async function predict() {
     const classPrediction =
       prediction[i].className + ": " + prediction[i].probability.toFixed(2);
   }
-  //console.log(mudraChecklist);
   let len = mudraChecklist.length;
   appendMudraImageDiv(mudraChecklist[0]);
   while (len != mudraChecklist.length && mudraChecklist.length != 0) {
@@ -326,19 +303,11 @@ async function predict() {
     skillPatternArray_for_attack_animation.push("1");
   }
   prediction.map((word) => {
-    //console.log(word);
+
 
     if (word.className == mudraChecklist[0] && word.probability > 0.9) {
       mudraChecklist.shift();
       skillPatternArray_for_attack_animation.shift();
-
-      /*  if (mudraChecklist.length > 0) {
-          console.log(`The check list is ${mudraChecklist} now`);
-        } else {
-          console.log(
-            `!!!!!!!!!!!!!!!!!!!!!!忍----術----發----動!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`
-          );
-        }*/
     }
   });
 }
@@ -348,7 +317,8 @@ function appendMudraImageDiv(element) {
   let imageDiv = document.createElement("div");
   skillCommand.appendChild(imageDiv);
   imageDiv.classList.add("mudraImage");
-  //console.log(mudraChecklist[0]);
 
-  imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`;
+  if (element){
+    imageDiv.innerHTML = `<img class="imageOfmudra" src="../mudra/${element}-removebg-preview.png"></img>`;
+  }
 }

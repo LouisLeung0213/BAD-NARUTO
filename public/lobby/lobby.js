@@ -90,13 +90,13 @@ gaara.addEventListener("click", () => {
 
 let socket = io.connect();
 
-socket.on("connect", () => {
-  console.log("connected to server: ", socket.id);
-  socket.emit("ping");
-  console.log("ping");
-  // socket.emit("showRoomList")
-});
+// socket.on("connect", () => {
+//   console.log("connected to server: ", socket.id);
+//   socket.emit("ping");
+//   console.log("ping");
+//   // socket.emit("showRoomList")
+// });
 
-socket.on("pong", () => {
-  console.log("you pong me");
-});
+// socket.on("pong", () => {
+//   console.log("you pong me");
+// });
