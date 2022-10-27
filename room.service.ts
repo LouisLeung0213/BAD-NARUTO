@@ -83,18 +83,17 @@ export class RoomService {
   }
 
   async leaveRoom(player: number) {
-    // let result = await this.knex
-    //   .select("player_2")
-    //   .from("rooms")
-    //   .where("player_2", player);
+    let result = await this.knex
+    .select("id")
+    .from("rooms")
+    .where("player_1", player)
+    .orWhere("player_2", player)
+    .returning("id")
 
-    // if (result.length > 0) {
-    //   await this.knex("rooms")
-    //     .where("player_2", player)
-    //     .update({ player_2: null });
-    // } else {
-      await this.knex("rooms").where("player_1", player).orWhere("player_2", player).del();
-      return;
-    // }
+    await this.knex("rooms")
+      .where("player_1", player)
+      .orWhere("player_2", player)
+      .del()
+    return result;
   }
 }

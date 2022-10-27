@@ -14,7 +14,7 @@ export class RoomController extends RestfulController {
     this.router.post("/createRoom", this.createRoom);
     this.router.post("/joinRoom", this.joinRoom);
     this.router.get("/leaveRoom", this.leaveRoom);
-    this.router.get("/f10", this.f10);
+    this.showConnection
   }
 
   getRooms = async (req: Request, res: Response) => {
@@ -107,9 +107,9 @@ export class RoomController extends RestfulController {
       }
       let player = req.session.user.id;
 
-      await this.roomService.leaveRoom(player);
+      let roomId = await this.roomService.leaveRoom(player);
       io.emit("showRooms");
-      res.json({});
+      res.json({roomId});
     } catch (error) {
       console.log(error);
       res.status(500);
@@ -117,10 +117,9 @@ export class RoomController extends RestfulController {
     }
   };
 
-  f10 = async (req: Request, res: Response) => {
-    res.json({ msg: "ok ar" });
-
-    // let roomId = req.query.roomId
-    // io.to('roomId:' + roomId).emit('enterBattlefield')
-  };
+  showConnection = async (userId: number) => {
+    console.log(`userId: ${userId} is leaving`)
+    await this.roomService.leaveRoom(userId);
+    io.emit("showRooms");
+  }
 }

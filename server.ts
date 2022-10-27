@@ -44,6 +44,7 @@ app.use(chatroomController.router);
 app.use(battlefieldController.router);
 app.use(roomController.router);
 
+
 // 要socket用到session, 加個middleware俾佢
 io.use((socket, _next) => {
   let req = socket.request as express.Request;
@@ -51,6 +52,7 @@ io.use((socket, _next) => {
   let next = (err: any) => _next(err);
   sessionMiddleware(req, res, next);
 });
+
 
 io.on("connection", (socket) => {
   console.log("socket connection established: ", socket.id);
@@ -85,6 +87,14 @@ io.on("connection", (socket) => {
     io.to("roomId:"+data.msg).emit("battleFinishedMsg")
   })
 
+  socket.on("disconnect", () => {
+
+
+    // roomController.showConnection(user!.id)
+
+    console.log("user.id: ", user!.id)
+    console.log("socket disconnected: ", socket.id);
+  })
 
 });
 

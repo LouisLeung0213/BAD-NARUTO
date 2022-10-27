@@ -33,12 +33,6 @@ async function getUserInfo() {
   return { currentPosition, enemyId };
 }
 
-backBtn.addEventListener("click", async () => {
-  socket.emit("leaveRoom", { msg: roomId });
-  await fetch("/leaveRoom");
-  window.location = "../pvp_room/pvp_room.html";
-});
-
 let params = new URL(document.location).searchParams;
 let roomId = params.get("pvpRoomId");
 
@@ -328,6 +322,18 @@ function appendMudraImageDiv(element) {
 
 socket.emit("joinRoom", { msg: roomId });
 
+backBtn.addEventListener("click", async () => {
+
+
+  
+  console.log("roomId: ", roomId);
+  socket.emit("leaveRoom", { msg: roomId });
+  let res = await fetch("/leaveRoom");
+  let result = await res.json()
+  console.log("result: ", result);
+  window.location = "../pvp_room/pvp_room.html";
+});
+
 socket.on("Hi", (data) => {
   console.log("data.msg: ", data.msg);
 });
@@ -347,10 +353,6 @@ socket.on("showMotion", async (data) => {
   setTimeout(() => {
     skillMotion.remove();
   }, 1000);
-});
-
-socket.on("leaveRoomTgt", () => {
-  window.location = "../lobby/lobby.html";
 });
 
 socket.on("leaveMsg", () => {
